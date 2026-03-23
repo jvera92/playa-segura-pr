@@ -293,14 +293,14 @@ function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md
 
 function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
   return (
-    <button onClick={onClick} style={{
-      all: "unset", cursor: "pointer", display: "flex", flexDirection: "column",
+    <button onClick={onClick} className="beach-card" style={{
+      appearance: "none", WebkitAppearance: "none",
+      padding: 0, margin: 0, textAlign: "left",
+      cursor: "pointer", display: "flex", flexDirection: "column",
       borderRadius: "16px", overflow: "hidden", background: "#0c1a2a",
-      border: "1px solid rgba(255,255,255,0.06)", transition: "all 0.3s ease",
-      boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+      border: "1px solid rgba(255,255,255,0.06)",
+      boxShadow: "0 4px 24px rgba(0,0,0,0.3)", width: "100%",
     }}
-      onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.5)"; }}
-      onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)";    e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.3)"; }}
     >
       <div style={{ position: "relative", height: "180px", overflow: "hidden" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -329,13 +329,11 @@ function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
+            className="directions-link"
             style={{
               marginLeft: "auto", display: "flex", alignItems: "center",
               color: "#475569", fontSize: "14px", textDecoration: "none",
-              transition: "color 0.2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#38bdf8")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#475569")}
             title="Get directions"
           >
             📍
@@ -397,8 +395,10 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
           position: "absolute", inset: 0,
           background: "linear-gradient(180deg, rgba(6,15,28,0.3) 0%, rgba(6,15,28,0.95) 100%)",
         }} />
-        <button onClick={onBack} style={{
-          all: "unset", cursor: "pointer", position: "absolute", top: "20px", left: "20px",
+        <button onClick={onBack} className="back-btn" style={{
+          appearance: "none", WebkitAppearance: "none",
+          padding: 0, margin: 0,
+          cursor: "pointer", position: "absolute", top: "20px", left: "20px",
           background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)", borderRadius: "50%",
           width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center",
           color: "#fff", fontSize: "20px", border: "1px solid rgba(255,255,255,0.1)",
@@ -420,16 +420,14 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
             href={`https://www.google.com/maps/dir/?api=1&destination=${beach.coords.lat},${beach.coords.lng}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="directions-link detail-link"
             style={{
               display: "inline-flex", alignItems: "center", gap: "6px",
               marginTop: "12px", padding: "8px 16px", borderRadius: "99px",
               background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.2)",
               color: "#38bdf8", fontSize: "13px", fontWeight: 600,
               fontFamily: "'DM Sans', sans-serif", textDecoration: "none",
-              transition: "all 0.2s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = "rgba(56,189,248,0.18)"; e.currentTarget.style.borderColor = "rgba(56,189,248,0.4)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "rgba(56,189,248,0.08)"; e.currentTarget.style.borderColor = "rgba(56,189,248,0.2)"; }}
           >
             📍 Get Directions
           </a>
@@ -651,6 +649,41 @@ export default function PlayaSeguraPR() {
         @media (max-width: 600px) {
           .risk-legend { gap: 10px 20px; justify-content: center; }
         }
+        /* ── Mobile touch fixes ── */
+        .beach-card {
+          -webkit-tap-highlight-color: rgba(255,255,255,0.05);
+          touch-action: manipulation;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        @media (hover: hover) {
+          .beach-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5) !important; }
+        }
+        .beach-card:active { transform: scale(0.97); opacity: 0.9; }
+        .region-btn {
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+        }
+        .region-btn:active { opacity: 0.7; }
+        .safety-toggle {
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+        }
+        .safety-toggle:active { opacity: 0.8; }
+        .back-btn {
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+        }
+        .back-btn:active { opacity: 0.7; transform: scale(0.93) !important; }
+        .directions-link {
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+          cursor: pointer;
+        }
+        @media (hover: hover) {
+          .directions-link:hover { color: #38bdf8; }
+          .directions-link.detail-link:hover { background: rgba(56,189,248,0.18) !important; border-color: rgba(56,189,248,0.4) !important; }
+        }
+        .directions-link:active { opacity: 0.7; }
       `}</style>
 
       {view === "detail" && selectedBeach ? (
@@ -696,6 +729,8 @@ export default function PlayaSeguraPR() {
                   border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)",
                   color: "#e2e8f0", fontSize: "15px", fontFamily: "'DM Sans', sans-serif",
                   outline: "none", transition: "border 0.2s",
+                  appearance: "none", WebkitAppearance: "none",
+                  touchAction: "manipulation", WebkitTapHighlightColor: "transparent",
                 }}
                 onFocus={e => (e.target.style.borderColor = "rgba(56,189,248,0.4)")}
                 onBlur={e  => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
@@ -711,8 +746,10 @@ export default function PlayaSeguraPR() {
             {/* Region Filters */}
             <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
               {regions.map(r => (
-                <button key={r} onClick={() => setRegionFilter(r)} style={{
-                  all: "unset", cursor: "pointer", padding: "6px 16px", borderRadius: "99px",
+                <button key={r} onClick={() => setRegionFilter(r)} className="region-btn" style={{
+                  appearance: "none", WebkitAppearance: "none",
+                  margin: 0,
+                  cursor: "pointer", padding: "6px 16px", borderRadius: "99px",
                   fontSize: "12px", fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
                   border: `1px solid ${regionFilter === r ? "#38bdf8" : "rgba(255,255,255,0.08)"}`,
                   background: regionFilter === r ? "rgba(56,189,248,0.12)" : "transparent",
@@ -758,8 +795,9 @@ export default function PlayaSeguraPR() {
 
           {/* Safety Quick Guide Toggle */}
           <div style={{ padding: "20px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
-            <button onClick={() => setShowSafetyGuide(!showSafetyGuide)} style={{
-              all: "unset", boxSizing: "border-box", cursor: "pointer", width: "100%",
+            <button onClick={() => setShowSafetyGuide(!showSafetyGuide)} className="safety-toggle" style={{
+              appearance: "none", WebkitAppearance: "none",
+              margin: 0, boxSizing: "border-box", cursor: "pointer", width: "100%",
               display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "rgba(56,189,248,0.06)", borderRadius: "14px",
               padding: "14px 20px", border: "1px solid rgba(56,189,248,0.12)",
