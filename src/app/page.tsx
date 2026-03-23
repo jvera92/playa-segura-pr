@@ -757,10 +757,10 @@ export default function PlayaSeguraPR() {
           )}
 
           {/* Safety Quick Guide Toggle */}
-          <div style={{ padding: "20px 24px 0" }}>
+          <div style={{ padding: "20px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
             <button onClick={() => setShowSafetyGuide(!showSafetyGuide)} style={{
-              all: "unset", cursor: "pointer", width: "100%", maxWidth: "800px",
-              margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between",
+              all: "unset", boxSizing: "border-box", cursor: "pointer", width: "100%",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "rgba(56,189,248,0.06)", borderRadius: "14px",
               padding: "14px 20px", border: "1px solid rgba(56,189,248,0.12)",
               transition: "all 0.2s",
@@ -769,7 +769,7 @@ export default function PlayaSeguraPR() {
                 🛟 Ocean Safety Quick Guide
               </span>
               <span style={{
-                color: "#38bdf8", fontSize: "18px",
+                color: "#38bdf8", fontSize: "18px", flexShrink: 0,
                 transform: showSafetyGuide ? "rotate(180deg)" : "none",
                 transition: "transform 0.3s",
               }}>
@@ -779,7 +779,7 @@ export default function PlayaSeguraPR() {
 
             {showSafetyGuide && (
               <div style={{
-                maxWidth: "800px", margin: "12px auto 0",
+                marginTop: "12px",
                 display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "10px",
                 animation: "fadeUp 0.3s ease",
               }}>
