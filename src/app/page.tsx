@@ -320,10 +320,26 @@ function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
         <p style={{ margin: "4px 0 12px", fontSize: "13px", color: "#64748b", fontFamily: "'DM Sans', sans-serif" }}>
           {beach.municipality} · {beach.region}
         </p>
-        <div style={{ display: "flex", gap: "16px", fontSize: "12px", color: "#94a3b8", fontFamily: "'DM Sans', sans-serif" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "12px", color: "#94a3b8", fontFamily: "'DM Sans', sans-serif" }}>
           <span>🌊 {beach.conditions.waveHeight}</span>
           <span>🌡 {beach.conditions.waterTemp}</span>
           <span>💨 {beach.conditions.wind}</span>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${beach.coords.lat},${beach.coords.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+            style={{
+              marginLeft: "auto", display: "flex", alignItems: "center",
+              color: "#475569", fontSize: "14px", textDecoration: "none",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#38bdf8")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#475569")}
+            title="Get directions"
+          >
+            📍
+          </a>
         </div>
       </div>
     </button>
@@ -400,6 +416,23 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
           <p style={{ margin: 0, fontSize: "14px", color: "#94a3b8", fontFamily: "'DM Sans', sans-serif" }}>
             {beach.municipality} · {beach.region}
           </p>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${beach.coords.lat},${beach.coords.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: "6px",
+              marginTop: "12px", padding: "8px 16px", borderRadius: "99px",
+              background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.2)",
+              color: "#38bdf8", fontSize: "13px", fontWeight: 600,
+              fontFamily: "'DM Sans', sans-serif", textDecoration: "none",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(56,189,248,0.18)"; e.currentTarget.style.borderColor = "rgba(56,189,248,0.4)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(56,189,248,0.08)"; e.currentTarget.style.borderColor = "rgba(56,189,248,0.2)"; }}
+          >
+            📍 Get Directions
+          </a>
         </div>
       </div>
 
@@ -474,7 +507,9 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
         }}>
           5-Day Beach Forecast
         </h2>
-        <div style={{
+
+        {/* Desktop: table layout */}
+        <div className="forecast-table" style={{
           background: "rgba(255,255,255,0.02)", borderRadius: "14px",
           border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", marginBottom: "28px",
         }}>
@@ -487,6 +522,31 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
             <span>Day</span><span></span><span>High</span><span>Low</span><span>Rain</span><span>Surf</span><span>Risk</span>
           </div>
           {beach.forecast.map((f, i) => <ForecastRow key={i} f={f} />)}
+        </div>
+
+        {/* Mobile: stacked card layout */}
+        <div className="forecast-cards" style={{ marginBottom: "28px" }}>
+          {beach.forecast.map((f, i) => (
+            <div key={i} style={{
+              background: "rgba(255,255,255,0.02)", borderRadius: "12px",
+              border: "1px solid rgba(255,255,255,0.06)", padding: "12px 16px",
+              fontFamily: "'DM Sans', sans-serif",
+            }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "22px" }}>{f.icon}</span>
+                  <span style={{ fontWeight: 700, fontSize: "15px", color: "#e2e8f0" }}>{f.day}</span>
+                </div>
+                <RiskBadge level={f.risk} size="sm" />
+              </div>
+              <div style={{ display: "flex", gap: "16px", fontSize: "13px", color: "#94a3b8", flexWrap: "wrap" }}>
+                <span>↑ {f.high}</span>
+                <span style={{ color: "#64748b" }}>↓ {f.low}</span>
+                <span>🌧 {f.precip}</span>
+                <span>🌊 {f.surf}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Local Tips */}
@@ -567,7 +627,7 @@ export default function PlayaSeguraPR() {
 
   return (
     <div ref={scrollRef} style={{
-      minHeight: "100vh", background: "#060f1c", color: "#e2e8f0",
+      minHeight: "100vh", background: "#0f172a", color: "#e2e8f0",
       fontFamily: "'DM Sans', sans-serif", overflowY: "auto",
     }}>
       <style>{`
@@ -579,6 +639,18 @@ export default function PlayaSeguraPR() {
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
         input::placeholder { color: #475569; }
+        /* ── Responsive: forecast table vs stacked cards ── */
+        .forecast-table { display: block; }
+        .forecast-cards { display: none; }
+        @media (max-width: 600px) {
+          .forecast-table { display: none; }
+          .forecast-cards { display: flex; flex-direction: column; gap: 8px; }
+        }
+        /* ── Responsive: risk legend ── */
+        .risk-legend { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+        @media (max-width: 600px) {
+          .risk-legend { gap: 10px 20px; justify-content: center; }
+        }
       `}</style>
 
       {view === "detail" && selectedBeach ? (
@@ -588,14 +660,17 @@ export default function PlayaSeguraPR() {
           {/* Header */}
           <div style={{
             padding: "40px 24px 24px", textAlign: "center",
-            background: "linear-gradient(180deg, #0a1929 0%, #060f1c 100%)",
+            background: "linear-gradient(180deg, #0a1929 0%, #0f172a 100%)",
             borderBottom: "1px solid rgba(255,255,255,0.04)",
           }}>
             <div style={{
               fontSize: "12px", fontWeight: 700, textTransform: "uppercase",
               letterSpacing: "0.2em", color: "#38bdf8", marginBottom: "8px",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
             }}>
               Puerto Rico
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://flagcdn.com/w40/pr.png" alt="Puerto Rico flag" style={{ height: "14px", width: "auto", borderRadius: "2px", opacity: 0.9 }} />
             </div>
             <h1 style={{
               margin: "0 0 6px", fontSize: "36px", fontWeight: 900,
@@ -650,23 +725,33 @@ export default function PlayaSeguraPR() {
             </div>
           </div>
 
+          {/* Pattern background starts here — below the header */}
+          <div style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpath d='M0 20 C20 5 60 35 80 20' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3Cpath d='M0 40 C20 25 60 55 80 40' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3Cpath d='M0 0 C20 -15 60 15 80 0' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "repeat",
+          }}>
+
           {/* Active Advisories Ticker */}
           {activeAdvisories.length > 0 && (
             <div style={{
               background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)",
-              padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px",
             }}>
-              <span style={{
-                fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase",
-                letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite",
-              }}>
-                ⚠ {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
-              </span>
               <div style={{
-                fontSize: "12px", color: "#f87171", overflow: "hidden",
-                whiteSpace: "nowrap", textOverflow: "ellipsis",
+                maxWidth: "900px", margin: "0 auto", padding: "10px 24px",
+                display: "flex", alignItems: "center", gap: "10px",
               }}>
-                {activeAdvisories.map(b => b.name).join(" · ")}
+                <span style={{
+                  fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase",
+                  letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite",
+                }}>
+                  ⚠ {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
+                </span>
+                <div style={{
+                  fontSize: "12px", color: "#f87171", overflow: "hidden",
+                  whiteSpace: "nowrap", textOverflow: "ellipsis",
+                }}>
+                  {activeAdvisories.map(b => b.name).join(" · ")}
+                </div>
               </div>
             </div>
           )}
@@ -713,16 +798,15 @@ export default function PlayaSeguraPR() {
           </div>
 
           {/* Risk Legend */}
-          <div style={{
-            padding: "20px 24px", maxWidth: "800px", margin: "0 auto",
-            display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center",
-          }}>
-            {Object.entries(RISK_CONFIG).map(([key, val]) => (
-              <div key={key} style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#64748b" }}>
-                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: val.color }} />
-                {val.label}
-              </div>
-            ))}
+          <div style={{ padding: "20px 24px", maxWidth: "800px", margin: "0 auto" }}>
+            <div className="risk-legend">
+              {Object.entries(RISK_CONFIG).map(([key, val]) => (
+                <div key={key} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "#94a3b8" }}>
+                  <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: val.color, flexShrink: 0 }} />
+                  {val.label}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Beach Grid */}
@@ -745,19 +829,21 @@ export default function PlayaSeguraPR() {
           {/* Footer */}
           <div style={{
             textAlign: "center", padding: "32px 24px",
-            borderTop: "1px solid rgba(255,255,255,0.04)", fontSize: "11px", color: "#1e293b",
+            borderTop: "1px solid rgba(255,255,255,0.04)", fontSize: "11px", color: "#94a3b8",
           }}>
-            <div style={{ marginBottom: "8px", color: "#334155", fontWeight: 600 }}>
+            <div style={{ marginBottom: "8px", color: "#cbd5e1", fontWeight: 600 }}>
               Playa Segura PR · Beach Safety & Conditions
             </div>
             <div>
               Data sourced from NOAA, NWS San Juan, NDBC, and PR DNER.<br />
               All conditions are advisory. Always exercise personal judgment and obey posted signs and lifeguard instructions.
             </div>
-            <div style={{ marginTop: "12px", color: "#1e293b" }}>
+            <div style={{ marginTop: "12px", color: "#94a3b8" }}>
               Coming soon: More beaches · Interactive map · Push alerts · Spanish language
             </div>
           </div>
+
+          </div>{/* end pattern wrapper */}
         </div>
       )}
     </div>
