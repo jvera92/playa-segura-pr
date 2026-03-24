@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
@@ -293,7 +293,7 @@ function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md
 
 function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="beach-card" style={{
+    <button onClick={onClick} onTouchStart={e => { e.preventDefault(); onClick(); }} className="beach-card" style={{
       appearance: "none", WebkitAppearance: "none",
       padding: 0, margin: 0, textAlign: "left",
       cursor: "pointer", display: "flex", flexDirection: "column",
@@ -603,7 +603,10 @@ export default function PlayaSeguraPR() {
   const [searchQuery, setSearchQuery] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
+  const [jsActive, setJsActive] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { setJsActive(true); }, []);
 
   const regions = ["All", ...new Set(BEACHES.map(b => b.region))];
 
@@ -628,6 +631,14 @@ export default function PlayaSeguraPR() {
       minHeight: "100vh", background: "#0f172a", color: "#e2e8f0",
       fontFamily: "'DM Sans', sans-serif", overflowY: "auto",
     }}>
+      <div style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999,
+        textAlign: "center", padding: "4px", fontSize: "12px", fontWeight: 700,
+        background: jsActive ? "#052e16" : "#450a0a",
+        color: jsActive ? "#22c55e" : "#ef4444",
+      }}>
+        {jsActive ? "JS Active" : "JS Inactive"}
+      </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Playfair+Display:wght@700;800;900&display=swap');
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
