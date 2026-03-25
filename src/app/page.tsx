@@ -304,7 +304,7 @@ function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
     >
       <div style={{ position: "relative", height: "180px", overflow: "hidden" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={beach.image} alt={beach.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <img src={beach.image} alt={beach.name} style={{ width: "100%", height: "100%", objectFit: "cover", WebkitTouchCallout: "none", WebkitUserSelect: "none", userSelect: "none", pointerEvents: "none" }} />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: "80px",
           background: "linear-gradient(transparent, #0c1a2a)",
@@ -390,7 +390,7 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
       {/* Hero */}
       <div style={{ position: "relative", height: "280px", overflow: "hidden", borderRadius: "0 0 24px 24px" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={beach.image} alt={beach.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <img src={beach.image} alt={beach.name} style={{ width: "100%", height: "100%", objectFit: "cover", WebkitTouchCallout: "none", WebkitUserSelect: "none", userSelect: "none", pointerEvents: "none" }} />
         <div style={{
           position: "absolute", inset: 0,
           background: "linear-gradient(180deg, rgba(6,15,28,0.3) 0%, rgba(6,15,28,0.95) 100%)",
