@@ -1066,7 +1066,7 @@ export default function PlayaSeguraPR() {
                 </span>
               </div>
             </div>
-          ) : prAlerts === null && activeAdvisories.length > 0 ? (
+          ) : nwsBeachAlerts.length === 0 && activeAdvisories.length > 0 ? (
             <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
