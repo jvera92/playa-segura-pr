@@ -366,6 +366,17 @@ function BeachCard({ beach, onClick, liveData }: {
               {forecastIcon(liveData.weather.shortForecast)}{" "}
               {conditionLabel(liveData.weather.shortForecast)}
             </span>
+          ) : liveData?.error ? (
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: "5px",
+              background: "rgba(239,68,68,0.15)", backdropFilter: "blur(8px)",
+              borderRadius: "99px", padding: "4px 10px",
+              fontSize: "11px", fontWeight: 600, color: "#f87171",
+              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+              border: "1px solid rgba(239,68,68,0.3)",
+            }}>
+              ⚠ Data unavailable
+            </span>
           ) : (
             <span style={{
               display: "inline-flex", alignItems: "center",
@@ -388,8 +399,22 @@ function BeachCard({ beach, onClick, liveData }: {
           {beach.municipality} · {beach.region}
         </p>
         <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "12px", color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-          <span>🌡 {liveData?.weather?.airTemp ?? "—"}</span>
-          <span>💨 {liveData?.weather?.wind ?? "—"}</span>
+          {liveData?.error ? (
+            <a
+              href="https://www.weather.gov/sju/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{ fontSize: "11px", color: "#f87171", textDecoration: "none", fontWeight: 600 }}
+            >
+              Data unavailable · Check NWS ↗
+            </a>
+          ) : (
+            <>
+              <span>🌡 {liveData?.weather?.airTemp ?? "—"}</span>
+              <span>💨 {liveData?.weather?.wind ?? "—"}</span>
+            </>
+          )}
           <a
             href={`https://www.google.com/maps/dir/?api=1&destination=${beach.coords.lat},${beach.coords.lng}`}
             target="_blank"
@@ -603,27 +628,53 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
         }}>
           Current Conditions
           {liveData?.weather && (
-            <span style={{
-              fontSize: "10px", fontWeight: 700, color: "#22c55e",
-              border: "1px solid #22c55e", borderRadius: "4px",
-              padding: "2px 6px", letterSpacing: "0.08em", textTransform: "uppercase",
-            }}>LIVE</span>
+            <>
+              <span style={{
+                fontSize: "10px", fontWeight: 700, color: "#22c55e",
+                border: "1px solid #22c55e", borderRadius: "4px",
+                padding: "2px 6px", letterSpacing: "0.08em", textTransform: "uppercase",
+              }}>LIVE</span>
+              <a
+                href="https://www.weather.gov/sju/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: "10px", color: "#475569", textDecoration: "none",
+                  fontWeight: 600, letterSpacing: "0.04em", textTransform: "none",
+                }}
+              >
+                NWS San Juan ↗
+              </a>
+            </>
           )}
           {liveData?.loading && (
             <span style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: "0.04em" }}>
               Updating…
             </span>
           )}
+          {liveData?.error && (
+            <a
+              href="https://www.weather.gov/sju/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: "11px", color: "#f87171", fontWeight: 600,
+                textDecoration: "none", letterSpacing: "0.04em", textTransform: "none",
+              }}
+            >
+              ⚠ Data unavailable · Check NWS ↗
+            </a>
+          )}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", marginBottom: "28px" }}>
           <ConditionBlock icon="🌊" label="Wave Height"    value={c.waveHeight}     accent={r.color} />
           <ConditionBlock icon="🔄" label="Rip Currents"   value={c.ripCurrentRisk} accent={r.color} />
-          <ConditionBlock icon="💨" label="Wind"           value={liveData?.weather?.wind ?? c.wind} />
+          <ConditionBlock icon="💨" label="Wind"           value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind} />
           <ConditionBlock icon="🌡" label="Water Temp"     value={c.waterTemp}      accent="#38bdf8" />
           <ConditionBlock icon="☀️" label="UV Index"
             value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
             accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"} />
-          <ConditionBlock icon="🌤" label="Air Temp"       value={liveData?.weather?.airTemp ?? c.airTemp} />
+          <ConditionBlock icon="🌤" label="Air Temp"       value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp} />
           <ConditionBlock icon="💧" label="Humidity"       value={c.humidity} />
           <ConditionBlock icon="👁" label="Visibility"     value={c.visibility} />
           <ConditionBlock icon="🏖" label="Swell"          value={`${c.swellPeriod} ${c.swellDirection}`} />
@@ -648,6 +699,27 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           )}
         </h2>
 
+        {liveData?.error ? (
+          <div style={{
+            background: "rgba(239,68,68,0.06)", borderRadius: "14px",
+            border: "1px solid rgba(239,68,68,0.2)", padding: "20px 24px",
+            marginBottom: "28px", textAlign: "center",
+            fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+          }}>
+            <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#f87171" }}>
+              Forecast data unavailable
+            </p>
+            <a
+              href="https://www.weather.gov/sju/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "13px", color: "#64748b", textDecoration: "underline" }}
+            >
+              Check the NWS San Juan forecast directly ↗
+            </a>
+          </div>
+        ) : (
+          <>
         {/* Desktop: table layout */}
         <div className="forecast-table" style={{
           background: "rgba(255,255,255,0.02)", borderRadius: "14px",
@@ -688,6 +760,8 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
             </div>
           ))}
         </div>
+          </>
+        )}
 
         {/* Local Tips */}
         <h2 style={{
@@ -729,7 +803,11 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           textAlign: "center", padding: "20px", borderTop: "1px solid rgba(255,255,255,0.04)",
           fontSize: "11px", color: "#334155", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
         }}>
-          Data sources: NOAA · NWS San Juan · NDBC Buoy Data · PR DNER<br />
+          Data sources:{" "}
+          <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NOAA</a>
+          {" · "}
+          <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NWS San Juan</a>
+          {" · NDBC Buoy Data · PR DNER"}<br />
           Conditions are advisory only. Always assess local conditions before entering the water.
         </div>
       </div>
@@ -1081,7 +1159,11 @@ export default function PlayaSeguraPR() {
               Playa Segura PR · Beach Safety & Conditions
             </div>
             <div>
-              Data sourced from NOAA, NWS San Juan, NDBC, and PR DNER.<br />
+              Data sourced from{" "}
+              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#64748b", textDecoration: "underline" }}>NOAA</a>
+              {", "}
+              <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#64748b", textDecoration: "underline" }}>NWS San Juan</a>
+              {", NDBC, and PR DNER."}<br />
               All conditions are advisory. Always exercise personal judgment and obey posted signs and lifeguard instructions.
             </div>
             <div style={{ marginTop: "12px", color: "#94a3b8" }}>
