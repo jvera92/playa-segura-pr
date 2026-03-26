@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import {
+  mapNWSForecast, extractLiveWeather, extractBeachAlerts,
+  forecastIcon, conditionLabel,
+  type LiveForecastDay, type LiveWeather, type BeachAlert,
+} from "@/lib/weather-utils";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
@@ -55,6 +60,13 @@ interface RiskConfig {
   bg: string;
   icon: string;
   message: string;
+}
+
+interface LiveBeachData {
+  weather: LiveWeather | null;
+  forecast: LiveForecastDay[];
+  loading: boolean;
+  error: boolean;
 }
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -268,6 +280,34 @@ const SAFETY_TIPS = [
   { icon: "🦺", title: "Life Jackets", text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
 ];
 
+// ─── LIVE DATA CACHE ─────────────────────────────────────────────────────────
+// Module-level — survives view state changes (home ↔ detail) without re-fetching.
+
+const CACHE_TTL_MS = 10 * 60 * 1000 // 10 minutes
+
+const weatherCache = new Map<number, {
+  weather: LiveWeather;
+  forecast: LiveForecastDay[];
+  fetchedAt: number;
+}>()
+
+let alertsCache: { alerts: BeachAlert[]; fetchedAt: number } | null = null
+
+function mergeForecast(
+  staticForecast: ForecastDay[],
+  liveForecast: LiveForecastDay[],
+): ForecastDay[] {
+  return liveForecast.map((live, i) => ({
+    day: live.day,
+    icon: live.icon,
+    high: live.high,
+    low: live.low,
+    precip: live.precip,
+    surf: staticForecast[i]?.surf ?? '—',
+    risk: staticForecast[i]?.risk ?? 'low',
+  }))
+}
+
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
 function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md" | "lg" }) {
@@ -291,7 +331,11 @@ function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md
   );
 }
 
-function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
+function BeachCard({ beach, onClick, liveData }: {
+  beach: Beach;
+  onClick: () => void;
+  liveData?: LiveBeachData;
+}) {
   return (
     <button onClick={onClick} onTouchStart={e => { e.preventDefault(); onClick(); }} className="beach-card" style={{
       appearance: "none", WebkitAppearance: "none",
@@ -310,7 +354,30 @@ function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
           background: "linear-gradient(transparent, #0c1a2a)",
         }} />
         <div style={{ position: "absolute", top: "12px", right: "12px" }}>
-          <RiskBadge level={beach.riskLevel} size="sm" />
+          {liveData?.weather ? (
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: "5px",
+              background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+              borderRadius: "99px", padding: "4px 10px",
+              fontSize: "12px", fontWeight: 600, color: "#e2e8f0",
+              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+              border: "1px solid rgba(255,255,255,0.12)",
+            }}>
+              {forecastIcon(liveData.weather.shortForecast)}{" "}
+              {conditionLabel(liveData.weather.shortForecast)}
+            </span>
+          ) : (
+            <span style={{
+              display: "inline-flex", alignItems: "center",
+              background: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)",
+              borderRadius: "99px", padding: "4px 12px",
+              fontSize: "13px", color: "#334155",
+              border: "1px solid rgba(255,255,255,0.06)",
+              letterSpacing: "0.1em",
+            }}>
+              · · ·
+            </span>
+          )}
         </div>
       </div>
       <div style={{ padding: "16px 20px 20px" }}>
@@ -321,9 +388,8 @@ function BeachCard({ beach, onClick }: { beach: Beach; onClick: () => void }) {
           {beach.municipality} · {beach.region}
         </p>
         <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "12px", color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-          <span>🌊 {beach.conditions.waveHeight}</span>
-          <span>🌡 {beach.conditions.waterTemp}</span>
-          <span>💨 {beach.conditions.wind}</span>
+          <span>🌡 {liveData?.weather?.airTemp ?? "—"}</span>
+          <span>💨 {liveData?.weather?.wind ?? "—"}</span>
           <a
             href={`https://www.google.com/maps/dir/?api=1&destination=${beach.coords.lat},${beach.coords.lng}`}
             target="_blank"
@@ -381,9 +447,17 @@ function ForecastRow({ f }: { f: ForecastDay }) {
   );
 }
 
-function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
+function BeachDetail({ beach, onBack, liveData, prAlerts }: {
+  beach: Beach;
+  onBack: () => void;
+  liveData?: LiveBeachData;
+  prAlerts?: BeachAlert[];
+}) {
   const r = RISK_CONFIG[beach.riskLevel];
   const c = beach.conditions;
+  const displayForecast = (liveData?.forecast?.length ?? 0) > 0
+    ? mergeForecast(beach.forecast, liveData!.forecast)
+    : beach.forecast;
 
   return (
     <div style={{ animation: "fadeUp 0.4s ease" }}>
@@ -435,6 +509,53 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
       </div>
 
       <div style={{ padding: "24px", maxWidth: "800px", margin: "0 auto" }}>
+        {/* NWS Live Alerts */}
+        {prAlerts && prAlerts.length > 0 && (
+          <div style={{ marginBottom: "24px" }}>
+            {prAlerts.map((alert, i) => {
+              const isCritical = alert.severity === "Extreme" || alert.severity === "Severe";
+              const alertColor = isCritical ? "#ef4444" : "#eab308";
+              const alertBg = isCritical ? "rgba(239,68,68,0.08)" : "rgba(234,179,8,0.08)";
+              const alertBorder = isCritical ? "rgba(239,68,68,0.3)" : "rgba(234,179,8,0.3)";
+              return (
+                <div key={i} style={{
+                  background: alertBg,
+                  border: `1px solid ${alertBorder}`,
+                  borderRadius: "14px", padding: "18px 20px", marginBottom: "12px",
+                }}>
+                  <div style={{
+                    display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px",
+                    fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                    fontWeight: 700, color: alertColor, fontSize: "13px",
+                    textTransform: "uppercase", letterSpacing: "0.05em",
+                  }}>
+                    <span>⚠</span>
+                    <span style={{ flex: 1 }}>{alert.event}</span>
+                    <span style={{
+                      fontSize: "10px", fontWeight: 700, color: "#22c55e",
+                      border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px",
+                      letterSpacing: "0.08em",
+                    }}>NWS LIVE</span>
+                  </div>
+                  {alert.headline && (
+                    <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                      {alert.headline}
+                    </p>
+                  )}
+                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#cbd5e1", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                    {alert.description.length > 300 ? alert.description.slice(0, 300) + "…" : alert.description}
+                  </p>
+                  <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                    Source: NWS San Juan · Expires: {new Date(alert.expires).toLocaleString("en-US", {
+                      month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {/* Advisory Banner */}
         {c.surfAdvisory && (
           <div style={{
@@ -478,18 +599,31 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          display: "flex", alignItems: "center", gap: "8px",
         }}>
           Current Conditions
+          {liveData?.weather && (
+            <span style={{
+              fontSize: "10px", fontWeight: 700, color: "#22c55e",
+              border: "1px solid #22c55e", borderRadius: "4px",
+              padding: "2px 6px", letterSpacing: "0.08em", textTransform: "uppercase",
+            }}>LIVE</span>
+          )}
+          {liveData?.loading && (
+            <span style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: "0.04em" }}>
+              Updating…
+            </span>
+          )}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", marginBottom: "28px" }}>
           <ConditionBlock icon="🌊" label="Wave Height"    value={c.waveHeight}     accent={r.color} />
           <ConditionBlock icon="🔄" label="Rip Currents"   value={c.ripCurrentRisk} accent={r.color} />
-          <ConditionBlock icon="💨" label="Wind"           value={c.wind} />
+          <ConditionBlock icon="💨" label="Wind"           value={liveData?.weather?.wind ?? c.wind} />
           <ConditionBlock icon="🌡" label="Water Temp"     value={c.waterTemp}      accent="#38bdf8" />
           <ConditionBlock icon="☀️" label="UV Index"
             value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
             accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"} />
-          <ConditionBlock icon="🌤" label="Air Temp"       value={c.airTemp} />
+          <ConditionBlock icon="🌤" label="Air Temp"       value={liveData?.weather?.airTemp ?? c.airTemp} />
           <ConditionBlock icon="💧" label="Humidity"       value={c.humidity} />
           <ConditionBlock icon="👁" label="Visibility"     value={c.visibility} />
           <ConditionBlock icon="🏖" label="Swell"          value={`${c.swellPeriod} ${c.swellDirection}`} />
@@ -502,8 +636,16 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          display: "flex", alignItems: "center", gap: "8px",
         }}>
           5-Day Beach Forecast
+          {(liveData?.forecast?.length ?? 0) > 0 && (
+            <span style={{
+              fontSize: "10px", fontWeight: 700, color: "#22c55e",
+              border: "1px solid #22c55e", borderRadius: "4px",
+              padding: "2px 6px", letterSpacing: "0.08em", textTransform: "uppercase",
+            }}>LIVE</span>
+          )}
         </h2>
 
         {/* Desktop: table layout */}
@@ -519,12 +661,12 @@ function BeachDetail({ beach, onBack }: { beach: Beach; onBack: () => void }) {
           }}>
             <span>Day</span><span></span><span>High</span><span>Low</span><span>Rain</span><span>Surf</span><span>Risk</span>
           </div>
-          {beach.forecast.map((f, i) => <ForecastRow key={i} f={f} />)}
+          {displayForecast.map((f, i) => <ForecastRow key={i} f={f} />)}
         </div>
 
         {/* Mobile: stacked card layout */}
         <div className="forecast-cards" style={{ marginBottom: "28px" }}>
-          {beach.forecast.map((f, i) => (
+          {displayForecast.map((f, i) => (
             <div key={i} style={{
               background: "rgba(255,255,255,0.02)", borderRadius: "12px",
               border: "1px solid rgba(255,255,255,0.06)", padding: "12px 16px",
@@ -605,6 +747,63 @@ export default function PlayaSeguraPR() {
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // ── Live weather state ──────────────────────────────────────────────────────
+  const [liveBeachData, setLiveBeachData] = useState<Map<number, LiveBeachData>>(
+    () => new Map(BEACHES.map(b => [b.id, { weather: null, forecast: [], loading: true, error: false }]))
+  );
+  // null = not yet fetched; [] = fetched, no beach alerts
+  const [prAlerts, setPrAlerts] = useState<BeachAlert[] | null>(null);
+
+  useEffect(() => {
+    // Fetch PR-wide beach alerts (shared across all beaches)
+    const fetchAlerts = async () => {
+      if (alertsCache && Date.now() - alertsCache.fetchedAt < CACHE_TTL_MS) {
+        setPrAlerts(alertsCache.alerts);
+        return;
+      }
+      try {
+        const res = await fetch('/api/alerts');
+        const data = await res.json();
+        const alerts = extractBeachAlerts(data.features ?? []);
+        alertsCache = { alerts, fetchedAt: Date.now() };
+        setPrAlerts(alerts);
+      } catch {
+        setPrAlerts([]);
+      }
+    };
+
+    // Fetch live weather for a single beach
+    const fetchBeach = async (beach: typeof BEACHES[0]) => {
+      const cached = weatherCache.get(beach.id);
+      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+        setLiveBeachData(prev => new Map(prev).set(beach.id, {
+          weather: cached.weather,
+          forecast: cached.forecast,
+          loading: false,
+          error: false,
+        }));
+        return;
+      }
+      try {
+        const res = await fetch(`/api/weather?lat=${beach.coords.lat}&lng=${beach.coords.lng}`);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        const periods = data.forecast.periods ?? [];
+        if (periods.length === 0) throw new Error('No forecast periods');
+        const weather = extractLiveWeather(periods);
+        const forecast = mapNWSForecast(periods);
+        weatherCache.set(beach.id, { weather, forecast, fetchedAt: Date.now() });
+        setLiveBeachData(prev => new Map(prev).set(beach.id, { weather, forecast, loading: false, error: false }));
+      } catch {
+        setLiveBeachData(prev => new Map(prev).set(beach.id, { weather: null, forecast: [], loading: false, error: true }));
+      }
+    };
+
+    // Kick off all fetches in parallel — NWS handles concurrent requests fine
+    fetchAlerts();
+    BEACHES.forEach(fetchBeach);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const regions = ["All", ...new Set(BEACHES.map(b => b.region))];
 
   const filtered = BEACHES.filter(b => {
@@ -621,7 +820,9 @@ export default function PlayaSeguraPR() {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   };
 
+  // Use live NWS alerts once loaded; fall back to static advisory list while loading
   const activeAdvisories = BEACHES.filter(b => b.conditions.surfAdvisory);
+  const nwsBeachAlerts = prAlerts ?? [];
 
   return (
     <div ref={scrollRef} style={{
@@ -686,7 +887,12 @@ export default function PlayaSeguraPR() {
       `}</style>
 
       {view === "detail" && selectedBeach ? (
-        <BeachDetail beach={selectedBeach} onBack={() => setView("home")} />
+        <BeachDetail
+          beach={selectedBeach}
+          onBack={() => setView("home")}
+          liveData={liveBeachData.get(selectedBeach.id)}
+          prAlerts={prAlerts ?? undefined}
+        />
       ) : (
         <div style={{ animation: "fadeUp 0.4s ease" }}>
           {/* Header */}
@@ -767,30 +973,33 @@ export default function PlayaSeguraPR() {
             backgroundRepeat: "repeat",
           }}>
 
-          {/* Active Advisories Ticker */}
-          {activeAdvisories.length > 0 && (
-            <div style={{
-              background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)",
-            }}>
-              <div style={{
-                maxWidth: "900px", margin: "0 auto", padding: "10px 24px",
-                display: "flex", alignItems: "center", gap: "10px",
-              }}>
-                <span style={{
-                  fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase",
-                  letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite",
-                }}>
+          {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
+          {nwsBeachAlerts.length > 0 ? (
+            <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
+              <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
+                  ⚠ {nwsBeachAlerts.length} NWS Alert{nwsBeachAlerts.length > 1 ? "s" : ""}
+                </span>
+                <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                  {nwsBeachAlerts.map(a => a.event).join(" · ")}
+                </div>
+                <span style={{ fontSize: "10px", fontWeight: 700, color: "#22c55e", border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto" }}>
+                  LIVE
+                </span>
+              </div>
+            </div>
+          ) : prAlerts === null && activeAdvisories.length > 0 ? (
+            <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
+              <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
                   ⚠ {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
                 </span>
-                <div style={{
-                  fontSize: "12px", color: "#f87171", overflow: "hidden",
-                  whiteSpace: "nowrap", textOverflow: "ellipsis",
-                }}>
+                <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
                   {activeAdvisories.map(b => b.name).join(" · ")}
                 </div>
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* Safety Quick Guide Toggle */}
           <div style={{ padding: "20px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
@@ -852,7 +1061,7 @@ export default function PlayaSeguraPR() {
             display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px",
           }}>
             {filtered.map(b => (
-              <BeachCard key={b.id} beach={b} onClick={() => handleSelectBeach(b)} />
+              <BeachCard key={b.id} beach={b} onClick={() => handleSelectBeach(b)} liveData={liveBeachData.get(b.id)} />
             ))}
             {filtered.length === 0 && (
               <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px 20px", color: "#475569" }}>
