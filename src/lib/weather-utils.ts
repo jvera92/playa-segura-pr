@@ -68,24 +68,27 @@ export function extractBeachAlerts(features: NWSAlertFeature[]): BeachAlert[] {
 }
 
 // ─── ICON MAPPING ─────────────────────────────────────────────────────────────
+// Returns a stable key string — page.tsx maps these to lucide-react components.
 
-export function forecastIcon(shortForecast: string): string {
+export type WeatherIconKey =
+  | 'sun' | 'mostly-sunny' | 'partly-cloudy' | 'cloudy'
+  | 'rain' | 'drizzle' | 'thunderstorm' | 'snow' | 'fog' | 'wind' | 'hurricane'
+
+export function forecastIcon(shortForecast: string): WeatherIconKey {
   const f = shortForecast.toLowerCase()
-  if (f.includes('hurricane') || f.includes('tropical')) return '🌀'
-  if (f.includes('thunder') || f.includes('t-storm'))   return '⛈'
-  if (f.includes('snow') || f.includes('blizzard'))     return '❄️'
-  if (f.includes('freezing') || f.includes('sleet'))    return '🌨'
-  // "Showers And Thunderstorms" already caught above; remaining shower/rain cases:
-  if (f.includes('shower') || f.includes('drizzle'))    return f.includes('chance') || f.includes('slight') ? '🌦' : '🌧'
-  if (f.includes('rain'))                                return f.includes('chance') || f.includes('slight') ? '🌦' : '🌧'
-  if (f.includes('fog') || f.includes('haze'))          return '🌫'
-  if (f.includes('breezy') || f.includes('windy'))      return '🌬'
-  if (f.includes('mostly cloudy') || f.includes('overcast')) return '☁️'
-  if (f.includes('partly cloudy') || f.includes('partly sunny')) return '⛅'
-  if (f.includes('mostly sunny') || f.includes('mostly clear'))  return '🌤'
-  if (f.includes('sunny') || f.includes('clear'))       return '☀️'
-  if (f.includes('cloud'))                               return '☁️'
-  return '🌤'
+  if (f.includes('hurricane') || f.includes('tropical')) return 'hurricane'
+  if (f.includes('thunder') || f.includes('t-storm'))   return 'thunderstorm'
+  if (f.includes('snow') || f.includes('blizzard') || f.includes('sleet')) return 'snow'
+  if (f.includes('shower') || f.includes('drizzle'))    return f.includes('chance') || f.includes('slight') ? 'drizzle' : 'rain'
+  if (f.includes('rain'))                                return f.includes('chance') || f.includes('slight') ? 'drizzle' : 'rain'
+  if (f.includes('fog') || f.includes('haze'))          return 'fog'
+  if (f.includes('breezy') || f.includes('windy'))      return 'wind'
+  if (f.includes('mostly cloudy') || f.includes('overcast')) return 'cloudy'
+  if (f.includes('partly cloudy') || f.includes('partly sunny')) return 'partly-cloudy'
+  if (f.includes('mostly sunny') || f.includes('mostly clear'))  return 'mostly-sunny'
+  if (f.includes('sunny') || f.includes('clear'))       return 'sun'
+  if (f.includes('cloud'))                               return 'cloudy'
+  return 'mostly-sunny'
 }
 
 // ─── DAY LABEL ────────────────────────────────────────────────────────────────

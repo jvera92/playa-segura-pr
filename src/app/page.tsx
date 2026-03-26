@@ -2,9 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import {
+  Sun, SunMedium, Cloud, CloudDrizzle, CloudRain, CloudLightning, CloudSnow, CloudFog, Wind,
+  Waves, Thermometer, Eye, Droplets, AlertTriangle, Search, MapPin, ArrowLeft, ChevronDown,
+  LifeBuoy, CheckCircle, XCircle, Lightbulb, Flag, Users, Anchor, ArrowUp, ArrowDown,
+  type LucideIcon,
+} from "lucide-react";
+import {
   mapNWSForecast, extractLiveWeather, extractBeachAlerts,
   forecastIcon, conditionLabel,
-  type LiveForecastDay, type LiveWeather, type BeachAlert,
+  type LiveForecastDay, type LiveWeather, type BeachAlert, type WeatherIconKey,
 } from "@/lib/weather-utils";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
@@ -58,7 +64,6 @@ interface RiskConfig {
   label: string;
   color: string;
   bg: string;
-  icon: string;
   message: string;
 }
 
@@ -89,11 +94,11 @@ const BEACHES: Beach[] = [
       advisoryText: "Moderate rip currents possible near rocky areas on the east side. Stay in designated swimming zones.",
     },
     forecast: [
-      { day: "Today",     icon: "⛅", high: "87°F", low: "76°F", precip: "30%", surf: "2-3 ft", risk: "moderate" },
-      { day: "Tomorrow",  icon: "🌤", high: "88°F", low: "77°F", precip: "15%", surf: "1-2 ft", risk: "low" },
-      { day: "Wednesday", icon: "☀️", high: "89°F", low: "77°F", precip: "10%", surf: "1-2 ft", risk: "low" },
-      { day: "Thursday",  icon: "🌧", high: "85°F", low: "75°F", precip: "60%", surf: "3-5 ft", risk: "high" },
-      { day: "Friday",    icon: "⛈", high: "83°F", low: "74°F", precip: "80%", surf: "4-6 ft", risk: "high" },
+      { day: "Today",     icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "30%", surf: "2-3 ft", risk: "moderate" },
+      { day: "Tomorrow",  icon: "mostly-sunny", high: "88°F", low: "77°F", precip: "15%", surf: "1-2 ft", risk: "low" },
+      { day: "Wednesday", icon: "sun", high: "89°F", low: "77°F", precip: "10%", surf: "1-2 ft", risk: "low" },
+      { day: "Thursday",  icon: "rain", high: "85°F", low: "75°F", precip: "60%", surf: "3-5 ft", risk: "high" },
+      { day: "Friday",    icon: "thunderstorm", high: "83°F", low: "74°F", precip: "80%", surf: "4-6 ft", risk: "high" },
     ],
   },
   {
@@ -113,11 +118,11 @@ const BEACHES: Beach[] = [
       advisoryText: "HIGH RIP CURRENT RISK. NWS has issued a Beach Hazards Statement. Strong longshore and rip currents expected. Swimming is dangerous for all skill levels.",
     },
     forecast: [
-      { day: "Today",     icon: "⛅", high: "86°F", low: "76°F", precip: "25%", surf: "4-6 ft",  risk: "high" },
-      { day: "Tomorrow",  icon: "⛅", high: "85°F", low: "76°F", precip: "35%", surf: "5-7 ft",  risk: "extreme" },
-      { day: "Wednesday", icon: "🌤", high: "87°F", low: "77°F", precip: "20%", surf: "3-4 ft",  risk: "moderate" },
-      { day: "Thursday",  icon: "☀️", high: "88°F", low: "77°F", precip: "10%", surf: "2-3 ft",  risk: "moderate" },
-      { day: "Friday",    icon: "🌤", high: "87°F", low: "76°F", precip: "15%", surf: "1-2 ft",  risk: "low" },
+      { day: "Today",     icon: "partly-cloudy", high: "86°F", low: "76°F", precip: "25%", surf: "4-6 ft",  risk: "high" },
+      { day: "Tomorrow",  icon: "partly-cloudy", high: "85°F", low: "76°F", precip: "35%", surf: "5-7 ft",  risk: "extreme" },
+      { day: "Wednesday", icon: "mostly-sunny", high: "87°F", low: "77°F", precip: "20%", surf: "3-4 ft",  risk: "moderate" },
+      { day: "Thursday",  icon: "sun", high: "88°F", low: "77°F", precip: "10%", surf: "2-3 ft",  risk: "moderate" },
+      { day: "Friday",    icon: "mostly-sunny", high: "87°F", low: "76°F", precip: "15%", surf: "1-2 ft",  risk: "low" },
     ],
   },
   {
@@ -137,11 +142,11 @@ const BEACHES: Beach[] = [
       advisoryText: "No active advisories. Conditions are favorable for swimming. Use caution near rocky edges.",
     },
     forecast: [
-      { day: "Today",     icon: "☀️", high: "88°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
-      { day: "Tomorrow",  icon: "☀️", high: "89°F", low: "77°F", precip: "5%",  surf: "1 ft",   risk: "low" },
-      { day: "Wednesday", icon: "🌤", high: "88°F", low: "76°F", precip: "15%", surf: "1-2 ft", risk: "low" },
-      { day: "Thursday",  icon: "⛅", high: "86°F", low: "75°F", precip: "40%", surf: "2-3 ft", risk: "moderate" },
-      { day: "Friday",    icon: "🌧", high: "84°F", low: "74°F", precip: "65%", surf: "3-4 ft", risk: "moderate" },
+      { day: "Today",     icon: "sun", high: "88°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "sun", high: "89°F", low: "77°F", precip: "5%",  surf: "1 ft",   risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny", high: "88°F", low: "76°F", precip: "15%", surf: "1-2 ft", risk: "low" },
+      { day: "Thursday",  icon: "partly-cloudy", high: "86°F", low: "75°F", precip: "40%", surf: "2-3 ft", risk: "moderate" },
+      { day: "Friday",    icon: "rain", high: "84°F", low: "74°F", precip: "65%", surf: "3-4 ft", risk: "moderate" },
     ],
   },
   {
@@ -161,11 +166,11 @@ const BEACHES: Beach[] = [
       advisoryText: "Moderate surf and currents on the open-water side. Swim near the pier breakwater for calmer conditions. Use caution when jumping from pier.",
     },
     forecast: [
-      { day: "Today",     icon: "🌤", high: "86°F", low: "75°F", precip: "20%", surf: "3-4 ft", risk: "moderate" },
-      { day: "Tomorrow",  icon: "⛅", high: "85°F", low: "75°F", precip: "30%", surf: "3-5 ft", risk: "moderate" },
-      { day: "Wednesday", icon: "🌧", high: "83°F", low: "74°F", precip: "55%", surf: "4-6 ft", risk: "high" },
-      { day: "Thursday",  icon: "⛈", high: "82°F", low: "73°F", precip: "75%", surf: "5-8 ft", risk: "extreme" },
-      { day: "Friday",    icon: "🌤", high: "85°F", low: "75°F", precip: "20%", surf: "3-4 ft", risk: "moderate" },
+      { day: "Today",     icon: "mostly-sunny", high: "86°F", low: "75°F", precip: "20%", surf: "3-4 ft", risk: "moderate" },
+      { day: "Tomorrow",  icon: "partly-cloudy", high: "85°F", low: "75°F", precip: "30%", surf: "3-5 ft", risk: "moderate" },
+      { day: "Wednesday", icon: "rain", high: "83°F", low: "74°F", precip: "55%", surf: "4-6 ft", risk: "high" },
+      { day: "Thursday",  icon: "thunderstorm", high: "82°F", low: "73°F", precip: "75%", surf: "5-8 ft", risk: "extreme" },
+      { day: "Friday",    icon: "mostly-sunny", high: "85°F", low: "75°F", precip: "20%", surf: "3-4 ft", risk: "moderate" },
     ],
   },
   {
@@ -185,11 +190,11 @@ const BEACHES: Beach[] = [
       advisoryText: "No active advisories. Reef-protected waters are calm and suitable for all swimmers. Supervise children near deeper reef channels.",
     },
     forecast: [
-      { day: "Today",     icon: "☀️", high: "87°F", low: "76°F", precip: "15%", surf: "0.5-1 ft", risk: "low" },
-      { day: "Tomorrow",  icon: "☀️", high: "88°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
-      { day: "Wednesday", icon: "🌤", high: "87°F", low: "76°F", precip: "20%", surf: "1 ft",     risk: "low" },
-      { day: "Thursday",  icon: "⛅", high: "86°F", low: "76°F", precip: "35%", surf: "1-2 ft",   risk: "low" },
-      { day: "Friday",    icon: "🌧", high: "84°F", low: "75°F", precip: "55%", surf: "2-3 ft",   risk: "moderate" },
+      { day: "Today",     icon: "sun", high: "87°F", low: "76°F", precip: "15%", surf: "0.5-1 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "sun", high: "88°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny", high: "87°F", low: "76°F", precip: "20%", surf: "1 ft",     risk: "low" },
+      { day: "Thursday",  icon: "partly-cloudy", high: "86°F", low: "76°F", precip: "35%", surf: "1-2 ft",   risk: "low" },
+      { day: "Friday",    icon: "rain", high: "84°F", low: "75°F", precip: "55%", surf: "2-3 ft",   risk: "moderate" },
     ],
   },
   {
@@ -209,11 +214,11 @@ const BEACHES: Beach[] = [
       advisoryText: "DANGEROUS CONDITIONS. Large northwest swell producing powerful surf and extreme rip currents. DO NOT enter the water unless you are an experienced surfer. NWS High Surf Warning in effect.",
     },
     forecast: [
-      { day: "Today",     icon: "🌬", high: "84°F", low: "74°F", precip: "35%", surf: "8-12 ft",  risk: "extreme" },
-      { day: "Tomorrow",  icon: "🌬", high: "83°F", low: "74°F", precip: "40%", surf: "10-15 ft", risk: "extreme" },
-      { day: "Wednesday", icon: "⛅", high: "85°F", low: "75°F", precip: "25%", surf: "6-8 ft",   risk: "high" },
-      { day: "Thursday",  icon: "🌤", high: "86°F", low: "75°F", precip: "15%", surf: "4-6 ft",   risk: "high" },
-      { day: "Friday",    icon: "☀️", high: "87°F", low: "76°F", precip: "10%", surf: "3-4 ft",   risk: "moderate" },
+      { day: "Today",     icon: "wind", high: "84°F", low: "74°F", precip: "35%", surf: "8-12 ft",  risk: "extreme" },
+      { day: "Tomorrow",  icon: "wind", high: "83°F", low: "74°F", precip: "40%", surf: "10-15 ft", risk: "extreme" },
+      { day: "Wednesday", icon: "partly-cloudy", high: "85°F", low: "75°F", precip: "25%", surf: "6-8 ft",   risk: "high" },
+      { day: "Thursday",  icon: "mostly-sunny", high: "86°F", low: "75°F", precip: "15%", surf: "4-6 ft",   risk: "high" },
+      { day: "Friday",    icon: "sun", high: "87°F", low: "76°F", precip: "10%", surf: "3-4 ft",   risk: "moderate" },
     ],
   },
   {
@@ -233,11 +238,11 @@ const BEACHES: Beach[] = [
       advisoryText: "High surf and dangerous rip currents. Rocky bottom poses additional hazards. Swimming not recommended. For experienced surfers only.",
     },
     forecast: [
-      { day: "Today",     icon: "⛅", high: "85°F", low: "75°F", precip: "25%", surf: "5-7 ft", risk: "high" },
-      { day: "Tomorrow",  icon: "🌤", high: "86°F", low: "75°F", precip: "15%", surf: "4-5 ft", risk: "high" },
-      { day: "Wednesday", icon: "☀️", high: "87°F", low: "76°F", precip: "10%", surf: "3-4 ft", risk: "moderate" },
-      { day: "Thursday",  icon: "🌤", high: "86°F", low: "76°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
-      { day: "Friday",    icon: "⛅", high: "85°F", low: "75°F", precip: "30%", surf: "3-5 ft", risk: "moderate" },
+      { day: "Today",     icon: "partly-cloudy", high: "85°F", low: "75°F", precip: "25%", surf: "5-7 ft", risk: "high" },
+      { day: "Tomorrow",  icon: "mostly-sunny", high: "86°F", low: "75°F", precip: "15%", surf: "4-5 ft", risk: "high" },
+      { day: "Wednesday", icon: "sun", high: "87°F", low: "76°F", precip: "10%", surf: "3-4 ft", risk: "moderate" },
+      { day: "Thursday",  icon: "mostly-sunny", high: "86°F", low: "76°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
+      { day: "Friday",    icon: "partly-cloudy", high: "85°F", low: "75°F", precip: "30%", surf: "3-5 ft", risk: "moderate" },
     ],
   },
   {
@@ -257,27 +262,27 @@ const BEACHES: Beach[] = [
       advisoryText: "No active advisories. Calm Caribbean waters. Safe for swimming. Extreme UV — reapply sunscreen every 90 minutes.",
     },
     forecast: [
-      { day: "Today",     icon: "☀️", high: "89°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
-      { day: "Tomorrow",  icon: "☀️", high: "90°F", low: "77°F", precip: "5%",  surf: "0.5 ft",   risk: "low" },
-      { day: "Wednesday", icon: "🌤", high: "89°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
-      { day: "Thursday",  icon: "🌤", high: "88°F", low: "76°F", precip: "15%", surf: "1 ft",     risk: "low" },
-      { day: "Friday",    icon: "⛅", high: "87°F", low: "76°F", precip: "30%", surf: "1-2 ft",   risk: "low" },
+      { day: "Today",     icon: "sun", high: "89°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "sun", high: "90°F", low: "77°F", precip: "5%",  surf: "0.5 ft",   risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny", high: "89°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
+      { day: "Thursday",  icon: "mostly-sunny", high: "88°F", low: "76°F", precip: "15%", surf: "1 ft",     risk: "low" },
+      { day: "Friday",    icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "30%", surf: "1-2 ft",   risk: "low" },
     ],
   },
 ];
 
 const RISK_CONFIG: Record<RiskLevel, RiskConfig> = {
-  low:      { label: "Low Risk",       color: "#22c55e", bg: "#052e16", icon: "✓", message: "Conditions are favorable for swimming" },
-  moderate: { label: "Moderate Risk",  color: "#eab308", bg: "#422006", icon: "⚠", message: "Use caution — some hazards present" },
-  high:     { label: "High Risk",      color: "#f97316", bg: "#431407", icon: "⚠", message: "Swimming not recommended" },
-  extreme:  { label: "Extreme Danger", color: "#ef4444", bg: "#450a0a", icon: "✕", message: "DO NOT SWIM" },
+  low:      { label: "Low Risk",       color: "#22c55e", bg: "#052e16", message: "Conditions are favorable for swimming" },
+  moderate: { label: "Moderate Risk",  color: "#eab308", bg: "#422006", message: "Use caution — some hazards present" },
+  high:     { label: "High Risk",      color: "#f97316", bg: "#431407", message: "Swimming not recommended" },
+  extreme:  { label: "Extreme Danger", color: "#ef4444", bg: "#450a0a", message: "DO NOT SWIM" },
 };
 
-const SAFETY_TIPS = [
-  { icon: "🌊", title: "Rip Currents", text: "If caught, swim parallel to shore until free of the current, then swim back. Never fight against it." },
-  { icon: "🚩", title: "Flag System",  text: "Red = Danger/No swimming. Yellow = Caution. Green = Safe. Double red = Beach closed." },
-  { icon: "👥", title: "Buddy System", text: "Never swim alone. Always keep an eye on children and weak swimmers in the water." },
-  { icon: "🦺", title: "Life Jackets", text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
+const SAFETY_TIPS: { icon: LucideIcon; title: string; text: string }[] = [
+  { icon: Waves,    title: "Rip Currents", text: "If caught, swim parallel to shore until free of the current, then swim back. Never fight against it." },
+  { icon: Flag,     title: "Flag System",  text: "Red = Danger/No swimming. Yellow = Caution. Green = Safe. Double red = Beach closed." },
+  { icon: Users,    title: "Buddy System", text: "Never swim alone. Always keep an eye on children and weak swimmers in the water." },
+  { icon: LifeBuoy, title: "Life Jackets", text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
 ];
 
 // ─── LIVE DATA CACHE ─────────────────────────────────────────────────────────
@@ -310,23 +315,43 @@ function mergeForecast(
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
+const WEATHER_ICONS: Record<WeatherIconKey, LucideIcon> = {
+  'sun':           Sun,
+  'mostly-sunny':  SunMedium,
+  'partly-cloudy': Cloud,
+  'cloudy':        Cloud,
+  'rain':          CloudRain,
+  'drizzle':       CloudDrizzle,
+  'thunderstorm':  CloudLightning,
+  'snow':          CloudSnow,
+  'fog':           CloudFog,
+  'wind':          Wind,
+  'hurricane':     AlertTriangle,
+}
+
+function WeatherIcon({ iconKey, size = 16, color }: { iconKey: string; size?: number; color?: string }) {
+  const Icon = WEATHER_ICONS[iconKey as WeatherIconKey] ?? Sun;
+  return <Icon size={size} color={color} />;
+}
+
 function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md" | "lg" }) {
   const r = RISK_CONFIG[level];
   const sizes = {
-    sm: { padding: "3px 10px",  fontSize: "11px", gap: "4px" },
-    md: { padding: "5px 14px",  fontSize: "13px", gap: "6px" },
-    lg: { padding: "8px 20px",  fontSize: "15px", gap: "8px" },
+    sm: { padding: "3px 10px",  fontSize: "11px", iconSize: 11 },
+    md: { padding: "5px 14px",  fontSize: "13px", iconSize: 13 },
+    lg: { padding: "8px 20px",  fontSize: "15px", iconSize: 15 },
   };
   const s = sizes[size];
+  const BadgeIcon = level === "low" ? CheckCircle : level === "extreme" ? XCircle : AlertTriangle;
   return (
     <span style={{
-      display: "inline-flex", alignItems: "center", gap: s.gap,
+      display: "inline-flex", alignItems: "center", gap: "5px",
       background: r.color, color: level === "low" ? "#052e16" : "#fff",
       padding: s.padding, borderRadius: "99px", fontSize: s.fontSize,
       fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase",
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
     }}>
-      <span>{r.icon}</span> {r.label}
+      <BadgeIcon size={s.iconSize} /> {r.label}
     </span>
   );
 }
@@ -363,7 +388,7 @@ function BeachCard({ beach, onClick, liveData }: {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
               border: "1px solid rgba(255,255,255,0.12)",
             }}>
-              {forecastIcon(liveData.weather.shortForecast)}{" "}
+              <WeatherIcon iconKey={forecastIcon(liveData.weather.shortForecast)} size={13} />
               {conditionLabel(liveData.weather.shortForecast)}
             </span>
           ) : liveData?.error ? (
@@ -375,7 +400,7 @@ function BeachCard({ beach, onClick, liveData }: {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
               border: "1px solid rgba(239,68,68,0.3)",
             }}>
-              ⚠ Data unavailable
+              <AlertTriangle size={11} /> Data unavailable
             </span>
           ) : (
             <span style={{
@@ -411,8 +436,8 @@ function BeachCard({ beach, onClick, liveData }: {
             </a>
           ) : (
             <>
-              <span>🌡 {liveData?.weather?.airTemp ?? "—"}</span>
-              <span>💨 {liveData?.weather?.wind ?? "—"}</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Thermometer size={12} /> {liveData?.weather?.airTemp ?? "—"}</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Wind size={12} /> {liveData?.weather?.wind ?? "—"}</span>
             </>
           )}
           <a
@@ -423,11 +448,11 @@ function BeachCard({ beach, onClick, liveData }: {
             className="directions-link"
             style={{
               marginLeft: "auto", display: "flex", alignItems: "center",
-              color: "#475569", fontSize: "14px", textDecoration: "none",
+              color: "#475569", textDecoration: "none",
             }}
             title="Get directions"
           >
-            📍
+            <MapPin size={16} />
           </a>
         </div>
       </div>
@@ -436,14 +461,14 @@ function BeachCard({ beach, onClick, liveData }: {
 }
 
 function ConditionBlock({ label, value, icon, accent }: {
-  label: string; value: string; icon: string; accent?: string;
+  label: string; value: string; icon: React.ReactNode; accent?: string;
 }) {
   return (
     <div style={{
       background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "16px",
       border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px",
     }}>
-      <span style={{ fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
         {icon} {label}
       </span>
       <span style={{ fontSize: "20px", fontWeight: 700, color: accent || "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
@@ -462,7 +487,7 @@ function ForecastRow({ f }: { f: ForecastDay }) {
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", color: "#cbd5e1",
     }}>
       <span style={{ fontWeight: 600 }}>{f.day}</span>
-      <span style={{ fontSize: "20px" }}>{f.icon}</span>
+      <span style={{ display: "flex", alignItems: "center" }}><WeatherIcon iconKey={f.icon} size={20} /></span>
       <span>{f.high}</span>
       <span style={{ color: "#64748b" }}>{f.low}</span>
       <span>{f.precip}</span>
@@ -500,9 +525,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           cursor: "pointer", position: "absolute", top: "20px", left: "20px",
           background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)", borderRadius: "50%",
           width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center",
-          color: "#fff", fontSize: "20px", border: "1px solid rgba(255,255,255,0.1)",
+          color: "#fff", border: "1px solid rgba(255,255,255,0.1)",
         }}>
-          ←
+          <ArrowLeft size={20} />
         </button>
         <div style={{ position: "absolute", bottom: "24px", left: "24px", right: "24px" }}>
           <RiskBadge level={beach.riskLevel} size="lg" />
@@ -528,7 +553,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textDecoration: "none",
             }}
           >
-            📍 Get Directions
+            <MapPin size={14} /> Get Directions
           </a>
         </div>
       </div>
@@ -554,7 +579,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
                     fontWeight: 700, color: alertColor, fontSize: "13px",
                     textTransform: "uppercase", letterSpacing: "0.05em",
                   }}>
-                    <span>⚠</span>
+                    <AlertTriangle size={14} />
                     <span style={{ flex: 1 }}>{alert.event}</span>
                     <span style={{
                       fontSize: "10px", fontWeight: 700, color: "#22c55e",
@@ -592,7 +617,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, color: r.color, fontSize: "14px",
               textTransform: "uppercase", letterSpacing: "0.05em",
             }}>
-              <span style={{ fontSize: "18px" }}>⚠</span> Active Advisory
+              <AlertTriangle size={18} /> Active Advisory
             </div>
             <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.6, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
               {c.advisoryText}
@@ -609,7 +634,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           background: `${r.color}10`, border: `1px solid ${r.color}25`, borderRadius: "12px",
           padding: "14px 18px", marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px",
         }}>
-          <span style={{ fontSize: "24px" }}>{r.icon === "✓" ? "🟢" : r.icon === "✕" ? "🔴" : "🟡"}</span>
+          {beach.riskLevel === "low" ? <CheckCircle size={24} color={r.color} /> :
+           beach.riskLevel === "extreme" ? <XCircle size={24} color={r.color} /> :
+           <AlertTriangle size={24} color={r.color} />}
           <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: r.color, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
             {r.message}
           </p>
@@ -658,29 +685,30 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
               target="_blank"
               rel="noopener noreferrer"
               style={{
+                display: "inline-flex", alignItems: "center", gap: "4px",
                 fontSize: "11px", color: "#f87171", fontWeight: 600,
                 textDecoration: "none", letterSpacing: "0.04em", textTransform: "none",
               }}
             >
-              ⚠ Data unavailable · Check NWS ↗
+              <AlertTriangle size={11} /> Data unavailable · Check NWS ↗
             </a>
           )}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", marginBottom: "28px" }}>
-          <ConditionBlock icon="🌊" label="Wave Height"    value={c.waveHeight}     accent={r.color} />
-          <ConditionBlock icon="🔄" label="Rip Currents"   value={c.ripCurrentRisk} accent={r.color} />
-          <ConditionBlock icon="💨" label="Wind"           value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind} />
-          <ConditionBlock icon="🌡" label="Water Temp"     value={c.waterTemp}      accent="#38bdf8" />
-          <ConditionBlock icon="☀️" label="UV Index"
+          <ConditionBlock icon={<Waves size={12} />}       label="Wave Height"    value={c.waveHeight}     accent={r.color} />
+          <ConditionBlock icon={<AlertTriangle size={12} />} label="Rip Currents" value={c.ripCurrentRisk} accent={r.color} />
+          <ConditionBlock icon={<Wind size={12} />}       label="Wind"           value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind} />
+          <ConditionBlock icon={<Thermometer size={12} />} label="Water Temp"    value={c.waterTemp}      accent="#38bdf8" />
+          <ConditionBlock icon={<Sun size={12} />}        label="UV Index"
             value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
             accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"} />
-          <ConditionBlock icon="🌤" label="Air Temp"       value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp} />
-          <ConditionBlock icon="💧" label="Humidity"       value={c.humidity} />
-          <ConditionBlock icon="👁" label="Visibility"     value={c.visibility} />
-          <ConditionBlock icon="🏖" label="Swell"          value={`${c.swellPeriod} ${c.swellDirection}`} />
-          <ConditionBlock icon="🌙" label="Tide"           value={c.tideStatus} />
-          <ConditionBlock icon="⬆" label="Next High Tide"  value={c.nextHighTide} />
-          <ConditionBlock icon="⬇" label="Next Low Tide"   value={c.nextLowTide} />
+          <ConditionBlock icon={<Thermometer size={12} />} label="Air Temp"      value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp} />
+          <ConditionBlock icon={<Droplets size={12} />}   label="Humidity"       value={c.humidity} />
+          <ConditionBlock icon={<Eye size={12} />}        label="Visibility"     value={c.visibility} />
+          <ConditionBlock icon={<Waves size={12} />}      label="Swell"          value={`${c.swellPeriod} ${c.swellDirection}`} />
+          <ConditionBlock icon={<Anchor size={12} />}     label="Tide"           value={c.tideStatus} />
+          <ConditionBlock icon={<ArrowUp size={12} />}    label="Next High Tide" value={c.nextHighTide} />
+          <ConditionBlock icon={<ArrowDown size={12} />}  label="Next Low Tide"  value={c.nextLowTide} />
         </div>
 
         {/* 5-Day Forecast */}
@@ -746,16 +774,16 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
             }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "22px" }}>{f.icon}</span>
+                  <WeatherIcon iconKey={f.icon} size={22} />
                   <span style={{ fontWeight: 700, fontSize: "15px", color: "#e2e8f0" }}>{f.day}</span>
                 </div>
                 <RiskBadge level={f.risk} size="sm" />
               </div>
               <div style={{ display: "flex", gap: "16px", fontSize: "13px", color: "#94a3b8", flexWrap: "wrap" }}>
-                <span>↑ {f.high}</span>
-                <span style={{ color: "#64748b" }}>↓ {f.low}</span>
-                <span>🌧 {f.precip}</span>
-                <span>🌊 {f.surf}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><ArrowUp size={12} /> {f.high}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px", color: "#64748b" }}><ArrowDown size={12} /> {f.low}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><CloudRain size={12} /> {f.precip}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><Waves size={12} /> {f.surf}</span>
               </div>
             </div>
           ))}
@@ -774,8 +802,8 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           background: "rgba(56,189,248,0.06)", borderRadius: "14px", padding: "18px 20px",
           border: "1px solid rgba(56,189,248,0.12)", marginBottom: "28px",
         }}>
-          <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.7, color: "#cbd5e1", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-            💡 {beach.tips}
+          <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.7, color: "#cbd5e1", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", display: "flex", gap: "8px" }}>
+            <Lightbulb size={16} style={{ flexShrink: 0, marginTop: "2px" }} color="#38bdf8" />{beach.tips}
           </p>
         </div>
 
@@ -1020,9 +1048,9 @@ export default function PlayaSeguraPR() {
               />
               <span style={{
                 position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)",
-                fontSize: "18px", color: "#475569",
+                color: "#475569", display: "flex",
               }}>
-                🔍
+                <Search size={18} />
               </span>
             </div>
 
@@ -1055,8 +1083,8 @@ export default function PlayaSeguraPR() {
           {nwsBeachAlerts.length > 0 ? (
             <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
-                  ⚠ {nwsBeachAlerts.length} NWS Alert{nwsBeachAlerts.length > 1 ? "s" : ""}
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
+                  <AlertTriangle size={12} /> {nwsBeachAlerts.length} NWS Alert{nwsBeachAlerts.length > 1 ? "s" : ""}
                 </span>
                 <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
                   {nwsBeachAlerts.map(a => a.event).join(" · ")}
@@ -1069,8 +1097,8 @@ export default function PlayaSeguraPR() {
           ) : nwsBeachAlerts.length === 0 && activeAdvisories.length > 0 ? (
             <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
-                  ⚠ {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
+                  <AlertTriangle size={12} /> {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
                 </span>
                 <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
                   {activeAdvisories.map(b => b.name).join(" · ")}
@@ -1089,15 +1117,15 @@ export default function PlayaSeguraPR() {
               padding: "14px 20px", border: "1px solid rgba(56,189,248,0.12)",
               transition: "all 0.2s",
             }}>
-              <span style={{ fontSize: "14px", fontWeight: 700, color: "#38bdf8" }}>
-                🛟 Ocean Safety Quick Guide
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#38bdf8" }}>
+                <LifeBuoy size={16} /> Ocean Safety Quick Guide
               </span>
               <span style={{
-                color: "#38bdf8", fontSize: "18px", flexShrink: 0,
+                color: "#38bdf8", flexShrink: 0, display: "flex",
                 transform: showSafetyGuide ? "rotate(180deg)" : "none",
                 transition: "transform 0.3s",
               }}>
-                ▾
+                <ChevronDown size={18} />
               </span>
             </button>
 
@@ -1112,7 +1140,7 @@ export default function PlayaSeguraPR() {
                     background: "rgba(255,255,255,0.03)", borderRadius: "12px",
                     padding: "16px", border: "1px solid rgba(255,255,255,0.06)",
                   }}>
-                    <div style={{ fontSize: "24px", marginBottom: "8px" }}>{tip.icon}</div>
+                    <div style={{ marginBottom: "8px", color: "#38bdf8" }}><tip.icon size={24} /></div>
                     <div style={{ fontWeight: 700, fontSize: "14px", color: "#e2e8f0", marginBottom: "6px" }}>{tip.title}</div>
                     <div style={{ fontSize: "13px", color: "#94a3b8", lineHeight: 1.6 }}>{tip.text}</div>
                   </div>
@@ -1143,7 +1171,7 @@ export default function PlayaSeguraPR() {
             ))}
             {filtered.length === 0 && (
               <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px 20px", color: "#475569" }}>
-                <div style={{ fontSize: "48px", marginBottom: "12px" }}>🏖</div>
+                <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}><Waves size={48} /></div>
                 <p style={{ fontSize: "16px", fontWeight: 600 }}>No beaches found</p>
                 <p style={{ fontSize: "13px" }}>Try adjusting your search or filters</p>
               </div>
