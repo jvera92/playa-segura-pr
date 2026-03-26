@@ -9,13 +9,15 @@ import {
 } from "lucide-react";
 import {
   mapNWSForecast, extractLiveWeather, extractBeachAlerts,
-  forecastIcon, conditionLabel,
+  forecastIcon, conditionLabel, computeBeachRisk,
   type LiveForecastDay, type LiveWeather, type BeachAlert, type WeatherIconKey,
+  type RiskLevel, type RiskAssessment, type SurfZoneRisk,
 } from "@/lib/weather-utils";
+import type { BuoyObservation } from "@/lib/buoy-api";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
-type RiskLevel = "low" | "moderate" | "high" | "extreme";
+// RiskLevel and RiskAssessment are exported from weather-utils — no local redefinition needed.
 
 interface ForecastDay {
   day: string;
@@ -51,6 +53,10 @@ interface Beach {
   municipality: string;
   region: string;
   coords: { lat: number; lng: number };
+  /** Nearest NDBC buoy station ID (5 digits) */
+  buoyStation: string;
+  /** NWS Surf Zone Forecast zone ID (e.g. "prz001") */
+  surfZone: string;
   image: string;
   description: string;
   amenities: string[];
@@ -72,6 +78,10 @@ interface LiveBeachData {
   forecast: LiveForecastDay[];
   loading: boolean;
   error: boolean;
+  buoy: BuoyObservation | null;
+  buoyError: boolean;
+  surfForecast: SurfZoneRisk | null;
+  surfForecastError: boolean;
 }
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -79,7 +89,7 @@ interface LiveBeachData {
 const BEACHES: Beach[] = [
   {
     id: 1, name: "Playa Flamenco", municipality: "Culebra", region: "East Islands",
-    coords: { lat: 18.328, lng: -65.317 },
+    coords: { lat: 18.328, lng: -65.317 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&h=400&fit=crop",
     description: "Consistently ranked among the world's best beaches, Flamenco offers crystal-clear waters and a wide horseshoe bay surrounded by hills.",
     amenities: ["Lifeguards (seasonal)", "Restrooms", "Food kiosks", "Parking", "Camping"],
@@ -103,7 +113,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 2, name: "Condado Beach", municipality: "San Juan", region: "Metro",
-    coords: { lat: 18.455, lng: -66.073 },
+    coords: { lat: 18.455, lng: -66.073 }, buoyStation: "41053", surfZone: "prz001", // San Juan
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Urban beach in the heart of San Juan's hotel district. Popular with tourists but can have strong currents, especially during winter swells.",
     amenities: ["Lifeguards", "Hotels nearby", "Restaurants", "Water sports rentals"],
@@ -127,7 +137,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 3, name: "Playa Sucia (La Playuela)", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 17.933, lng: -67.195 },
+    coords: { lat: 17.933, lng: -67.195 }, buoyStation: "41117", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&h=400&fit=crop",
     description: "A stunning secluded beach at the southwestern tip of Puerto Rico near the salt flats. Known for turquoise waters and dramatic cliffs.",
     amenities: ["Parking (limited)", "None — bring supplies", "Hiking trail access"],
@@ -151,7 +161,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 4, name: "Playa Crash Boat", municipality: "Aguadilla", region: "Northwest",
-    coords: { lat: 18.498, lng: -67.170 },
+    coords: { lat: 18.498, lng: -67.170 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&h=400&fit=crop",
     description: "Famous for its colorful pier and excellent snorkeling. A beloved local beach with vibrant atmosphere, food vendors, and clear waters.",
     amenities: ["Parking", "Food vendors", "Restrooms", "Snorkeling", "Diving pier"],
@@ -175,7 +185,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 5, name: "Playa Luquillo (Balneario)", municipality: "Luquillo", region: "Northeast",
-    coords: { lat: 18.385, lng: -65.717 },
+    coords: { lat: 18.385, lng: -65.717 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=600&h=400&fit=crop",
     description: "One of Puerto Rico's most family-friendly beaches. A long crescent of calm, palm-lined shore with a protective reef. Great facilities and famous food kiosks nearby.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking ($5)", "Food kiosks", "Accessibility ramps"],
@@ -199,7 +209,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 6, name: "Playa Domes (Rincón)", municipality: "Rincón", region: "West",
-    coords: { lat: 18.369, lng: -67.267 },
+    coords: { lat: 18.369, lng: -67.267 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=600&h=400&fit=crop",
     description: "World-renowned surf beach named after the nearby nuclear dome. Powerful winter swells make this a surfing mecca — and extremely dangerous for casual swimmers.",
     amenities: ["Parking (roadside)", "Surf shops nearby", "Restaurants nearby"],
@@ -223,7 +233,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 7, name: "Playa Jobos", municipality: "Isabela", region: "Northwest",
-    coords: { lat: 18.515, lng: -67.071 },
+    coords: { lat: 18.515, lng: -67.071 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1476673160081-cf065607f449?w=600&h=400&fit=crop",
     description: "A wild, beautiful beach popular with surfers and bodyboarders. Rocky outcrops and strong currents make it risky for inexperienced swimmers.",
     amenities: ["Parking", "Food kiosks", "Restrooms"],
@@ -247,7 +257,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 8, name: "Playa Buyé", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 18.023, lng: -67.168 },
+    coords: { lat: 18.023, lng: -67.168 }, buoyStation: "41117", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600&h=400&fit=crop",
     description: "A tranquil, tree-lined beach with calm Caribbean waters. Less crowded than many popular beaches, offering a peaceful retreat with gentle swimming conditions.",
     amenities: ["Parking", "Restrooms", "Shade trees", "Picnic areas"],
@@ -293,6 +303,18 @@ const CACHE_TTL_MS = 10 * 60 * 1000 // 10 minutes
 const weatherCache = new Map<number, {
   weather: LiveWeather;
   forecast: LiveForecastDay[];
+  fetchedAt: number;
+}>()
+
+// Keyed by NDBC station ID — multiple beaches can share one buoy
+const buoyCache = new Map<string, {
+  data: BuoyObservation;
+  fetchedAt: number;
+}>()
+
+// Keyed by NWS surf zone ID — multiple beaches can share one zone
+const surfForecastCache = new Map<string, {
+  data: SurfZoneRisk;
   fetchedAt: number;
 }>()
 
@@ -356,10 +378,11 @@ function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md
   );
 }
 
-function BeachCard({ beach, onClick, liveData }: {
+function BeachCard({ beach, onClick, liveData, riskAssessment }: {
   beach: Beach;
   onClick: () => void;
   liveData?: LiveBeachData;
+  riskAssessment?: RiskAssessment;
 }) {
   return (
     <button onClick={onClick} onTouchStart={e => { e.preventDefault(); onClick(); }} className="beach-card" style={{
@@ -378,6 +401,26 @@ function BeachCard({ beach, onClick, liveData }: {
           position: "absolute", bottom: 0, left: 0, right: 0, height: "80px",
           background: "linear-gradient(transparent, #0c1a2a)",
         }} />
+        {/* Risk badge — bottom-left of image */}
+        {riskAssessment && !riskAssessment.unavailable && (
+          <div style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+            <RiskBadge level={riskAssessment.level} size="sm" />
+          </div>
+        )}
+        {riskAssessment?.unavailable && (
+          <div style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: "4px",
+              background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+              borderRadius: "99px", padding: "3px 10px",
+              fontSize: "11px", fontWeight: 600, color: "#94a3b8",
+              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+              border: "1px solid rgba(255,255,255,0.12)",
+            }}>
+              Risk unknown
+            </span>
+          </div>
+        )}
         <div style={{ position: "absolute", top: "12px", right: "12px" }}>
           {liveData?.weather ? (
             <span style={{
@@ -497,13 +540,15 @@ function ForecastRow({ f }: { f: ForecastDay }) {
   );
 }
 
-function BeachDetail({ beach, onBack, liveData, prAlerts }: {
+function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
   beach: Beach;
   onBack: () => void;
   liveData?: LiveBeachData;
   prAlerts?: BeachAlert[];
+  riskAssessment?: RiskAssessment;
 }) {
-  const r = RISK_CONFIG[beach.riskLevel];
+  const effectiveRisk = riskAssessment?.unavailable ? beach.riskLevel : (riskAssessment?.level ?? beach.riskLevel);
+  const r = RISK_CONFIG[effectiveRisk];
   const c = beach.conditions;
   const displayForecast = (liveData?.forecast?.length ?? 0) > 0
     ? mergeForecast(beach.forecast, liveData!.forecast)
@@ -530,7 +575,35 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           <ArrowLeft size={20} />
         </button>
         <div style={{ position: "absolute", bottom: "24px", left: "24px", right: "24px" }}>
-          <RiskBadge level={beach.riskLevel} size="lg" />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            {riskAssessment?.unavailable ? (
+              <span style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+                borderRadius: "99px", padding: "8px 20px",
+                fontSize: "13px", fontWeight: 700, color: "#94a3b8",
+                fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                border: "1px solid rgba(255,255,255,0.15)",
+              }}>
+                <AlertTriangle size={14} /> Risk Unknown
+              </span>
+            ) : (
+              <RiskBadge level={effectiveRisk} size="lg" />
+            )}
+            {riskAssessment && !riskAssessment.unavailable && (
+              <span style={{
+                fontSize: "10px", fontWeight: 700,
+                color: riskAssessment.source === 'buoy' ? "#38bdf8" : "#22c55e",
+                border: `1px solid ${riskAssessment.source === 'buoy' ? "#38bdf8" : "#22c55e"}`,
+                borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em",
+                background: "rgba(0,0,0,0.4)", backdropFilter: "blur(4px)",
+              }}>
+                {riskAssessment.source === 'nws-alert' ? 'NWS LIVE'
+                  : riskAssessment.source === 'surf-forecast' ? 'NWS SURF ZONE'
+                  : 'BUOY DATA'}
+              </span>
+            )}
+          </div>
           <h1 style={{
             margin: "12px 0 4px", fontSize: "28px", fontWeight: 800, color: "#fff",
             fontFamily: "var(--font-playfair), 'Playfair Display', serif",
@@ -630,17 +703,38 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
         )}
 
         {/* Safety Message */}
-        <div style={{
-          background: `${r.color}10`, border: `1px solid ${r.color}25`, borderRadius: "12px",
-          padding: "14px 18px", marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px",
-        }}>
-          {beach.riskLevel === "low" ? <CheckCircle size={24} color={r.color} /> :
-           beach.riskLevel === "extreme" ? <XCircle size={24} color={r.color} /> :
-           <AlertTriangle size={24} color={r.color} />}
-          <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: r.color, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-            {r.message}
-          </p>
-        </div>
+        {riskAssessment?.unavailable ? (
+          <div style={{
+            background: "rgba(148,163,184,0.06)", border: "1px solid rgba(148,163,184,0.2)",
+            borderRadius: "12px", padding: "14px 18px", marginBottom: "24px",
+            display: "flex", alignItems: "center", gap: "12px",
+          }}>
+            <AlertTriangle size={24} color="#94a3b8" />
+            <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+              Risk data unavailable —{" "}
+              <a
+                href="https://www.weather.gov/sju/beach"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#38bdf8", textDecoration: "underline" }}
+              >
+                check NWS directly ↗
+              </a>
+            </p>
+          </div>
+        ) : (
+          <div style={{
+            background: `${r.color}10`, border: `1px solid ${r.color}25`, borderRadius: "12px",
+            padding: "14px 18px", marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px",
+          }}>
+            {effectiveRisk === "low" ? <CheckCircle size={24} color={r.color} /> :
+             effectiveRisk === "extreme" ? <XCircle size={24} color={r.color} /> :
+             <AlertTriangle size={24} color={r.color} />}
+            <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: r.color, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+              {riskAssessment?.message ?? r.message}
+            </p>
+          </div>
+        )}
 
         {/* About */}
         <p style={{ fontSize: "15px", lineHeight: 1.7, color: "#94a3b8", marginBottom: "28px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
@@ -695,21 +789,71 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           )}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", marginBottom: "28px" }}>
-          <ConditionBlock icon={<Waves size={12} />}       label="Wave Height"    value={c.waveHeight}     accent={r.color} />
-          <ConditionBlock icon={<AlertTriangle size={12} />} label="Rip Currents" value={c.ripCurrentRisk} accent={r.color} />
-          <ConditionBlock icon={<Wind size={12} />}       label="Wind"           value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind} />
-          <ConditionBlock icon={<Thermometer size={12} />} label="Water Temp"    value={c.waterTemp}      accent="#38bdf8" />
-          <ConditionBlock icon={<Sun size={12} />}        label="UV Index"
+          <ConditionBlock
+            icon={<Waves size={12} />} label="Surf Height" accent={r.color}
+            value={liveData?.surfForecast?.surfHeightText != null
+              ? liveData.surfForecast.surfHeightText
+              : liveData?.buoy?.waveHeightFt != null
+                ? `${liveData.buoy.waveHeightFt} ft`
+                : c.waveHeight}
+          />
+          <ConditionBlock icon={<AlertTriangle size={12} />} label="Rip Currents"
+            value={riskAssessment && !riskAssessment.unavailable
+              ? RISK_CONFIG[riskAssessment.level].label.replace(' Risk','').replace(' Danger','')
+              : c.ripCurrentRisk}
+            accent={r.color}
+          />
+          <ConditionBlock icon={<Wind size={12} />} label="Wind"
+            value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind}
+          />
+          <ConditionBlock icon={<Thermometer size={12} />} label="Water Temp" accent="#38bdf8"
+            value={liveData?.buoy?.waterTempF != null
+              ? `${liveData.buoy.waterTempF}°F`
+              : c.waterTemp}
+          />
+          <ConditionBlock icon={<Sun size={12} />} label="UV Index"
             value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
-            accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"} />
-          <ConditionBlock icon={<Thermometer size={12} />} label="Air Temp"      value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp} />
-          <ConditionBlock icon={<Droplets size={12} />}   label="Humidity"       value={c.humidity} />
-          <ConditionBlock icon={<Eye size={12} />}        label="Visibility"     value={c.visibility} />
-          <ConditionBlock icon={<Waves size={12} />}      label="Swell"          value={`${c.swellPeriod} ${c.swellDirection}`} />
-          <ConditionBlock icon={<Anchor size={12} />}     label="Tide"           value={c.tideStatus} />
-          <ConditionBlock icon={<ArrowUp size={12} />}    label="Next High Tide" value={c.nextHighTide} />
-          <ConditionBlock icon={<ArrowDown size={12} />}  label="Next Low Tide"  value={c.nextLowTide} />
+            accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"}
+          />
+          <ConditionBlock icon={<Thermometer size={12} />} label="Air Temp"
+            value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp}
+          />
+          <ConditionBlock icon={<Droplets size={12} />} label="Humidity" value={c.humidity} />
+          <ConditionBlock icon={<Eye size={12} />} label="Visibility" value={c.visibility} />
+          <ConditionBlock icon={<Waves size={12} />} label="Swell"
+            value={liveData?.buoy
+              ? `${liveData.buoy.dominantPeriodS != null ? liveData.buoy.dominantPeriodS + 's' : c.swellPeriod} ${liveData.buoy.swellDirectionCompass ?? c.swellDirection}`
+              : `${c.swellPeriod} ${c.swellDirection}`}
+          />
+          <ConditionBlock icon={<Anchor size={12} />} label="Tide" value={c.tideStatus} />
+          <ConditionBlock icon={<ArrowUp size={12} />} label="Next High Tide" value={c.nextHighTide} />
+          <ConditionBlock icon={<ArrowDown size={12} />} label="Next Low Tide" value={c.nextLowTide} />
         </div>
+        {/* Data attribution */}
+        {(liveData?.surfForecast || liveData?.buoy) && (
+          <p style={{ fontSize: "11px", color: "#334155", marginTop: "-20px", marginBottom: "28px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+            {liveData?.surfForecast && (
+              <>
+                Surf forecast:{" "}
+                <a href={`https://tgftp.nws.noaa.gov/data/forecasts/marine/surf_zone/pr/${beach.surfZone}.txt`} target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>
+                  NWS Surf Zone {beach.surfZone.toUpperCase()}
+                </a>
+              </>
+            )}
+            {liveData?.surfForecast && liveData?.buoy && <> · </>}
+            {liveData?.buoy && (
+              <>
+                Buoy:{" "}
+                <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>
+                  NDBC {beach.buoyStation}
+                </a>
+                {liveData.buoy.observedAt && (
+                  <> · {new Date(liveData.buoy.observedAt).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC", timeZoneName: "short" })}</>
+                )}
+              </>
+            )}
+          </p>
+        )}
 
         {/* 5-Day Forecast */}
         <h2 style={{
@@ -835,7 +979,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts }: {
           <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NOAA</a>
           {" · "}
           <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NWS San Juan</a>
-          {" · NDBC Buoy Data · PR DNER"}<br />
+          {" · "}
+          <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
+          {" · PR DNER"}<br />
           Conditions are advisory only. Always assess local conditions before entering the water.
         </div>
       </div>
@@ -855,7 +1001,7 @@ export default function PlayaSeguraPR() {
 
   // ── Live weather state ──────────────────────────────────────────────────────
   const [liveBeachData, setLiveBeachData] = useState<Map<number, LiveBeachData>>(
-    () => new Map(BEACHES.map(b => [b.id, { weather: null, forecast: [], loading: true, error: false }]))
+    () => new Map(BEACHES.map(b => [b.id, { weather: null, forecast: [], loading: true, error: false, buoy: null, buoyError: false, surfForecast: null, surfForecastError: false }]))
   );
   // null = not yet fetched; [] = fetched, no beach alerts
   const [prAlerts, setPrAlerts] = useState<BeachAlert[] | null>(null);
@@ -871,6 +1017,7 @@ export default function PlayaSeguraPR() {
         const res = await fetch('/api/alerts');
         const data = await res.json();
         const alerts = extractBeachAlerts(data.features ?? []);
+        console.log(`[fetchAlerts] extracted ${alerts.length} beach alerts:`, alerts.map(a => a.event));
         alertsCache = { alerts, fetchedAt: Date.now() };
         setPrAlerts(alerts);
       } catch {
@@ -882,12 +1029,10 @@ export default function PlayaSeguraPR() {
     const fetchBeach = async (beach: typeof BEACHES[0]) => {
       const cached = weatherCache.get(beach.id);
       if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
-        setLiveBeachData(prev => new Map(prev).set(beach.id, {
-          weather: cached.weather,
-          forecast: cached.forecast,
-          loading: false,
-          error: false,
-        }));
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), weather: cached.weather, forecast: cached.forecast, loading: false, error: false });
+        });
         return;
       }
       try {
@@ -899,15 +1044,83 @@ export default function PlayaSeguraPR() {
         const weather = extractLiveWeather(periods);
         const forecast = mapNWSForecast(periods);
         weatherCache.set(beach.id, { weather, forecast, fetchedAt: Date.now() });
-        setLiveBeachData(prev => new Map(prev).set(beach.id, { weather, forecast, loading: false, error: false }));
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), weather, forecast, loading: false, error: false });
+        });
       } catch {
-        setLiveBeachData(prev => new Map(prev).set(beach.id, { weather: null, forecast: [], loading: false, error: true }));
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), weather: null, forecast: [], loading: false, error: true });
+        });
+      }
+    };
+
+    // Fetch buoy data for a single beach (deduped via buoyCache by station ID)
+    const fetchBuoy = async (beach: typeof BEACHES[0]) => {
+      const stationId = beach.buoyStation;
+      const cached = buoyCache.get(stationId);
+      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), buoy: cached.data, buoyError: false });
+        });
+        return;
+      }
+      try {
+        const res = await fetch(`/api/buoy?station=${stationId}`);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        const obs = data as BuoyObservation;
+        buoyCache.set(stationId, { data: obs, fetchedAt: Date.now() });
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), buoy: obs, buoyError: false });
+        });
+      } catch {
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), buoy: null, buoyError: true });
+        });
+      }
+    };
+
+    // Fetch NWS Surf Zone Forecast for a beach (deduped via surfForecastCache by zone ID)
+    const fetchSurfForecast = async (beach: typeof BEACHES[0]) => {
+      const zone = beach.surfZone;
+      const cached = surfForecastCache.get(zone);
+      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: cached.data, surfForecastError: false });
+        });
+        return;
+      }
+      try {
+        const res = await fetch(`/api/surf-forecast?zone=${zone}`);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        // Store only the first (today's) period — that's all the risk algorithm needs
+        const first = data.periods?.[0] ?? null;
+        const surf: SurfZoneRisk | null = first
+          ? { ripCurrentRisk: first.ripCurrentRisk, surfHeightFt: first.surfHeightFt, surfHeightText: first.surfHeightText }
+          : null;
+        surfForecastCache.set(zone, { data: surf ?? { ripCurrentRisk: null, surfHeightFt: null, surfHeightText: null }, fetchedAt: Date.now() });
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: surf, surfForecastError: false });
+        });
+      } catch {
+        setLiveBeachData(prev => {
+          const existing = prev.get(beach.id);
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: null, surfForecastError: true });
+        });
       }
     };
 
     // Kick off all fetches in parallel — NWS handles concurrent requests fine
     fetchAlerts();
-    BEACHES.forEach(fetchBeach);
+    BEACHES.forEach(b => { fetchBeach(b); fetchBuoy(b); fetchSurfForecast(b); });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const regions = ["All", ...new Set(BEACHES.map(b => b.region))];
@@ -998,6 +1211,15 @@ export default function PlayaSeguraPR() {
           onBack={() => setView("home")}
           liveData={liveBeachData.get(selectedBeach.id)}
           prAlerts={prAlerts ?? undefined}
+          riskAssessment={(() => {
+            const d = liveBeachData.get(selectedBeach.id);
+            const ready = prAlerts !== null ||
+              d?.surfForecastError === true || d?.surfForecast != null ||
+              d?.buoyError === true || d?.buoy != null;
+            return ready
+              ? computeBeachRisk(prAlerts, d?.surfForecast ?? null, d?.buoy?.waveHeightFt ?? null, selectedBeach.name)
+              : undefined;
+          })()}
         />
       ) : (
         <div style={{ animation: "fadeUp 0.4s ease" }}>
@@ -1094,7 +1316,7 @@ export default function PlayaSeguraPR() {
                 </span>
               </div>
             </div>
-          ) : nwsBeachAlerts.length === 0 && activeAdvisories.length > 0 ? (
+          ) : prAlerts === null && activeAdvisories.length > 0 ? (
             <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
@@ -1166,9 +1388,21 @@ export default function PlayaSeguraPR() {
             padding: "0 24px 40px", maxWidth: "900px", margin: "0 auto",
             display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px",
           }}>
-            {filtered.map(b => (
-              <BeachCard key={b.id} beach={b} onClick={() => handleSelectBeach(b)} liveData={liveBeachData.get(b.id)} />
-            ))}
+            {filtered.map(b => {
+              const bData = liveBeachData.get(b.id);
+              const riskReady = prAlerts !== null ||
+                bData?.surfForecastError === true || bData?.surfForecast != null ||
+                bData?.buoyError === true || bData?.buoy != null;
+              return (
+                <BeachCard
+                  key={b.id}
+                  beach={b}
+                  onClick={() => handleSelectBeach(b)}
+                  liveData={bData}
+                  riskAssessment={riskReady ? computeBeachRisk(prAlerts, bData?.surfForecast ?? null, bData?.buoy?.waveHeightFt ?? null, b.name) : undefined}
+                />
+              );
+            })}
             {filtered.length === 0 && (
               <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px 20px", color: "#475569" }}>
                 <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}><Waves size={48} /></div>

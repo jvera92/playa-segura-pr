@@ -3,6 +3,26 @@ import type { ForecastPeriod, NWSAlertFeature } from './weather-api'
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
+export type RiskLevel = 'low' | 'moderate' | 'high' | 'extreme'
+
+export type SurfRipRisk = 'Low' | 'Moderate' | 'High'
+
+/** Minimal surf zone fields needed by the risk algorithm (structural subset of SurfZonePeriod). */
+export interface SurfZoneRisk {
+  ripCurrentRisk: SurfRipRisk | null
+  surfHeightFt: number | null
+  surfHeightText: string | null
+}
+
+export interface RiskAssessment {
+  level: RiskLevel
+  message: string
+  /** Where the assessment came from */
+  source: 'nws-alert' | 'surf-forecast' | 'buoy' | 'unavailable'
+  /** True when no authoritative data loaded yet — caller should show NWS link */
+  unavailable: boolean
+}
+
 export interface LiveForecastDay {
   day: string    // e.g. "Today", "Thu", "Fri"
   icon: string   // weather emoji
@@ -175,4 +195,84 @@ export function conditionLabel(shortForecast: string): string {
   if (f.includes('sunny') || f.includes('clear'))     return 'Sunny'
   if (f.includes('cloud'))                             return 'Cloudy'
   return shortForecast.length > 16 ? shortForecast.slice(0, 14) + '…' : shortForecast
+}
+
+// ─── RISK ALGORITHM ──────────────────────────────────────────────────────────
+// Primary:     NWS alerts (authoritative)
+// Secondary:   NWS rip current risk text inside alert description
+// Supplementary: NDBC buoy wave height when no alert exists
+// Fallback:    unavailable — caller should show link to weather.gov/sju/beach
+
+// ─── RISK ALGORITHM ──────────────────────────────────────────────────────────
+//
+// Priority order:
+//   1. NWS active alerts   — authoritative emergency signals
+//   2. NWS Surf Zone Forecast rip current risk — official daily assessment
+//   3. NDBC buoy wave height — supplementary when no zone forecast available
+//   4. NWS silence (alerts loaded, no hazards, no other data) — low by default
+//   5. Fallback — all sources loading or failed
+//
+// alerts: null = not yet fetched; [] = fetched, no beach hazard alerts active.
+// surfForecast: null = not yet fetched or fetch failed.
+
+export function computeBeachRisk(
+  alerts: BeachAlert[] | null,
+  surfForecast: SurfZoneRisk | null,
+  waveHeightFt: number | null,
+  _debugLabel?: string,
+): RiskAssessment {
+  if (typeof window !== 'undefined') {
+    const label = _debugLabel ?? '(unknown beach)'
+    console.log(
+      `[risk] ${label}: alerts=${alerts === null ? 'null' : alerts.length + ' [' + alerts.map(a => a.event).join(', ') + ']'}` +
+      ` surf=${surfForecast ? `rip=${surfForecast.ripCurrentRisk} ht=${surfForecast.surfHeightFt}ft` : 'null'}` +
+      ` buoy=${waveHeightFt !== null ? waveHeightFt + 'ft' : 'null'}`
+    )
+  }
+
+  // ── TIER 1: NWS active alert events ──────────────────────────────────────
+  if (alerts !== null && alerts.length > 0) {
+    if (alerts.some(a => a.event === 'High Surf Warning')) {
+      return { level: 'extreme', message: 'DO NOT SWIM', source: 'nws-alert', unavailable: false }
+    }
+    if (alerts.some(a => a.event === 'Rip Current Statement' || a.event === 'Beach Hazards Statement')) {
+      return { level: 'high', message: 'Swimming not recommended', source: 'nws-alert', unavailable: false }
+    }
+    // Parse explicit rip current risk level from any alert description
+    for (const alert of alerts) {
+      const match = alert.description.match(/RIP CURRENT RISK[^.:\n]*?(HIGH|MODERATE|LOW)/i)
+      if (match) {
+        const tier = match[1].toLowerCase()
+        if (tier === 'high')     return { level: 'high',     message: 'Swimming not recommended',      source: 'nws-alert', unavailable: false }
+        if (tier === 'moderate') return { level: 'moderate', message: 'Use caution — hazards present', source: 'nws-alert', unavailable: false }
+        if (tier === 'low')      return { level: 'low',      message: 'Low rip current risk — always assess locally', source: 'nws-alert', unavailable: false }
+      }
+    }
+  }
+
+  // ── TIER 2: NWS Surf Zone Forecast rip current risk ──────────────────────
+  // This is the official NWS daily beach safety assessment — use it directly.
+  if (surfForecast?.ripCurrentRisk) {
+    const rip = surfForecast.ripCurrentRisk
+    if (rip === 'High')     return { level: 'high',     message: 'Swimming not recommended',            source: 'surf-forecast', unavailable: false }
+    if (rip === 'Moderate') return { level: 'moderate', message: 'Use caution — rip currents possible', source: 'surf-forecast', unavailable: false }
+    if (rip === 'Low')      return { level: 'low',      message: 'Low rip current risk — always assess locally', source: 'surf-forecast', unavailable: false }
+  }
+
+  // ── TIER 3: NDBC buoy wave height (supplementary) ────────────────────────
+  // Only reached when surf zone forecast is unavailable or has no rip risk.
+  if (waveHeightFt != null) {
+    if (waveHeightFt > 10) return { level: 'high',     message: 'Swimming not recommended',    source: 'buoy', unavailable: false }
+    if (waveHeightFt > 6)  return { level: 'moderate', message: 'Use caution — elevated surf', source: 'buoy', unavailable: false }
+    return                         { level: 'low',      message: 'Conditions appear favorable — always assess locally', source: 'buoy', unavailable: false }
+  }
+
+  // ── TIER 4: NWS silence — alerts loaded, no hazards flagged ──────────────
+  // Absence of an NWS advisory is meaningful — NWS would have issued one.
+  if (alerts !== null) {
+    return { level: 'low', message: 'No active NWS advisories — always assess locally', source: 'nws-alert', unavailable: false }
+  }
+
+  // ── FALLBACK: no data loaded yet ─────────────────────────────────────────
+  return { level: 'moderate', message: 'Risk data unavailable — check NWS directly', source: 'unavailable', unavailable: true }
 }
