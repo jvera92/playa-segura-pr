@@ -137,7 +137,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 3, name: "Playa Sucia (La Playuela)", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 17.933, lng: -67.195 }, buoyStation: "41117", surfZone: "prz011", // Southwest
+    coords: { lat: 17.933, lng: -67.195 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&h=400&fit=crop",
     description: "A stunning secluded beach at the southwestern tip of Puerto Rico near the salt flats. Known for turquoise waters and dramatic cliffs.",
     amenities: ["Parking (limited)", "None — bring supplies", "Hiking trail access"],
@@ -257,7 +257,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 8, name: "Playa Buyé", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 18.023, lng: -67.168 }, buoyStation: "41117", surfZone: "prz011", // Southwest
+    coords: { lat: 18.023, lng: -67.168 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600&h=400&fit=crop",
     description: "A tranquil, tree-lined beach with calm Caribbean waters. Less crowded than many popular beaches, offering a peaceful retreat with gentle swimming conditions.",
     amenities: ["Parking", "Restrooms", "Shade trees", "Picnic areas"],
