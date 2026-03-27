@@ -625,9 +625,13 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
   const effectiveRisk = riskAssessment?.unavailable ? beach.riskLevel : (riskAssessment?.level ?? beach.riskLevel);
   const r = RISK_CONFIG[effectiveRisk];
   const c = beach.conditions;
-  const displayForecast = (liveData?.forecast?.length ?? 0) > 0
+  const rawForecast: ForecastDay[] = (liveData?.forecast?.length ?? 0) > 0
     ? mergeForecast(beach.forecast, liveData!.forecast)
-    : beach.forecast;
+    : (beach.forecast ?? []);
+  // Keep "Today" row's risk badge in sync with the header badge (both use live riskAssessment)
+  const displayForecast = rawForecast.length > 0 && riskAssessment && !riskAssessment.unavailable
+    ? [{ ...rawForecast[0], risk: effectiveRisk }, ...rawForecast.slice(1)]
+    : rawForecast;
 
   return (
     <div style={{ animation: "fadeUp 0.4s ease" }}>
@@ -754,8 +758,8 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           </div>
         )}
 
-        {/* Advisory Banner */}
-        {c.surfAdvisory && (
+        {/* Advisory Banner — shown when live risk assessment is moderate or higher */}
+        {riskAssessment && !riskAssessment.unavailable && riskAssessment.level !== 'low' && (
           <div style={{
             background: r.bg, border: `1px solid ${r.color}40`, borderRadius: "14px",
             padding: "18px 20px", marginBottom: "24px",
@@ -768,7 +772,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
               <AlertTriangle size={18} /> Active Advisory
             </div>
             <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.6, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-              {c.advisoryText}
+              {c?.advisoryText ?? riskAssessment.message}
             </p>
             <p style={{ margin: "10px 0 0", fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
               Source: National Weather Service (NWS) San Juan · Updated:{" "}
