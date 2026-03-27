@@ -992,6 +992,15 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
   );
 }
 
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+
+function formatAgo(ts: number): string {
+  const mins = Math.floor((Date.now() - ts) / 60_000);
+  if (mins < 1) return "just now";
+  if (mins === 1) return "1 min ago";
+  return `${mins} min ago`;
+}
+
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function PlayaSeguraPR() {
@@ -1008,12 +1017,15 @@ export default function PlayaSeguraPR() {
   );
   // null = not yet fetched; [] = fetched, no beach alerts
   const [prAlerts, setPrAlerts] = useState<BeachAlert[] | null>(null);
+  const [lastRefreshedAt, setLastRefreshedAt] = useState<number | null>(null);
+  const [, setClockTick] = useState(0); // triggers re-render for "X min ago" display
 
   useEffect(() => {
     // Fetch PR-wide beach alerts (shared across all beaches)
     const fetchAlerts = async () => {
       if (alertsCache && Date.now() - alertsCache.fetchedAt < ALERTS_TTL_MS) {
         setPrAlerts(alertsCache.alerts);
+        setLastRefreshedAt(alertsCache.fetchedAt);
         return;
       }
       try {
@@ -1023,6 +1035,7 @@ export default function PlayaSeguraPR() {
         console.log(`[fetchAlerts] extracted ${alerts.length} beach alerts:`, alerts.map(a => a.event));
         alertsCache = { alerts, fetchedAt: Date.now() };
         setPrAlerts(alerts);
+        setLastRefreshedAt(Date.now());
       } catch {
         setPrAlerts([]);
       }
@@ -1124,6 +1137,41 @@ export default function PlayaSeguraPR() {
     // Kick off all fetches in parallel — NWS handles concurrent requests fine
     fetchAlerts();
     BEACHES.forEach(b => { fetchBeach(b); fetchBuoy(b); fetchSurfForecast(b); });
+
+    // ── Background auto-refresh ──────────────────────────────────────────────
+    // Each interval clears its cache so the fetch functions skip the TTL guard
+    // and hit the network. Data arrives silently — no loading states touched.
+
+    const alertsInterval = setInterval(() => {
+      alertsCache = null;
+      fetchAlerts();
+    }, ALERTS_TTL_MS);
+
+    const buoyInterval = setInterval(() => {
+      buoyCache.clear();
+      BEACHES.forEach(b => fetchBuoy(b));
+    }, BUOY_TTL_MS);
+
+    const weatherInterval = setInterval(() => {
+      weatherCache.clear();
+      BEACHES.forEach(b => fetchBeach(b));
+    }, WEATHER_TTL_MS);
+
+    const surfInterval = setInterval(() => {
+      surfForecastCache.clear();
+      BEACHES.forEach(b => fetchSurfForecast(b));
+    }, SURF_FORECAST_TTL_MS);
+
+    // Ticks every 30 s so the "X min ago" badge re-renders without a data re-fetch
+    const clockInterval = setInterval(() => setClockTick(t => t + 1), 30_000);
+
+    return () => {
+      clearInterval(alertsInterval);
+      clearInterval(buoyInterval);
+      clearInterval(weatherInterval);
+      clearInterval(surfInterval);
+      clearInterval(clockInterval);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const regions = ["All", ...new Set(BEACHES.map(b => b.region))];
@@ -1249,8 +1297,11 @@ export default function PlayaSeguraPR() {
             }}>
               Playa Segura
             </h1>
-            <p style={{ margin: "0 0 20px", fontSize: "14px", color: "#64748b", lineHeight: 1.5 }}>
+            <p style={{ margin: "0 0 6px", fontSize: "14px", color: "#64748b", lineHeight: 1.5 }}>
               Beach conditions & safety · Know before you go
+            </p>
+            <p style={{ margin: "0 0 20px", fontSize: "11px", color: "#475569", letterSpacing: "0.02em" }}>
+              {lastRefreshedAt !== null ? `Updated ${formatAgo(lastRefreshedAt)}` : "Loading data…"}
             </p>
 
             {/* Search */}
