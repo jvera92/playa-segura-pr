@@ -279,6 +279,78 @@ const BEACHES: Beach[] = [
       { day: "Friday",    icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "30%", surf: "1-2 ft",   risk: "low" },
     ],
   },
+  {
+    id: 9, name: "Balneario El Escambrón", municipality: "San Juan", region: "Metro",
+    coords: { lat: 18.468, lng: -66.085 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
+    description: "San Juan's best beach for snorkeling. A reef barrier creates calm, clear waters perfect for swimming. Located between Puerta de Tierra and Condado with ruins of an 18th-century artillery battery nearby.",
+    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
+    tips: "Reef-protected waters are calm and ideal for snorkeling. Scuba Dogs offers gear rentals. Arrive early for parking. Blue Flag certified beach.",
+    riskLevel: "low",
+    conditions: {
+      waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "NE",
+      waterTemp: "81°F", airTemp: "87°F", humidity: "74%",
+      uvIndex: 10, wind: "12 mph ESE", visibility: "Excellent",
+      tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
+      ripCurrentRisk: "Low", surfAdvisory: false,
+      advisoryText: "No active advisories. Reef-protected waters are calm. Some currents outside the reef barrier — stay inside the marked swimming area.",
+    },
+    forecast: [
+      { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "mostly-sunny",  high: "88°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny",  high: "87°F", low: "76°F", precip: "15%", surf: "1-2 ft", risk: "low" },
+      { day: "Thursday",  icon: "partly-cloudy", high: "86°F", low: "75°F", precip: "35%", surf: "2-3 ft", risk: "low" },
+      { day: "Friday",    icon: "rain",          high: "84°F", low: "75°F", precip: "55%", surf: "2-3 ft", risk: "moderate" },
+    ],
+  },
+  {
+    id: 10, name: "Playa Seven Seas", municipality: "Fajardo", region: "Northeast",
+    coords: { lat: 18.359, lng: -65.635 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
+    description: "Dreamy crescent beach with calm, clear waters. One of the best-maintained public beaches (balneario) in PR. Starting point for hiking to Playa Escondida.",
+    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
+    tips: "Calm waters ideal for families and snorkeling. Gets busy on weekends. Camping available with permit. Starting point for trail to the more secluded Playa Escondida.",
+    riskLevel: "low",
+    conditions: {
+      waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "E",
+      waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
+      uvIndex: 11, wind: "11 mph ESE", visibility: "Excellent",
+      tideStatus: "High", nextHighTide: "1:30 PM", nextLowTide: "7:45 PM",
+      ripCurrentRisk: "Low", surfAdvisory: false,
+      advisoryText: "No active advisories. Calm waters ideal for all swimmers. Currents possible near the edges of the bay — stay within the marked area.",
+    },
+    forecast: [
+      { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "0.5-1 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "sun",           high: "88°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny",  high: "87°F", low: "76°F", precip: "20%", surf: "1 ft",     risk: "low" },
+      { day: "Thursday",  icon: "partly-cloudy", high: "86°F", low: "76°F", precip: "35%", surf: "1-2 ft",   risk: "low" },
+      { day: "Friday",    icon: "rain",          high: "84°F", low: "75°F", precip: "55%", surf: "2-3 ft",   risk: "moderate" },
+    ],
+  },
+  {
+    id: 11, name: "Balneario de Boquerón", municipality: "Cabo Rojo", region: "Southwest",
+    coords: { lat: 18.024, lng: -67.178 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
+    description: "One of the most popular public beaches on the southwest coast. Long stretch of calm Caribbean water with white sand. Lively atmosphere with vendors and restaurants.",
+    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
+    tips: "Calm waters perfect for families. Gets very crowded on weekends and holidays. The town of Boquerón has excellent seafood restaurants. Blue Flag certified.",
+    riskLevel: "low",
+    conditions: {
+      waveHeight: "0.5-1 ft", swellPeriod: "4s", swellDirection: "SW",
+      waterTemp: "83°F", airTemp: "89°F", humidity: "69%",
+      uvIndex: 12, wind: "8 mph SE", visibility: "Excellent",
+      tideStatus: "Low", nextHighTide: "5:00 PM", nextLowTide: "11:15 AM",
+      ripCurrentRisk: "Low", surfAdvisory: false,
+      advisoryText: "No active advisories. Calm Caribbean waters ideal for families. Strong UV — reapply sunscreen frequently.",
+    },
+    forecast: [
+      { day: "Today",     icon: "sun",           high: "89°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
+      { day: "Tomorrow",  icon: "sun",           high: "90°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
+      { day: "Wednesday", icon: "mostly-sunny",  high: "89°F", low: "77°F", precip: "10%", surf: "1 ft",     risk: "low" },
+      { day: "Thursday",  icon: "mostly-sunny",  high: "88°F", low: "76°F", precip: "15%", surf: "1 ft",     risk: "low" },
+      { day: "Friday",    icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "30%", surf: "1-2 ft",   risk: "low" },
+    ],
+  },
 ];
 
 const RISK_CONFIG: Record<RiskLevel, RiskConfig> = {
