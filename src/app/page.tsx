@@ -298,7 +298,10 @@ const SAFETY_TIPS: { icon: LucideIcon; title: string; text: string }[] = [
 // ─── LIVE DATA CACHE ─────────────────────────────────────────────────────────
 // Module-level — survives view state changes (home ↔ detail) without re-fetching.
 
-const CACHE_TTL_MS = 10 * 60 * 1000 // 10 minutes
+const ALERTS_TTL_MS       =  5 * 60 * 1000 //  5 minutes — time-critical advisories
+const BUOY_TTL_MS         = 10 * 60 * 1000 // 10 minutes — buoys update every 30-60 min
+const WEATHER_TTL_MS      = 15 * 60 * 1000 // 15 minutes — NWS hourly forecast
+const SURF_FORECAST_TTL_MS = 15 * 60 * 1000 // 15 minutes — NWS surf zones update twice daily
 
 const weatherCache = new Map<number, {
   weather: LiveWeather;
@@ -1009,7 +1012,7 @@ export default function PlayaSeguraPR() {
   useEffect(() => {
     // Fetch PR-wide beach alerts (shared across all beaches)
     const fetchAlerts = async () => {
-      if (alertsCache && Date.now() - alertsCache.fetchedAt < CACHE_TTL_MS) {
+      if (alertsCache && Date.now() - alertsCache.fetchedAt < ALERTS_TTL_MS) {
         setPrAlerts(alertsCache.alerts);
         return;
       }
@@ -1028,7 +1031,7 @@ export default function PlayaSeguraPR() {
     // Fetch live weather for a single beach
     const fetchBeach = async (beach: typeof BEACHES[0]) => {
       const cached = weatherCache.get(beach.id);
-      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+      if (cached && Date.now() - cached.fetchedAt < WEATHER_TTL_MS) {
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
           return new Map(prev).set(beach.id, { ...(existing!), weather: cached.weather, forecast: cached.forecast, loading: false, error: false });
@@ -1060,7 +1063,7 @@ export default function PlayaSeguraPR() {
     const fetchBuoy = async (beach: typeof BEACHES[0]) => {
       const stationId = beach.buoyStation;
       const cached = buoyCache.get(stationId);
-      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+      if (cached && Date.now() - cached.fetchedAt < BUOY_TTL_MS) {
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
           return new Map(prev).set(beach.id, { ...(existing!), buoy: cached.data, buoyError: false });
@@ -1089,7 +1092,7 @@ export default function PlayaSeguraPR() {
     const fetchSurfForecast = async (beach: typeof BEACHES[0]) => {
       const zone = beach.surfZone;
       const cached = surfForecastCache.get(zone);
-      if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
+      if (cached && Date.now() - cached.fetchedAt < SURF_FORECAST_TTL_MS) {
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
           return new Map(prev).set(beach.id, { ...(existing!), surfForecast: cached.data, surfForecastError: false });
