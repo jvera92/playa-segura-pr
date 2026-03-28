@@ -14,6 +14,7 @@ import {
   type RiskLevel, type RiskAssessment, type SurfZoneRisk,
 } from "@/lib/weather-utils";
 import type { BuoyObservation } from "@/lib/buoy-api";
+import type { SurfZonePeriod } from "@/lib/surf-forecast-api";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
@@ -81,6 +82,8 @@ interface LiveBeachData {
   buoy: BuoyObservation | null;
   buoyError: boolean;
   surfForecast: SurfZoneRisk | null;
+  /** All parsed SRF periods — used for multi-day risk in the forecast table */
+  surfForecastPeriods: SurfZonePeriod[];
   surfForecastError: boolean;
 }
 
@@ -1254,24 +1257,42 @@ const buoyCache = new Map<string, {
 // Keyed by NWS surf zone ID — multiple beaches can share one zone
 const surfForecastCache = new Map<string, {
   data: SurfZoneRisk;
+  periods: SurfZonePeriod[];
   fetchedAt: number;
 }>()
 
 let alertsCache: { alerts: BeachAlert[]; fetchedAt: number } | null = null
 
+/** Derive a RiskLevel from surf height when no explicit rip current rating is available (SRF days 3–5). */
+function surfHeightToRisk(heightFt: number | null): RiskLevel {
+  if (heightFt == null) return 'low'
+  if (heightFt >= 10) return 'extreme'
+  if (heightFt >= 7)  return 'high'
+  if (heightFt >= 4)  return 'moderate'
+  return 'low'
+}
+
 function mergeForecast(
   staticForecast: ForecastDay[],
   liveForecast: LiveForecastDay[],
+  surfPeriods: SurfZonePeriod[],
 ): ForecastDay[] {
-  return liveForecast.map((live, i) => ({
-    day: live.day,
-    icon: live.icon,
-    high: live.high,
-    low: live.low,
-    precip: live.precip,
-    surf: staticForecast[i]?.surf ?? '—',
-    risk: staticForecast[i]?.risk ?? 'low',
-  }))
+  // SRF emits a TONIGHT period that weather forecast groups into Today — skip it so indices align.
+  const dayPeriods = surfPeriods.filter(p => !/^tonight$/i.test(p.label))
+  return liveForecast.map((live, i) => {
+    const period = dayPeriods[i] ?? null
+    let surf = staticForecast[i]?.surf ?? '—'
+    let risk: RiskLevel = staticForecast[i]?.risk ?? 'low'
+    if (period) {
+      if (period.surfHeightText) surf = period.surfHeightText
+      if (period.ripCurrentRisk) {
+        risk = period.ripCurrentRisk.toLowerCase() as RiskLevel
+      } else if (period.surfHeightFt != null) {
+        risk = surfHeightToRisk(period.surfHeightFt)
+      }
+    }
+    return { day: live.day, icon: live.icon, high: live.high, low: live.low, precip: live.precip, surf, risk }
+  })
 }
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
@@ -1490,7 +1511,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
   const r = RISK_CONFIG[effectiveRisk];
   const c = beach.conditions;
   const rawForecast: ForecastDay[] = (liveData?.forecast?.length ?? 0) > 0
-    ? mergeForecast(beach.forecast, liveData!.forecast)
+    ? mergeForecast(beach.forecast, liveData!.forecast, liveData?.surfForecastPeriods ?? [])
     : (beach.forecast ?? []);
   // Keep "Today" row's risk badge in sync with the header badge (both use live riskAssessment)
   const displayForecast = rawForecast.length > 0 && riskAssessment && !riskAssessment.unavailable
@@ -1953,7 +1974,7 @@ export default function PlayaSeguraPR() {
 
   // ── Live weather state ──────────────────────────────────────────────────────
   const [liveBeachData, setLiveBeachData] = useState<Map<number, LiveBeachData>>(
-    () => new Map(BEACHES.map(b => [b.id, { weather: null, forecast: [], loading: true, error: false, buoy: null, buoyError: false, surfForecast: null, surfForecastError: false }]))
+    () => new Map(BEACHES.map(b => [b.id, { weather: null, forecast: [], loading: true, error: false, buoy: null, buoyError: false, surfForecast: null, surfForecastPeriods: [], surfForecastError: false }]))
   );
   // null = not yet fetched; [] = fetched, no beach alerts
   const [prAlerts, setPrAlerts] = useState<BeachAlert[] | null>(null);
@@ -2048,7 +2069,7 @@ export default function PlayaSeguraPR() {
       if (cached && Date.now() - cached.fetchedAt < SURF_FORECAST_TTL_MS) {
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
-          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: cached.data, surfForecastError: false });
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: cached.data, surfForecastPeriods: cached.periods, surfForecastError: false });
         });
         return;
       }
@@ -2056,20 +2077,20 @@ export default function PlayaSeguraPR() {
         const res = await fetch(`/api/surf-forecast?zone=${zone}`);
         const data = await res.json();
         if (data.error) throw new Error(data.error);
-        // Store only the first (today's) period — that's all the risk algorithm needs
-        const first = data.periods?.[0] ?? null;
+        const periods: SurfZonePeriod[] = data.periods ?? [];
+        const first = periods[0] ?? null;
         const surf: SurfZoneRisk | null = first
           ? { ripCurrentRisk: first.ripCurrentRisk, surfHeightFt: first.surfHeightFt, surfHeightText: first.surfHeightText }
           : null;
-        surfForecastCache.set(zone, { data: surf ?? { ripCurrentRisk: null, surfHeightFt: null, surfHeightText: null }, fetchedAt: Date.now() });
+        surfForecastCache.set(zone, { data: surf ?? { ripCurrentRisk: null, surfHeightFt: null, surfHeightText: null }, periods, fetchedAt: Date.now() });
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
-          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: surf, surfForecastError: false });
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: surf, surfForecastPeriods: periods, surfForecastError: false });
         });
       } catch {
         setLiveBeachData(prev => {
           const existing = prev.get(beach.id);
-          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: null, surfForecastError: true });
+          return new Map(prev).set(beach.id, { ...(existing!), surfForecast: null, surfForecastPeriods: [], surfForecastError: true });
         });
       }
     };
