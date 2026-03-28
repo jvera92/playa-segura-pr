@@ -89,11 +89,11 @@ interface LiveBeachData {
 const BEACHES: Beach[] = [
   {
     id: 1, name: "Playa Flamenco", municipality: "Culebra", region: "East Islands",
-    coords: { lat: 18.328, lng: -65.317 }, buoyStation: "41056", surfZone: "prz012", // Culebra
+    coords: { lat: 18.32921, lng: -65.3152 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&h=400&fit=crop",
-    description: "Consistently ranked among the world's best beaches, Flamenco offers crystal-clear waters and a wide horseshoe bay surrounded by hills.",
+    description: "Consistently ranked among the world's best beaches. Crystal-clear waters and a wide horseshoe bay surrounded by green hills. Famous for the abandoned military tank on the sand.",
     amenities: ["Lifeguards (seasonal)", "Restrooms", "Food kiosks", "Parking", "Camping"],
-    tips: "Arrive early on weekends. The left side of the beach tends to have calmer waters. Watch for jellyfish during winter months.",
+    tips: "Arrive early on weekends. The left side tends to have calmer waters. Watch for jellyfish during winter months. 15-20 min hike from parking.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "ENE",
@@ -113,11 +113,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 2, name: "Condado Beach", municipality: "San Juan", region: "Metro",
-    coords: { lat: 18.455, lng: -66.073 }, buoyStation: "41053", surfZone: "prz001", // San Juan
+    coords: { lat: 18.45734, lng: -66.07199 }, buoyStation: "41053", surfZone: "prz001", // San Juan
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Urban beach in the heart of San Juan's hotel district. Popular with tourists but can have strong currents, especially during winter swells.",
     amenities: ["Lifeguards", "Hotels nearby", "Restaurants", "Water sports rentals"],
-    tips: "Strong currents are common here. Swim only in areas patrolled by lifeguards. The eastern section near the Marriott tends to have calmer waters.",
+    tips: "Strong currents are common. Swim only in lifeguard-patrolled areas. Eastern section near the Marriott tends to have calmer waters.",
     riskLevel: "high",
     conditions: {
       waveHeight: "4-6 ft", swellPeriod: "12s", swellDirection: "NNW",
@@ -137,11 +137,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 3, name: "Playa Sucia (La Playuela)", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 17.933, lng: -67.195 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
+    coords: { lat: 17.93606, lng: -67.18904 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&h=400&fit=crop",
-    description: "A stunning secluded beach at the southwestern tip of Puerto Rico near the salt flats. Known for turquoise waters and dramatic cliffs.",
+    description: "Stunning secluded beach at the southwestern tip of PR near the salt flats and Los Morrillos Lighthouse. Turquoise waters and dramatic cliffs.",
     amenities: ["Parking (limited)", "None — bring supplies", "Hiking trail access"],
-    tips: "No lifeguards on duty. Bring plenty of water and sunscreen. The hike to the beach takes 15-20 minutes. Leave no trace.",
+    tips: "No lifeguards. Bring plenty of water and sunscreen. 15-20 min hike from parking. Dirt road can be muddy when it rains. Leave no trace.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "SSW",
@@ -161,11 +161,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 4, name: "Playa Crash Boat", municipality: "Aguadilla", region: "Northwest",
-    coords: { lat: 18.498, lng: -67.170 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.45896, lng: -67.16394 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&h=400&fit=crop",
-    description: "Famous for its colorful pier and excellent snorkeling. A beloved local beach with vibrant atmosphere, food vendors, and clear waters.",
+    description: "Famous for its colorful pier and excellent snorkeling. Beloved local beach with vibrant atmosphere and clear waters.",
     amenities: ["Parking", "Food vendors", "Restrooms", "Snorkeling", "Diving pier"],
-    tips: "The area around the pier has calmer water, ideal for snorkeling. The open-water side can have strong currents. Popular on weekends — arrive before 10 AM.",
+    tips: "The area around the pier has calmer water ideal for snorkeling. The open-water side can have strong currents. Arrive before 10 AM on weekends.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "3-4 ft", swellPeriod: "10s", swellDirection: "NW",
@@ -185,11 +185,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 5, name: "Playa Luquillo (Balneario)", municipality: "Luquillo", region: "Northeast",
-    coords: { lat: 18.385, lng: -65.717 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    coords: { lat: 18.38487, lng: -65.72941 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=600&h=400&fit=crop",
-    description: "One of Puerto Rico's most family-friendly beaches. A long crescent of calm, palm-lined shore with a protective reef. Great facilities and famous food kiosks nearby.",
+    description: "One of PR's most family-friendly beaches. Long crescent of calm palm-lined shore with a protective reef. Famous food kiosks nearby.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking ($5)", "Food kiosks", "Accessibility ramps"],
-    tips: "The reef protects this beach from strong waves, making it excellent for families. The famous 'kioskos' are a 5-minute walk east — try the alcapurrias.",
+    tips: "The reef protects from strong waves, excellent for families. The famous 'kioskos' are a 5-min walk east — try the alcapurrias.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "E",
@@ -209,11 +209,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 6, name: "Playa Domes (Rincón)", municipality: "Rincón", region: "West",
-    coords: { lat: 18.369, lng: -67.267 }, buoyStation: "41115", surfZone: "prz010", // West
+    coords: { lat: 18.36478, lng: -67.26994 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=600&h=400&fit=crop",
-    description: "World-renowned surf beach named after the nearby nuclear dome. Powerful winter swells make this a surfing mecca — and extremely dangerous for casual swimmers.",
+    description: "World-renowned surf beach named after the nearby nuclear dome. Powerful winter swells make this a surfing mecca — extremely dangerous for casual swimmers.",
     amenities: ["Parking (roadside)", "Surf shops nearby", "Restaurants nearby"],
-    tips: "This is NOT a swimming beach during surf season (Oct–Apr). Even experienced swimmers get caught in powerful currents. Watch surfers from the cliff overlook instead.",
+    tips: "NOT a swimming beach during surf season (Oct-Apr). Even experienced swimmers get caught in powerful currents. Watch surfers from the cliff overlook instead.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "8-12 ft", swellPeriod: "14s", swellDirection: "WNW",
@@ -233,11 +233,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 7, name: "Playa Jobos", municipality: "Isabela", region: "Northwest",
-    coords: { lat: 18.515, lng: -67.071 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.51546, lng: -67.07488 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1476673160081-cf065607f449?w=600&h=400&fit=crop",
-    description: "A wild, beautiful beach popular with surfers and bodyboarders. Rocky outcrops and strong currents make it risky for inexperienced swimmers.",
+    description: "Wild, beautiful beach popular with surfers and bodyboarders. Rocky outcrops and strong currents make it risky for inexperienced swimmers.",
     amenities: ["Parking", "Food kiosks", "Restrooms"],
-    tips: "Strong currents even on calm days. The rocky bottom can cause injuries. Best for watching surfers or wading in shallow areas only. Not recommended for children.",
+    tips: "Strong currents even on calm days. Rocky bottom can cause injuries. Best for watching surfers or wading in shallow areas only. Not recommended for children.",
     riskLevel: "high",
     conditions: {
       waveHeight: "5-7 ft", swellPeriod: "11s", swellDirection: "NNW",
@@ -257,10 +257,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 8, name: "Playa Buyé", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 18.023, lng: -67.168 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
+    coords: { lat: 18.04122, lng: -67.2062 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600&h=400&fit=crop",
-    description: "A tranquil, tree-lined beach with calm Caribbean waters. Less crowded than many popular beaches, offering a peaceful retreat with gentle swimming conditions.",
-    amenities: ["Parking", "Restrooms", "Shade trees", "Picnic areas"],
+    description: "Tranquil tree-lined beach with calm Caribbean waters. Less crowded than many popular beaches, offering a peaceful retreat with gentle swimming conditions.",
+    amenities: ["Parking", "Restrooms", "Shade trees", "Picnic areas", "Restaurant/Bar"],
     tips: "Great for families and relaxed swimming. The mangrove area on the south end is beautiful for kayaking. Bring your own food and drinks as vendors are limited.",
     riskLevel: "low",
     conditions: {
@@ -281,7 +281,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 9, name: "Balneario El Escambrón", municipality: "San Juan", region: "Metro",
-    coords: { lat: 18.468, lng: -66.085 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
+    coords: { lat: 18.46711, lng: -66.08997 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "San Juan's best beach for snorkeling. A reef barrier creates calm, clear waters perfect for swimming. Located between Puerta de Tierra and Condado with ruins of an 18th-century artillery battery nearby.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
@@ -305,7 +305,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 10, name: "Playa Seven Seas", municipality: "Fajardo", region: "Northeast",
-    coords: { lat: 18.359, lng: -65.635 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    coords: { lat: 18.36979, lng: -65.63585 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Dreamy crescent beach with calm, clear waters. One of the best-maintained public beaches (balneario) in PR. Starting point for hiking to Playa Escondida.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
@@ -329,7 +329,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 11, name: "Balneario de Boquerón", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 18.024, lng: -67.178 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
+    coords: { lat: 18.01981, lng: -67.17198 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular public beaches on the southwest coast. Long stretch of calm Caribbean water with white sand. Lively atmosphere with vendors and restaurants.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
@@ -353,10 +353,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 12, name: "Ocean Park Beach", municipality: "San Juan", region: "Metro",
-    coords: { lat: 18.454, lng: -66.064 }, buoyStation: "41053", surfZone: "prz001", // Metro
+    coords: { lat: 18.45507, lng: -66.05458 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A favorite among locals, this wide sandy beach between Condado and Isla Verde has a more laid-back vibe than the hotel-district beaches. Popular for kitesurfing and volleyball.",
-    amenities: ["Residential area", "Some food trucks"],
+    amenities: ["Limited — residential area", "some food trucks"],
     tips: "Less tourist-oriented than Condado. Good for kitesurfing on windy days. Limited amenities — bring your own supplies. Strong currents possible.",
     riskLevel: "moderate",
     conditions: {
@@ -377,7 +377,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 13, name: "Playa Isla Verde", municipality: "Carolina", region: "Metro",
-    coords: { lat: 18.449, lng: -66.008 }, buoyStation: "41053", surfZone: "prz001", // Metro
+    coords: { lat: 18.44517, lng: -66.01406 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Long stretch of golden sand lined with high-rise hotels and resorts. One of the most accessible beaches from the airport. Active water sports scene.",
     amenities: ["Lifeguards", "Hotels", "Restaurants", "Water sports", "Chair/umbrella rentals"],
@@ -401,7 +401,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 14, name: "Sun Bay (Balneario)", municipality: "Vieques", region: "East Islands",
-    coords: { lat: 18.093, lng: -65.449 }, buoyStation: "41056", surfZone: "prz013", // Vieques
+    coords: { lat: 18.09625, lng: -65.45429 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most accessible beach in Vieques. Wide crescent of soft sand with turquoise waters and palm trees. Part of a government-managed balneario.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -425,7 +425,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 15, name: "La Chiva (Blue Beach)", municipality: "Vieques", region: "East Islands",
-    coords: { lat: 18.107, lng: -65.498 }, buoyStation: "41056", surfZone: "prz013", // Vieques
+    coords: { lat: 18.11338, lng: -65.38743 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Inside the Vieques National Wildlife Refuge. White sand that sparkles like diamond dust with waters shifting from turquoise to deep blue. One of the Caribbean's most beautiful beaches.",
     amenities: ["None — bring everything"],
@@ -449,7 +449,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 16, name: "Carlos Rosario Beach", municipality: "Culebra", region: "East Islands",
-    coords: { lat: 18.325, lng: -65.332 }, buoyStation: "41056", surfZone: "prz012", // Culebra
+    coords: { lat: 18.32459, lng: -65.32977 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Puerto Rico's premier snorkeling beaches. Accessible only by a 20-minute trail from Flamenco Beach. Pristine reef with abundant marine life.",
     amenities: ["None — bring everything"],
@@ -473,7 +473,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 17, name: "Playa Mar Chiquita", municipality: "Manatí", region: "North Central",
-    coords: { lat: 18.492, lng: -66.516 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47285, lng: -66.48545 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural pool formed by a horseshoe-shaped rock formation. Turquoise water enters through two channels creating an almost perfect semi-circle. One of PR's most photographed beaches.",
     amenities: ["Limited parking", "Small food kiosk"],
@@ -497,7 +497,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 18, name: "Poza de las Mujeres", municipality: "Manatí", region: "North Central",
-    coords: { lat: 18.496, lng: -66.487 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47699, lng: -66.50667 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden series of natural tidal pools along Manatí's coastline. Crystal-clear shallow pools formed by the rocky coast. Popular with locals for a calm swimming experience.",
     amenities: ["Free roadside parking"],
@@ -521,7 +521,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 19, name: "Playa Cerro Gordo (Balneario)", municipality: "Vega Alta", region: "North Central",
-    coords: { lat: 18.49, lng: -66.381 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach with calm waters protected by a natural cove. Popular with families. Surrounded by lush vegetation and coconut palms.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
@@ -545,10 +545,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 20, name: "Playa Survival", municipality: "Aguadilla", region: "Northwest",
-    coords: { lat: 18.502, lng: -67.16 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.50803, lng: -67.13617 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden gem accessible only by trail. Dramatic cliffs frame this secluded beach. Not great for swimming but spectacular for scenery and photography.",
-    amenities: ["Free trailhead parking"],
+    amenities: ["None — bring everything"],
     tips: "Requires a hike through vegetation. NOT safe for swimming — strong currents and rocky bottom. Best for photographs and exploring. Bring water and sturdy shoes.",
     riskLevel: "extreme",
     conditions: {
@@ -569,7 +569,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 21, name: "Playa El Combate", municipality: "Cabo Rojo", region: "Southwest",
-    coords: { lat: 17.977, lng: -67.205 }, buoyStation: "42085", surfZone: "prz011", // Southwest
+    coords: { lat: 17.97676, lng: -67.21276 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A long stretch of beach on PR's southwest coast near the salt flats. Shallow, warm Caribbean waters. Starting point for the Cabo Rojo bike trail.",
     amenities: ["Parking", "Restaurants", "Some kiosks"],
@@ -593,10 +593,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 22, name: "Playa Steps (Tres Palmas)", municipality: "Rincón", region: "West",
-    coords: { lat: 18.348, lng: -67.265 }, buoyStation: "41115", surfZone: "prz010", // West
+    coords: { lat: 18.3497, lng: -67.26423 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Part of the Tres Palmas Marine Reserve, protecting PR's most treasured elkhorn coral. Excellent snorkeling spot and popular surf break.",
-    amenities: ["Free roadside parking"],
+    amenities: ["None — bring supplies"],
     tips: "Named for the concrete steps leading to the water. In summer calm waters are great for snorkeling the reef. In winter, surfing only — dangerous for swimmers. Marine reserve — don't touch coral.",
     riskLevel: "high",
     conditions: {
@@ -617,7 +617,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 23, name: "Balneario de Rincón", municipality: "Rincón", region: "West",
-    coords: { lat: 18.342, lng: -67.253 }, buoyStation: "41115", surfZone: "prz010", // West
+    coords: { lat: 18.34042, lng: -67.25497 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most family-friendly beach in Rincón with calm waters and good facilities. A balneario (government-managed beach) with amenities most Rincón beaches lack.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Playground"],
@@ -641,10 +641,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 24, name: "Playa María's", municipality: "Rincón", region: "West",
-    coords: { lat: 18.374, lng: -67.268 }, buoyStation: "41115", surfZone: "prz010", // West
+    coords: { lat: 18.35811, lng: -67.26946 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Rincón's iconic surf breaks, famous worldwide. Named after a nearby restaurant. Draws surfers from around the globe during winter swell season.",
-    amenities: ["Free roadside parking", "Surf shops nearby"],
+    amenities: ["None — surf shops nearby"],
     tips: "FOR EXPERIENCED SURFERS ONLY during winter. In summer, calmer conditions allow casual swimming. Watch from the beach bars above if you're not surfing.",
     riskLevel: "extreme",
     conditions: {
@@ -665,7 +665,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 25, name: "Playa Caña Gorda (Balneario)", municipality: "Guánica", region: "Southwest",
-    coords: { lat: 17.954, lng: -66.871 }, buoyStation: "42085", surfZone: "prz011", // Southwest
+    coords: { lat: 17.95298, lng: -66.88402 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most visited beaches in southern PR. Calm Caribbean waters with a beautiful backdrop of the Guánica Dry Forest. Great for snorkeling and families.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas", "Playground"],
@@ -689,7 +689,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 26, name: "Playa Santa", municipality: "Guánica", region: "Southwest",
-    coords: { lat: 17.958, lng: -66.908 }, buoyStation: "42085", surfZone: "prz011", // Southwest
+    coords: { lat: 17.93703, lng: -66.95485 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Small, calm Caribbean beach in Guánica. Clear shallow waters with a laid-back local vibe. Less crowded than neighboring Caña Gorda.",
     amenities: ["Limited parking", "Small restaurant"],
@@ -713,7 +713,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 27, name: "Playa Punta Santiago", municipality: "Humacao", region: "Southeast",
-    coords: { lat: 18.168, lng: -65.778 }, buoyStation: "41056", surfZone: "prz003", // East coast
+    coords: { lat: 18.1538, lng: -65.76299 }, buoyStation: "41056", surfZone: "prz003", // East coast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A wide beach on the southeast coast near the Palmas del Mar resort area. Known for its calm waters and views of Monkey Island (Cayo Santiago).",
     amenities: ["Restrooms", "Parking", "Picnic areas"],
@@ -737,7 +737,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 28, name: "Playa Punta Tuna", municipality: "Maunabo", region: "Southeast",
-    coords: { lat: 17.998, lng: -65.882 }, buoyStation: "41056", surfZone: "prz003", // East/Southeast
+    coords: { lat: 17.99049, lng: -65.88394 }, buoyStation: "41056", surfZone: "prz003", // East/Southeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded nature reserve beach on the southeast coast with a historic lighthouse (Faro Punta Tuna). Leaning palm trees and unspoiled coastline.",
     amenities: ["Free limited parking"],
@@ -761,7 +761,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 29, name: "Playa Pelicano (Caja de Muertos)", municipality: "Ponce", region: "South Central",
-    coords: { lat: 17.891, lng: -66.529 }, buoyStation: "42085", surfZone: "prz005", // South Central
+    coords: { lat: 17.88549, lng: -66.52809 }, buoyStation: "42085", surfZone: "prz005", // South Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "On the uninhabited Caja de Muertos (Coffin Island) off Ponce's coast. Pristine white sand and incredibly clear turquoise water. Accessible only by boat.",
     amenities: ["Basic restrooms", "Pavilions"],
@@ -785,10 +785,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 30, name: "Playa Peña Blanca", municipality: "Aguadilla", region: "Northwest",
-    coords: { lat: 18.487, lng: -67.155 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.47229, lng: -67.16892 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A quieter alternative to nearby Crash Boat. Small rocky cove with clear waters, popular for snorkeling. Less crowded and more intimate.",
-    amenities: ["Free limited parking"],
+    amenities: ["Limited parking"],
     tips: "Calmer than Crash Boat but still check conditions. Good snorkeling near the rocks. Limited parking and facilities. Bring your own supplies.",
     riskLevel: "moderate",
     conditions: {
@@ -809,10 +809,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 31, name: "Playa Guajataca", municipality: "Quebradillas", region: "Northwest",
-    coords: { lat: 18.486, lng: -66.937 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.48921, lng: -66.95935 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A dramatic beach framed by limestone cliffs and a railroad tunnel. Part of the Guajataca State Forest area. Known for powerful waves and dramatic scenery.",
-    amenities: ["Free parking", "Food kiosks"],
+    amenities: ["Parking", "Food kiosks"],
     tips: "NOT recommended for swimming — powerful waves and dangerous currents. Best for photography and wave watching. The nearby Guajataca Tunnel is a landmark.",
     riskLevel: "extreme",
     conditions: {
@@ -833,10 +833,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 32, name: "Playa Montones", municipality: "Isabela", region: "Northwest",
-    coords: { lat: 18.51, lng: -67.039 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.51479, lng: -67.06479 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Home to one of PR's most Instagram-famous natural pools — a semi-circle formation similar to Mar Chiquita. Also known as 'Blue Hole' or 'La Poza' area.",
-    amenities: ["Free roadside parking"],
+    amenities: ["Limited — natural pools area nearby"],
     tips: "Natural pools are best at low tide. Rocks are slippery — wear water shoes. Not suitable for swimming in the open ocean area. Check tide tables before visiting.",
     riskLevel: "high",
     conditions: {
@@ -857,7 +857,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 33, name: "Playa Dorado (Balneario)", municipality: "Dorado", region: "North Central",
-    coords: { lat: 18.479, lng: -66.268 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach in the resort town of Dorado. Long stretch of sand with facilities and relatively calm conditions for the north coast.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -880,12 +880,12 @@ const BEACHES: Beach[] = [
     ],
   },
   {
-    id: 34, name: "Playa Tortuga (Culebrita)", municipality: "Culebra", region: "East Islands",
-    coords: { lat: 18.32, lng: -65.24 }, buoyStation: "41056", surfZone: "prz012", // Culebra
+    id: 34, name: "Playa Navio", municipality: "Vieques", region: "East Islands",
+    coords: { lat: 18.09243, lng: -65.44485 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "On the tiny uninhabited island of Culebrita. Crystal-clear Caribbean waters, white sand, and sea turtles. Often cited as the most beautiful beach in all of Puerto Rico.",
+    description: "A beautiful secluded beach on Vieques' south coast within the Wildlife Refuge. White sand and turquoise water that's remarkably calm and clear. One of the least visited beaches despite being one of the most stunning.",
     amenities: ["None — uninhabited island"],
-    tips: "Boat access only — hire a water taxi from Culebra. Bring everything: water, food, sunscreen, shade. Sea turtles frequent the bay. Also explore the historic lighthouse.",
+    tips: "Inside the Wildlife Refuge — check gate hours. Very secluded, often nearly empty. Calm, clear waters great for swimming. Dirt road access. Arrive early for the best experience with minimal crowds.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "ENE",
@@ -905,10 +905,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 35, name: "Playa Caracas (Red Beach)", municipality: "Vieques", region: "East Islands",
-    coords: { lat: 18.102, lng: -65.443 }, buoyStation: "41056", surfZone: "prz013", // Vieques
+    coords: { lat: 18.10953, lng: -65.41273 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "One of the most popular beaches in the Vieques Wildlife Refuge. Named for its reddish sand, this beach offers calm waters and easy access compared to other refuge beaches.",
-    amenities: ["Gazebos", "Basic restrooms"],
+    description: "One of the most popular beaches in the Vieques Wildlife Refuge. Named for its reddish sand, this beach offers calm waters and easy access compared to other refuge beaches. A great first stop on a Vieques beach tour.",
+    amenities: ["Gazebos", "Restrooms (basic)"],
     tips: "Inside the Wildlife Refuge — gate hours apply. Easier access than La Chiva. Bring supplies as facilities are basic. Good snorkeling near rocky areas.",
     riskLevel: "low",
     conditions: {
@@ -929,11 +929,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 36, name: "Zoni Beach", municipality: "Culebra", region: "East Islands",
-    coords: { lat: 18.332, lng: -65.278 }, buoyStation: "41056", surfZone: "prz012", // Culebra
+    coords: { lat: 18.32014, lng: -65.2551 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "A less crowded alternative to Flamenco Beach with equally stunning diamond-dust sand and crystal-clear waters. Sea turtles nest here between April and June.",
-    amenities: ["Free roadside parking"],
-    tips: "Quieter than Flamenco. Watch for turtle nesting sites Apr–Jun. No facilities — bring all supplies including shade. Great spot to set up a hammock between trees.",
+    description: "A less crowded alternative to Flamenco Beach with equally stunning diamond-dust sand and crystal-clear waters. Sea turtles nest here between April and June. Natural caves and sea grape vines add to its wild beauty.",
+    amenities: ["None — bring everything"],
+    tips: "Quieter than Flamenco. Watch for turtle nesting sites Apr-Jun. No facilities — bring all supplies including shade. Great spot to set up a hammock between trees.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "7s", swellDirection: "E",
@@ -953,10 +953,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 37, name: "Sandy Beach", municipality: "Rincón", region: "West",
-    coords: { lat: 18.356, lng: -67.247 }, buoyStation: "41115", surfZone: "prz010", // West
+    coords: { lat: 18.37065, lng: -67.2587 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A popular surf beach in Rincón with a wide sandy shoreline. More beginner-friendly than Domes or María's during moderate conditions. The laid-back beach town vibe makes it a favorite for both locals and visitors.",
-    amenities: ["Free roadside parking", "Restaurants nearby"],
+    amenities: ["Parking", "Restaurants nearby"],
     tips: "Better for beginner surfers than other Rincón breaks. In summer conditions are calmer for swimming. Nearby restaurants and accommodation make it convenient for extended stays.",
     riskLevel: "moderate",
     conditions: {
@@ -977,9 +977,9 @@ const BEACHES: Beach[] = [
   },
   {
     id: 38, name: "Cayo Icacos", municipality: "Fajardo", region: "Northeast",
-    coords: { lat: 18.385, lng: -65.575 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    coords: { lat: 18.38432, lng: -65.59169 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "A small uninhabited island off Fajardo's coast with some of the clearest water on Puerto Rico's east coast. Long strips of reef alongside an abandoned pier host abundant marine life.",
+    description: "A small uninhabited island off Fajardo's coast with some of the clearest water on Puerto Rico's east coast. Long strips of reef alongside an abandoned pier host abundant marine life. Accessible by water taxi or catamaran tour.",
     amenities: ["None — uninhabited cay"],
     tips: "Book a boat tour from Fajardo. The water clarity here is exceptional for snorkeling. Bring everything — no facilities. Popular with catamaran tours from Fajardo.",
     riskLevel: "low",
@@ -1001,9 +1001,9 @@ const BEACHES: Beach[] = [
   },
   {
     id: 39, name: "Esperanza Beach", municipality: "Vieques", region: "East Islands",
-    coords: { lat: 18.093, lng: -65.471 }, buoyStation: "41056", surfZone: "prz013", // Vieques
+    coords: { lat: 18.09467, lng: -65.47127 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "A town beach along Vieques' Esperanza malecón (boardwalk). Calm Caribbean waters with a lively waterfront lined with restaurants and bars.",
+    description: "A town beach along Vieques' Esperanza malecón (boardwalk). Calm Caribbean waters with a lively waterfront lined with restaurants and bars. The most accessible beach in Vieques — no car needed if staying in Esperanza.",
     amenities: ["Restaurants nearby", "Malecón boardwalk"],
     tips: "Walk-to beach from Esperanza town. Calm waters for swimming. Great sunset spot. The malecón has restaurants and bars — try the local seafood. Good starting point for bioluminescent bay tours.",
     riskLevel: "low",
@@ -1025,10 +1025,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 40, name: "Poza del Obispo", municipality: "Arecibo", region: "North Central",
-    coords: { lat: 18.494, lng: -66.715 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.48193, lng: -66.69678 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural beach pool where ocean waves crash over coral reefs into a calm, sheltered pool. The golden sand and dramatic wave action make it one of the most unique beach experiences in Puerto Rico.",
-    amenities: ["Free limited parking"],
+    amenities: ["Limited parking"],
     tips: "Best visited when waves are moderate — too calm and the pool doesn't fill, too rough and it's dangerous. Wear water shoes on the reef. Great for photography. Not suitable for traditional swimming.",
     riskLevel: "high",
     conditions: {
@@ -1049,11 +1049,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 41, name: "Playa Escondida", municipality: "Fajardo", region: "Northeast",
-    coords: { lat: 18.355, lng: -65.628 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    coords: { lat: 18.37687, lng: -65.6453 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded beach accessible by hiking trail from Seven Seas Beach. Protected by a coral wall creating a shallow, calm area. Surrounded by lush rainforest scenery from nearby El Yunque.",
     amenities: ["None — hike-in only"],
-    tips: "Must hike from Seven Seas Beach. Waters may appear calm but dangerous currents exist — people have drowned here. Stay in the coral-protected shallow area only.",
+    tips: "Must hike from Seven Seas Beach. The trail also connects to Playa Colorá. Waters may appear calm but dangerous currents exist — people have drowned here. Stay in the coral-protected shallow area only.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "E",
@@ -1073,10 +1073,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 42, name: "Playa Puerto Hermina", municipality: "Quebradillas", region: "Northwest",
-    coords: { lat: 18.479, lng: -66.94 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.48371, lng: -66.90212 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A charming small beach tucked between dramatic limestone cliffs in Quebradillas. The sheltered cove provides calmer conditions than nearby open-coast beaches. A local favorite that rarely appears in tourist guides.",
-    amenities: ["Free limited parking"],
+    amenities: ["Limited parking"],
     tips: "Sheltered cove is calmer than open north coast. Limited parking — arrive early. The cliffs provide some afternoon shade. A quieter alternative to busier northwest beaches.",
     riskLevel: "moderate",
     conditions: {
@@ -1097,11 +1097,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 43, name: "Balneario Puerto Nuevo", municipality: "Vega Baja", region: "North Central",
-    coords: { lat: 18.497, lng: -66.398 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz009", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families.",
+    description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families. Soft golden sand and postcard-worthy views.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
-    tips: "The rock formations create a natural barrier making this one of the calmest north coast beaches. Blue Flag certified — high water quality and safety standards. Great for photography at golden hour.",
+    tips: "The rock formations create a natural barrier making this one of the calmest north coast beaches. Blue Flag certified — high water quality and safety standards. Great for photography at golden hour. Gets busy on weekends.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "NE",
@@ -1121,11 +1121,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 44, name: "Playita del Condado", municipality: "San Juan", region: "Metro",
-    coords: { lat: 18.457, lng: -66.07 }, buoyStation: "41053", surfZone: "prz001", // Metro
+    coords: { lat: 18.46107, lng: -66.08232 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the smallest and most charming beaches in San Juan. Calm, shallow waters tucked between the Condado lagoon bridge and the hotel strip. A hidden family-friendly gem popular with locals.",
     amenities: ["None — walk from Condado hotels"],
-    tips: "No parking — walk from Condado district toward Puente Dos Hermanos. Calm, shallow water perfect for small children. Less crowded than main Condado Beach.",
+    tips: "No parking — walk from Condado district toward Puente Dos Hermanos. Calm, shallow water perfect for small children. Less crowded than main Condado Beach. Protected from strong ocean currents.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "NE",
@@ -1145,10 +1145,10 @@ const BEACHES: Beach[] = [
   },
   {
     id: 45, name: "Playa Negra (Black Sand Beach)", municipality: "Vieques", region: "East Islands",
-    coords: { lat: 18.1, lng: -65.437 }, buoyStation: "41056", surfZone: "prz013", // Vieques
+    coords: { lat: 18.09576, lng: -65.49233 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "A dramatic black sand beach on Vieques accessible by a short hike through lush forest. The volcanic sand contrasts beautifully with bright blue water, creating an otherworldly setting. Rarely crowded.",
-    amenities: ["Free hike-in parking"],
+    description: "A dramatic black sand beach on Vieques accessible by a short hike through lush forest. The volcanic sand contrasts beautifully with bright blue water, creating an otherworldly setting. Rarely crowded — a true hidden gem.",
+    amenities: ["None — bring everything"],
     tips: "Requires short hike through forest. Rarely crowded — expect solitude. The black sand gets extremely hot in direct sun. Bring water shoes and plenty of water. Not ideal for swimming in rough conditions.",
     riskLevel: "high",
     conditions: {
@@ -1169,11 +1169,11 @@ const BEACHES: Beach[] = [
   },
   {
     id: 46, name: "Pozo Teodoro", municipality: "Isabela", region: "Northwest",
-    coords: { lat: 18.513, lng: -67.058 }, buoyStation: "41121", surfZone: "prz008", // Northwest
+    coords: { lat: 18.5139, lng: -67.03619 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
-    description: "A natural tidal pool near Jobos Beach where waves break over rock formations creating shallow, calm waters. A local family favorite offering a safe wading experience for children.",
+    description: "A natural tidal pool near Jobos Beach where waves break over rock formations creating shallow, calm waters — similar to Mar Chiquita. A local family favorite offering a safe wading experience for children.",
     amenities: ["Free parking"],
-    tips: "Just minutes from Jobos Beach. Waves break over rocks creating a calm shallow pool. Best at low to moderate tide. Wear water shoes on the rocks.",
+    tips: "Just minutes from Jobos Beach. Waves break over rocks creating a calm shallow pool. Best at low to moderate tide. Wear water shoes on the rocks. A much safer alternative to swimming at Jobos.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "3-5 ft", swellPeriod: "10s", swellDirection: "NNW",
@@ -1193,7 +1193,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 47, name: "Playa Colorá", municipality: "Fajardo", region: "Northeast",
-    coords: { lat: 18.356, lng: -65.626 }, buoyStation: "41053", surfZone: "prz002", // Northeast
+    coords: { lat: 18.37717, lng: -65.64114 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Named for its distinctive reddish-colored sand, this secluded beach is reached by hiking from Seven Seas Beach. Turquoise waters contrast dramatically with the rust-toned sand. A true hidden gem for adventurous visitors.",
     amenities: ["None — hike-in only"],
