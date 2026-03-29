@@ -734,7 +734,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 29, name: "Playa Pelicano (Caja de Muertos)", municipality: "Ponce", region: "South Central",
-    coords: { lat: 17.88549, lng: -66.52809 }, buoyStation: "42085", surfZone: "prz005", // South Central
+    coords: { lat: 17.88549, lng: -66.52809 }, buoyStation: "42085", surfZone: "prz007", // South Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "On the uninhabited Caja de Muertos (Coffin Island) off Ponce's coast. Pristine white sand and incredibly clear turquoise water. Accessible only by boat.",
     amenities: ["Basic restrooms", "Pavilions"],
