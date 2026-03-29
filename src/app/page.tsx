@@ -2383,7 +2383,6 @@ export default function PlayaSeguraPR() {
       {/* ── First-visit disclaimer modal ─────────────────────────────────────── */}
       {showDisclaimer && (
         <div
-          onClick={dismissDisclaimer}
           style={{
             position: "fixed", inset: 0, zIndex: 1000,
             background: "rgba(3,9,18,0.82)", backdropFilter: "blur(6px)",
