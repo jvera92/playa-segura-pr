@@ -1909,13 +1909,10 @@ export default function PlayaSeguraPR() {
   const [, setClockTick] = useState(0); // triggers re-render for "X min ago" display
 
   useEffect(() => {
-    if (!localStorage.getItem("playa_segura_disclaimer_seen")) {
-      setShowDisclaimer(true);
-    }
+    setShowDisclaimer(true);
   }, []);
 
   const dismissDisclaimer = () => {
-    localStorage.setItem("playa_segura_disclaimer_seen", "1");
     setShowDisclaimer(false);
   };
 
@@ -2463,9 +2460,6 @@ export default function PlayaSeguraPR() {
             >
               I understand — Show me the beaches
             </button>
-            <p style={{ margin: "12px 0 0", textAlign: "center", fontSize: "11px", color: "#334155" }}>
-              This message won't appear again on this device.
-            </p>
           </div>
         </div>
       )}
