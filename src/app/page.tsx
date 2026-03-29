@@ -458,7 +458,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 17, name: "Playa Mar Chiquita", municipality: "Manatí", region: "North Central",
-    coords: { lat: 18.47285, lng: -66.48545 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47285, lng: -66.48545 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural pool formed by a horseshoe-shaped rock formation. Turquoise water enters through two channels creating an almost perfect semi-circle. One of PR's most photographed beaches.",
     amenities: ["Limited parking", "Small food kiosk"],
@@ -481,7 +481,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 18, name: "Poza de las Mujeres", municipality: "Manatí", region: "North Central",
-    coords: { lat: 18.47699, lng: -66.50667 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47699, lng: -66.50667 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden series of natural tidal pools along Manatí's coastline. Crystal-clear shallow pools formed by the rocky coast. Popular with locals for a calm swimming experience.",
     amenities: ["Free roadside parking"],
@@ -504,7 +504,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 19, name: "Playa Cerro Gordo (Balneario)", municipality: "Vega Alta", region: "North Central",
-    coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach with calm waters protected by a natural cove. Popular with families. Surrounded by lush vegetation and coconut palms.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
@@ -826,7 +826,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 33, name: "Playa Dorado (Balneario)", municipality: "Dorado", region: "North Central",
-    coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach in the resort town of Dorado. Long stretch of sand with facilities and relatively calm conditions for the north coast.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -987,7 +987,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 40, name: "Poza del Obispo", municipality: "Arecibo", region: "North Central",
-    coords: { lat: 18.48193, lng: -66.69678 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.48193, lng: -66.69678 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural beach pool where ocean waves crash over coral reefs into a calm, sheltered pool. The golden sand and dramatic wave action make it one of the most unique beach experiences in Puerto Rico.",
     amenities: ["Limited parking"],
@@ -1056,7 +1056,7 @@ const BEACHES: Beach[] = [
   },
   {
     id: 43, name: "Balneario Puerto Nuevo", municipality: "Vega Baja", region: "North Central",
-    coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz009", // North Central
+    coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families. Soft golden sand and postcard-worthy views.",
     amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
