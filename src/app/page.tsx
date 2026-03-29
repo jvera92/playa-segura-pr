@@ -1381,43 +1381,6 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
             </span>
           </div>
         )}
-        <div style={{ position: "absolute", top: "12px", right: "12px" }}>
-          {liveData?.weather ? (
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: "5px",
-              background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
-              borderRadius: "99px", padding: "4px 10px",
-              fontSize: "12px", fontWeight: 600, color: "#e2e8f0",
-              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
-              border: "1px solid rgba(255,255,255,0.12)",
-            }}>
-              <WeatherIcon iconKey={forecastIcon(liveData.weather.shortForecast)} size={13} />
-              {conditionLabel(liveData.weather.shortForecast)}
-            </span>
-          ) : liveData?.error ? (
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: "5px",
-              background: "rgba(239,68,68,0.15)", backdropFilter: "blur(8px)",
-              borderRadius: "99px", padding: "4px 10px",
-              fontSize: "11px", fontWeight: 600, color: "#f87171",
-              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
-              border: "1px solid rgba(239,68,68,0.3)",
-            }}>
-              <AlertTriangle size={11} /> Data unavailable
-            </span>
-          ) : (
-            <span style={{
-              display: "inline-flex", alignItems: "center",
-              background: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)",
-              borderRadius: "99px", padding: "4px 12px",
-              fontSize: "13px", color: "#334155",
-              border: "1px solid rgba(255,255,255,0.06)",
-              letterSpacing: "0.1em",
-            }}>
-              · · ·
-            </span>
-          )}
-        </div>
       </div>
       <div style={{ padding: "16px 20px 20px" }}>
         <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
@@ -1439,6 +1402,14 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
             </a>
           ) : (
             <>
+              {liveData?.weather ? (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  <WeatherIcon iconKey={forecastIcon(liveData.weather.shortForecast)} size={12} />
+                  {conditionLabel(liveData.weather.shortForecast)}
+                </span>
+              ) : (
+                <span style={{ color: "#475569" }}>· · ·</span>
+              )}
               <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Thermometer size={12} /> {liveData?.weather?.airTemp ?? "—"}</span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Wind size={12} /> {liveData?.weather?.wind ?? "—"}</span>
             </>
