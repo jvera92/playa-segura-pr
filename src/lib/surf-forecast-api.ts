@@ -79,7 +79,7 @@ export function parseSurfZoneForecast(zone: string, text: string): SurfZoneForec
       if (inlineText) {
         const surfMatch = inlineText.match(/surf\s+height\s+([\w\s]+?)(?:\.|,|$)/i)
         if (surfMatch) {
-          current.surfHeightText = surfMatch[1].trim()
+          const t = surfMatch[1].trim(); current.surfHeightText = t.charAt(0).toUpperCase() + t.slice(1)
           current.surfHeightFt = parseSurfHeightFt(surfMatch[1])
         }
       }
@@ -101,7 +101,7 @@ export function parseSurfZoneForecast(zone: string, text: string): SurfZoneForec
     const surfMatch = line.match(/^Surf Height[.\s]+(.*?)\.\s*$/i)
     if (surfMatch) {
       const raw = surfMatch[1].trim()
-      current.surfHeightText = raw
+      current.surfHeightText = raw.charAt(0).toUpperCase() + raw.slice(1)
       current.surfHeightFt = parseSurfHeightFt(raw)
     }
   }
