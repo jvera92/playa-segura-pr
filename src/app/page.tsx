@@ -93,7 +93,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.32921, lng: -65.3152 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&h=400&fit=crop",
     description: "Consistently ranked among the world's best beaches. Crystal-clear waters and a wide horseshoe bay surrounded by green hills. Famous for the abandoned military tank on the sand.",
-    amenities: ["Lifeguards (seasonal)", "Restrooms", "Food kiosks", "Parking", "Camping"],
+    amenities: ["Restrooms", "Food kiosks", "Parking", "Camping"],
     tips: "Arrive early on weekends. The left side tends to have calmer waters. Watch for jellyfish during winter months. 15-20 min hike from parking.",
     riskLevel: "moderate",
     conditions: {
@@ -116,7 +116,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.45734, lng: -66.07199 }, buoyStation: "41053", surfZone: "prz001", // San Juan
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Urban beach in the heart of San Juan's hotel district. Popular with tourists but can have strong currents, especially during winter swells.",
-    amenities: ["Lifeguards", "Hotels nearby", "Restaurants", "Water sports rentals"],
+    amenities: ["Hotels nearby", "Restaurants", "Water sports rentals"],
     tips: "Strong currents are common. Swim only in lifeguard-patrolled areas. Eastern section near the Marriott tends to have calmer waters.",
     riskLevel: "high",
     conditions: {
@@ -185,7 +185,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.38487, lng: -65.72941 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=600&h=400&fit=crop",
     description: "One of PR's most family-friendly beaches. Long crescent of calm palm-lined shore with a protective reef. Famous food kiosks nearby.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking ($5)", "Food kiosks", "Accessibility ramps"],
+    amenities: ["Restrooms", "Showers", "Parking ($5)", "Food kiosks", "Accessibility ramps"],
     tips: "The reef protects from strong waves, excellent for families. The famous 'kioskos' are a 5-min walk east — try the alcapurrias.",
     riskLevel: "low",
     conditions: {
@@ -277,7 +277,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.46711, lng: -66.08997 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "San Juan's best beach for snorkeling. A reef barrier creates calm, clear waters perfect for swimming. Located between Puerta de Tierra and Condado with ruins of an 18th-century artillery battery nearby.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
+    amenities: ["Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
     tips: "Reef-protected waters are calm and ideal for snorkeling. Scuba Dogs offers gear rentals. Arrive early for parking. Blue Flag certified beach.",
     riskLevel: "low",
     conditions: {
@@ -300,7 +300,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.36979, lng: -65.63585 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Dreamy crescent beach with calm, clear waters. One of the best-maintained public beaches (balneario) in PR. Starting point for hiking to Playa Escondida.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
+    amenities: ["Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
     tips: "Calm waters ideal for families and snorkeling. Gets busy on weekends. Camping available with permit. Starting point for trail to the more secluded Playa Escondida.",
     riskLevel: "low",
     conditions: {
@@ -323,7 +323,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.01981, lng: -67.17198 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular public beaches on the southwest coast. Long stretch of calm Caribbean water with white sand. Lively atmosphere with vendors and restaurants.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
+    amenities: ["Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
     tips: "Calm waters perfect for families. Gets very crowded on weekends and holidays. The town of Boquerón has excellent seafood restaurants. Blue Flag certified.",
     riskLevel: "low",
     conditions: {
@@ -369,7 +369,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.44517, lng: -66.01406 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Long stretch of golden sand lined with high-rise hotels and resorts. One of the most accessible beaches from the airport. Active water sports scene.",
-    amenities: ["Lifeguards", "Hotels", "Restaurants", "Water sports", "Chair/umbrella rentals"],
+    amenities: ["Hotels", "Restaurants", "Water sports", "Chair/umbrella rentals"],
     tips: "Western end near the hotels has calmer waters. Eastern end can have stronger currents. Plenty of amenities and food options within walking distance.",
     riskLevel: "moderate",
     conditions: {
@@ -507,7 +507,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach with calm waters protected by a natural cove. Popular with families. Surrounded by lush vegetation and coconut palms.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
+    amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
     tips: "Calm waters in the main cove. Left side has better snorkeling. Gets very busy on holidays. Camping available with reservation.",
     riskLevel: "low",
     conditions: {
@@ -599,7 +599,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.34042, lng: -67.25497 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most family-friendly beach in Rincón with calm waters and good facilities. A balneario (government-managed beach) with amenities most Rincón beaches lack.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Playground"],
+    amenities: ["Restrooms", "Showers", "Parking", "Playground"],
     tips: "Calmer than other Rincón beaches. Good for families. The playground makes it good for kids. Visit in summer for calmest conditions.",
     riskLevel: "low",
     conditions: {
@@ -645,7 +645,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.95298, lng: -66.88402 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most visited beaches in southern PR. Calm Caribbean waters with a beautiful backdrop of the Guánica Dry Forest. Great for snorkeling and families.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas", "Playground"],
+    amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Playground"],
     tips: "Calm waters ideal for children. Good snorkeling along the edges. Near the Guánica Dry Forest (UNESCO Biosphere Reserve) for hiking. Bring reef-safe sunscreen.",
     riskLevel: "low",
     conditions: {
@@ -829,7 +829,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach in the resort town of Dorado. Long stretch of sand with facilities and relatively calm conditions for the north coast.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
+    amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
     tips: "Good for families. Near the Dorado resort area. Can have moderate surf — check conditions. Less crowded on weekdays.",
     riskLevel: "low",
     conditions: {
@@ -1059,7 +1059,7 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families. Soft golden sand and postcard-worthy views.",
-    amenities: ["Lifeguards", "Restrooms", "Showers", "Parking", "Picnic areas"],
+    amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
     tips: "The rock formations create a natural barrier making this one of the calmest north coast beaches. Blue Flag certified — high water quality and safety standards. Great for photography at golden hour. Gets busy on weekends.",
     riskLevel: "low",
     conditions: {
