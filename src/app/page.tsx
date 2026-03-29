@@ -1406,7 +1406,8 @@ function ConditionBlock({ label, value, icon, accent }: {
 function ForecastRow({ f }: { f: ForecastDay }) {
   return (
     <div style={{
-      display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 80px 1fr",
+      display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
+      columnGap: "8px",
       alignItems: "center", padding: "12px 16px", fontSize: "13px",
       borderBottom: "1px solid rgba(255,255,255,0.04)",
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", color: "#cbd5e1",
@@ -1761,7 +1762,8 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", marginBottom: "28px",
         }}>
           <div style={{
-            display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 80px 1fr",
+            display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
+            columnGap: "8px",
             padding: "10px 16px", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.06em",
             color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
             borderBottom: "1px solid rgba(255,255,255,0.06)",
