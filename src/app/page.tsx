@@ -1378,29 +1378,29 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
         }}>
           {beach.description}
         </p>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "8px 12px", fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
           {liveData?.error ? (
             <a
               href="https://www.weather.gov/sju/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
-              style={{ fontSize: "11px", color: "#f87171", textDecoration: "none", fontWeight: 600 }}
+              style={{ fontSize: "11px", color: "#f87171", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}
             >
               Data unavailable · Check NWS ↗
             </a>
           ) : (
             <>
               {liveData?.weather ? (
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", whiteSpace: "nowrap" }}>
                   <WeatherIcon iconKey={forecastIcon(liveData.weather.shortForecast)} size={12} />
                   {conditionLabel(liveData.weather.shortForecast)}
                 </span>
               ) : (
                 <span style={{ color: "#334155" }}>· · ·</span>
               )}
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Thermometer size={12} /> {liveData?.weather?.airTemp ?? "—"}</span>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><Wind size={12} /> {liveData?.weather?.wind ?? "—"}</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", whiteSpace: "nowrap" }}><Thermometer size={12} /> {liveData?.weather?.airTemp ?? "—"}</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", whiteSpace: "nowrap" }}><Wind size={12} /> {liveData?.weather?.wind ?? "—"}</span>
             </>
           )}
         </div>
