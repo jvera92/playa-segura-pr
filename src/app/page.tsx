@@ -44,8 +44,6 @@ interface BeachConditions {
   nextHighTide: string;
   nextLowTide: string;
   ripCurrentRisk: string;
-  surfAdvisory: boolean;
-  advisoryText: string;
 }
 
 interface Beach {
@@ -103,8 +101,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "87°F", humidity: "74%",
       uvIndex: 11, wind: "15 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:45 PM", nextLowTide: "9:12 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: true,
-      advisoryText: "Moderate rip currents possible near rocky areas on the east side. Stay in designated swimming zones.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "30%", surf: "2-3 ft", risk: "moderate" },
@@ -127,8 +124,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "86°F", humidity: "78%",
       uvIndex: 10, wind: "18 mph NE", visibility: "Good",
       tideStatus: "Falling", nextHighTide: "8:30 PM", nextLowTide: "2:15 PM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "HIGH RIP CURRENT RISK. NWS has issued a Beach Hazards Statement. Strong longshore and rip currents expected. Swimming is dangerous for all skill levels.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "86°F", low: "76°F", precip: "25%", surf: "4-6 ft",  risk: "high" },
@@ -151,8 +147,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "88°F", humidity: "70%",
       uvIndex: 12, wind: "10 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "4:00 PM", nextLowTide: "10:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Conditions are favorable for swimming. Use caution near rocky edges.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun", high: "88°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -175,8 +170,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "86°F", humidity: "76%",
       uvIndex: 11, wind: "14 mph NNE", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:15 PM", nextLowTide: "9:45 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: true,
-      advisoryText: "Moderate surf and currents on the open-water side. Swim near the pier breakwater for calmer conditions. Use caution when jumping from pier.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny", high: "86°F", low: "75°F", precip: "20%", surf: "3-4 ft", risk: "moderate" },
@@ -199,8 +193,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "12 mph ESE", visibility: "Excellent",
       tideStatus: "High", nextHighTide: "1:00 PM", nextLowTide: "7:30 PM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Reef-protected waters are calm and suitable for all swimmers. Supervise children near deeper reef channels.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun", high: "87°F", low: "76°F", precip: "15%", surf: "0.5-1 ft", risk: "low" },
@@ -223,8 +216,7 @@ const BEACHES: Beach[] = [
       waterTemp: "79°F", airTemp: "84°F", humidity: "80%",
       uvIndex: 9, wind: "20 mph NW", visibility: "Fair",
       tideStatus: "Falling", nextHighTide: "9:00 PM", nextLowTide: "3:00 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "DANGEROUS CONDITIONS. Large northwest swell producing powerful surf and extreme rip currents. DO NOT enter the water unless you are an experienced surfer. NWS High Surf Warning in effect.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "wind", high: "84°F", low: "74°F", precip: "35%", surf: "8-12 ft",  risk: "extreme" },
@@ -247,8 +239,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "77%",
       uvIndex: 10, wind: "16 mph N", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "4:30 PM", nextLowTide: "10:45 AM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "High surf and dangerous rip currents. Rocky bottom poses additional hazards. Swimming not recommended. For experienced surfers only.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "85°F", low: "75°F", precip: "25%", surf: "5-7 ft", risk: "high" },
@@ -271,8 +262,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "89°F", humidity: "68%",
       uvIndex: 12, wind: "8 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "5:15 PM", nextLowTide: "11:00 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm Caribbean waters. Safe for swimming. Extreme UV — reapply sunscreen every 90 minutes.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun", high: "89°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -295,8 +285,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "87°F", humidity: "74%",
       uvIndex: 10, wind: "12 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Reef-protected waters are calm. Some currents outside the reef barrier — stay inside the marked swimming area.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -319,8 +308,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "11 mph ESE", visibility: "Excellent",
       tideStatus: "High", nextHighTide: "1:30 PM", nextLowTide: "7:45 PM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm waters ideal for all swimmers. Currents possible near the edges of the bay — stay within the marked area.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "0.5-1 ft", risk: "low" },
@@ -343,8 +331,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "89°F", humidity: "69%",
       uvIndex: 12, wind: "8 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "5:00 PM", nextLowTide: "11:15 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm Caribbean waters ideal for families. Strong UV — reapply sunscreen frequently.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "89°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -367,8 +354,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "86°F", humidity: "76%",
       uvIndex: 10, wind: "16 mph NE", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "2:30 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Moderate rip current risk. No lifeguard on duty. Strong currents possible — experienced swimmers only.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "86°F", low: "75°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
@@ -391,8 +377,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "86°F", humidity: "75%",
       uvIndex: 10, wind: "14 mph NE", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Moderate surf conditions. Swim in lifeguard-patrolled areas. Eastern end may have stronger currents.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "86°F", low: "75°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
@@ -415,8 +400,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "88°F", humidity: "70%",
       uvIndex: 11, wind: "9 mph ESE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "4:30 PM", nextLowTide: "10:45 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm waters ideal for swimming. Check gate closing times before visiting.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "88°F", low: "76°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -439,8 +423,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "88°F", humidity: "71%",
       uvIndex: 12, wind: "10 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. No lifeguard or facilities. Check refuge gate hours. Extreme UV — apply sunscreen frequently.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "88°F", low: "76°F", precip: "5%",  surf: "1-2 ft", risk: "low" },
@@ -463,8 +446,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "87°F", humidity: "73%",
       uvIndex: 11, wind: "12 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:45 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "No active advisories. Strong currents outside the reef — stay inside the reef zone. No lifeguard, strenuous hike required.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -487,8 +469,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "76%",
       uvIndex: 10, wind: "15 mph N", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "Strong currents through the rock channels. Slippery rocks pose additional hazard. Use caution and keep children away from the channels.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "85°F", low: "74°F", precip: "25%", surf: "3-5 ft", risk: "high" },
@@ -511,8 +492,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "75%",
       uvIndex: 10, wind: "13 mph NNE", visibility: "Good",
       tideStatus: "Low", nextHighTide: "3:30 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Tidal pools are generally calm but ocean swell affects conditions. Visit at low tide. Sharp rocks — wear water shoes. No lifeguard.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "74°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
@@ -535,8 +515,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "86°F", humidity: "74%",
       uvIndex: 10, wind: "11 mph NE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Natural cove provides calm, protected waters. Currents possible outside the cove area.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "86°F", low: "75°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -559,8 +538,7 @@ const BEACHES: Beach[] = [
       waterTemp: "79°F", airTemp: "85°F", humidity: "78%",
       uvIndex: 10, wind: "18 mph NNW", visibility: "Fair",
       tideStatus: "Falling", nextHighTide: "8:00 PM", nextLowTide: "2:30 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "DANGEROUS CONDITIONS. Strong currents and rocky bottom make swimming extremely hazardous. Do not enter the water. For photography and exploration only.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "wind",          high: "85°F", low: "74°F", precip: "35%", surf: "5-8 ft",  risk: "extreme" },
@@ -583,8 +561,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "90°F", humidity: "67%",
       uvIndex: 12, wind: "9 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "5:00 PM", nextLowTide: "11:00 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm, shallow Caribbean waters. Extreme heat and UV — stay hydrated and apply sunscreen frequently.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "90°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -607,8 +584,7 @@ const BEACHES: Beach[] = [
       waterTemp: "79°F", airTemp: "84°F", humidity: "79%",
       uvIndex: 9, wind: "17 mph NW", visibility: "Fair",
       tideStatus: "Falling", nextHighTide: "9:00 PM", nextLowTide: "3:15 PM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "High surf conditions. Marine reserve in effect — do not touch coral. Surfing only during swells. Strong rocky reef entry. No lifeguard.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "wind",          high: "84°F", low: "74°F", precip: "30%", surf: "6-8 ft",  risk: "high" },
@@ -631,8 +607,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "76%",
       uvIndex: 10, wind: "12 mph NW", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calmer conditions for a Rincón beach. Lifeguards on duty. Conditions can change with swells.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "75°F", precip: "20%", surf: "1-2 ft", risk: "low" },
@@ -655,8 +630,7 @@ const BEACHES: Beach[] = [
       waterTemp: "79°F", airTemp: "84°F", humidity: "80%",
       uvIndex: 9, wind: "20 mph NW", visibility: "Fair",
       tideStatus: "Falling", nextHighTide: "9:00 PM", nextLowTide: "3:15 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "DANGEROUS CONDITIONS. World-class surf break with powerful waves and extreme rip currents. DO NOT enter the water unless you are an expert surfer. Rocky reef bottom.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "wind",          high: "84°F", low: "74°F", precip: "35%", surf: "8-12 ft",  risk: "extreme" },
@@ -679,8 +653,7 @@ const BEACHES: Beach[] = [
       waterTemp: "84°F", airTemp: "90°F", humidity: "67%",
       uvIndex: 12, wind: "8 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "5:30 PM", nextLowTide: "11:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm Caribbean waters ideal for families and snorkeling. Watch for sea urchins near rocky areas. Extreme UV.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "90°F", low: "77°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -703,8 +676,7 @@ const BEACHES: Beach[] = [
       waterTemp: "84°F", airTemp: "90°F", humidity: "66%",
       uvIndex: 12, wind: "7 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "5:30 PM", nextLowTide: "11:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Very calm, shallow waters. No lifeguard on duty. Limited shade — bring sunscreen and water.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "90°F", low: "77°F", precip: "5%",  surf: "0.5 ft",   risk: "low" },
@@ -727,8 +699,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "10 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm conditions on the east coast. Good for kayaking and swimming. Monkey Island visible offshore.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -751,8 +722,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "73%",
       uvIndex: 11, wind: "12 mph ESE", visibility: "Good",
       tideStatus: "Falling", nextHighTide: "8:00 PM", nextLowTide: "2:00 PM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Moderate conditions. Currents possible — check before swimming. No lifeguard, remote location. Best for walking and photography.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "87°F", low: "76°F", precip: "15%", surf: "2-3 ft", risk: "moderate" },
@@ -775,8 +745,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "89°F", humidity: "68%",
       uvIndex: 12, wind: "9 mph SE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "4:30 PM", nextLowTide: "10:45 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm Caribbean waters, excellent for snorkeling. No lifeguard. Boat access only — plan accordingly.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "89°F", low: "77°F", precip: "5%",  surf: "1-2 ft", risk: "low" },
@@ -799,8 +768,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "76%",
       uvIndex: 10, wind: "13 mph NNW", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Moderate conditions. Rocky entry — use caution entering and exiting the water. Currents possible. Good snorkeling near the rocky edges.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "74°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
@@ -823,8 +791,7 @@ const BEACHES: Beach[] = [
       waterTemp: "79°F", airTemp: "84°F", humidity: "79%",
       uvIndex: 9, wind: "19 mph NNW", visibility: "Fair",
       tideStatus: "Falling", nextHighTide: "8:30 PM", nextLowTide: "2:45 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "EXTREMELY DANGEROUS FOR SWIMMING. Powerful waves, rip currents, and rocky bottom. Do not enter the water under any circumstances. For photography and wave watching only.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "wind",          high: "84°F", low: "73°F", precip: "35%", surf: "6-10 ft", risk: "extreme" },
@@ -847,8 +814,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "77%",
       uvIndex: 10, wind: "16 mph N", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "4:00 PM", nextLowTide: "10:15 AM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "Open ocean is dangerous — do not swim. Natural pools are best at low tide. Slippery rocks — wear water shoes. Waves can wash over formations.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "85°F", low: "74°F", precip: "25%", surf: "4-6 ft", risk: "high" },
@@ -871,8 +837,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "86°F", humidity: "74%",
       uvIndex: 10, wind: "11 mph NE", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "2:30 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Relatively calm for the north coast. Lifeguards on duty. Moderate surf possible on north swells.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "86°F", low: "75°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -895,8 +860,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "10 mph E", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "3:00 PM", nextLowTide: "9:15 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm, protected Caribbean waters. No facilities whatsoever — bring all supplies. Boat access only.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -919,8 +883,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "88°F", humidity: "70%",
       uvIndex: 11, wind: "9 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "3:30 PM", nextLowTide: "9:45 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm waters inside the Wildlife Refuge. Check gate hours before visiting. Limited facilities — bring supplies.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "88°F", low: "76°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -943,8 +906,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "12 mph ESE", visibility: "Excellent",
       tideStatus: "Rising", nextHighTide: "2:45 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm waters on Culebra's east end. No lifeguard or facilities. Respect turtle nesting areas Apr–Jun.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -967,8 +929,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "77%",
       uvIndex: 10, wind: "14 mph NW", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:30 PM", nextLowTide: "9:45 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Moderate surf conditions. Currents present year-round. Swim with caution. Better choice for beginners than other Rincón surf spots.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "74°F", precip: "20%", surf: "3-5 ft", risk: "moderate" },
@@ -991,8 +952,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "72%",
       uvIndex: 11, wind: "10 mph ESE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "2:30 PM", nextLowTide: "8:45 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Exceptional water clarity for snorkeling. No facilities — boat access only. Bring all supplies.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "87°F", low: "76°F", precip: "5%",  surf: "0.5-1 ft", risk: "low" },
@@ -1015,8 +975,7 @@ const BEACHES: Beach[] = [
       waterTemp: "83°F", airTemp: "88°F", humidity: "70%",
       uvIndex: 11, wind: "8 mph ESE", visibility: "Excellent",
       tideStatus: "Low", nextHighTide: "4:00 PM", nextLowTide: "10:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Calm town beach with great waterfront dining nearby. Good swimming conditions. Less pristine than refuge beaches.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "88°F", low: "76°F", precip: "5%",  surf: "0.5 ft",   risk: "low" },
@@ -1039,8 +998,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "76%",
       uvIndex: 10, wind: "15 mph N", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "High", surfAdvisory: true,
-      advisoryText: "Natural pool experience — not safe for traditional swimming. Slippery reef, waves crash over rocks. Wear water shoes. Photography and wading spot only.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "85°F", low: "74°F", precip: "25%", surf: "4-6 ft", risk: "high" },
@@ -1063,8 +1021,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "74%",
       uvIndex: 11, wind: "11 mph ESE", visibility: "Good",
       tideStatus: "Falling", nextHighTide: "8:30 PM", nextLowTide: "2:45 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "DANGEROUS CURRENTS. Fatalities have occurred here. Stay ONLY in the shallow coral-protected area. Do not venture into open water. Hike required from Seven Seas Beach.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "25%", surf: "2-3 ft", risk: "extreme" },
@@ -1087,8 +1044,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "76%",
       uvIndex: 10, wind: "13 mph N", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "3:00 PM", nextLowTide: "9:30 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Sheltered cove with calmer conditions than open northwest coast. Access can be tricky — rocks in water. No lifeguard on duty.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "74°F", precip: "20%", surf: "2-3 ft", risk: "moderate" },
@@ -1111,8 +1067,7 @@ const BEACHES: Beach[] = [
       waterTemp: "81°F", airTemp: "86°F", humidity: "74%",
       uvIndex: 10, wind: "11 mph NE", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "2:30 PM", nextLowTide: "9:00 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Blue Flag certified beach. Rock formations protect the swimming area. Slippery rocks around formations — use caution.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "86°F", low: "75°F", precip: "10%", surf: "1-2 ft", risk: "low" },
@@ -1135,8 +1090,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "86°F", humidity: "75%",
       uvIndex: 10, wind: "10 mph E", visibility: "Good",
       tideStatus: "Rising", nextHighTide: "2:00 PM", nextLowTide: "8:30 AM",
-      ripCurrentRisk: "Low", surfAdvisory: false,
-      advisoryText: "No active advisories. Protected, calm, shallow waters — ideal for small children. No parking — walk-in only. No facilities on beach.",
+      ripCurrentRisk: "Low",
     },
     forecast: [
       { day: "Today",     icon: "sun",           high: "86°F", low: "75°F", precip: "10%", surf: "0.5-1 ft", risk: "low" },
@@ -1159,8 +1113,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "88°F", humidity: "72%",
       uvIndex: 12, wind: "13 mph ESE", visibility: "Good",
       tideStatus: "Falling", nextHighTide: "7:00 PM", nextLowTide: "1:00 PM",
-      ripCurrentRisk: "High", surfAdvisory: false,
-      advisoryText: "Rough conditions. Waves can be strong. No lifeguard, hike required. Black sand gets extremely hot — wear shoes. Not recommended for swimming.",
+      ripCurrentRisk: "High",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "88°F", low: "76°F", precip: "25%", surf: "3-4 ft", risk: "high" },
@@ -1183,8 +1136,7 @@ const BEACHES: Beach[] = [
       waterTemp: "80°F", airTemp: "85°F", humidity: "77%",
       uvIndex: 10, wind: "14 mph N", visibility: "Good",
       tideStatus: "Low", nextHighTide: "3:30 PM", nextLowTide: "9:45 AM",
-      ripCurrentRisk: "Moderate", surfAdvisory: false,
-      advisoryText: "Tidal pool conditions depend on swell size. Best at low to moderate tide. Slippery rocks — wear water shoes. High waves can wash over rocks during larger swells.",
+      ripCurrentRisk: "Moderate",
     },
     forecast: [
       { day: "Today",     icon: "mostly-sunny",  high: "85°F", low: "74°F", precip: "20%", surf: "3-5 ft", risk: "moderate" },
@@ -1207,8 +1159,7 @@ const BEACHES: Beach[] = [
       waterTemp: "82°F", airTemp: "87°F", humidity: "74%",
       uvIndex: 11, wind: "11 mph ESE", visibility: "Good",
       tideStatus: "Falling", nextHighTide: "8:00 PM", nextLowTide: "2:30 PM",
-      ripCurrentRisk: "Extreme", surfAdvisory: true,
-      advisoryText: "DANGEROUS CURRENTS. Exercise extreme caution near the water. Hike required from Seven Seas Beach. Remote location — no help nearby.",
+      ripCurrentRisk: "Extreme",
     },
     forecast: [
       { day: "Today",     icon: "partly-cloudy", high: "87°F", low: "76°F", precip: "25%", surf: "2-3 ft", risk: "extreme" },
@@ -1611,29 +1562,6 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                 </div>
               );
             })}
-          </div>
-        )}
-
-        {/* Advisory Banner — shown when live risk assessment is moderate or higher */}
-        {riskAssessment && !riskAssessment.unavailable && riskAssessment.level !== 'low' && (
-          <div style={{
-            background: r.bg, border: `1px solid ${r.color}40`, borderRadius: "14px",
-            padding: "18px 20px", marginBottom: "24px",
-          }}>
-            <div style={{
-              display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px",
-              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, color: r.color, fontSize: "14px",
-              textTransform: "uppercase", letterSpacing: "0.05em",
-            }}>
-              <AlertTriangle size={18} /> Active Advisory
-            </div>
-            <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.6, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-              {c?.advisoryText ?? riskAssessment.message}
-            </p>
-            <p style={{ margin: "10px 0 0", fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-              Source: National Weather Service (NWS) San Juan · Updated:{" "}
-              {new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
-            </p>
           </div>
         )}
 
@@ -2122,8 +2050,6 @@ export default function PlayaSeguraPR() {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   };
 
-  // Use live NWS alerts once loaded; fall back to static advisory list while loading
-  const activeAdvisories = BEACHES.filter(b => b.conditions.surfAdvisory);
   const nwsBeachAlerts = prAlerts ?? [];
 
   return (
@@ -2300,17 +2226,6 @@ export default function PlayaSeguraPR() {
                 <span style={{ fontSize: "10px", fontWeight: 700, color: "#22c55e", border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto" }}>
                   LIVE
                 </span>
-              </div>
-            </div>
-          ) : prAlerts === null && activeAdvisories.length > 0 ? (
-            <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
-              <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
-                  <AlertTriangle size={12} /> {activeAdvisories.length} Active {activeAdvisories.length === 1 ? "Advisory" : "Advisories"}
-                </span>
-                <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
-                  {activeAdvisories.map(b => b.name).join(" · ")}
-                </div>
               </div>
             </div>
           ) : null}
