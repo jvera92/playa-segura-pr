@@ -1863,14 +1863,14 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* Data Source */}
         <div style={{
           textAlign: "center", padding: "20px", borderTop: "1px solid rgba(255,255,255,0.04)",
-          fontSize: "11px", color: "#334155", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+          fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
         }}>
           Data sources:{" "}
-          <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NOAA</a>
+          <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NOAA</a>
           {" · "}
-          <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NWS San Juan</a>
+          <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NWS San Juan</a>
           {" · "}
-          <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
+          <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
           {" · PR DNER"}<br />
           Conditions are advisory only. Always assess local conditions before entering the water.
         </div>
@@ -1896,6 +1896,7 @@ export default function PlayaSeguraPR() {
   const [searchQuery, setSearchQuery] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // ── Live weather state ──────────────────────────────────────────────────────
@@ -1906,6 +1907,17 @@ export default function PlayaSeguraPR() {
   const [prAlerts, setPrAlerts] = useState<BeachAlert[] | null>(null);
   const [lastRefreshedAt, setLastRefreshedAt] = useState<number | null>(null);
   const [, setClockTick] = useState(0); // triggers re-render for "X min ago" display
+
+  useEffect(() => {
+    if (!localStorage.getItem("playa_segura_disclaimer_seen")) {
+      setShowDisclaimer(true);
+    }
+  }, []);
+
+  const dismissDisclaimer = () => {
+    localStorage.setItem("playa_segura_disclaimer_seen", "1");
+    setShowDisclaimer(false);
+  };
 
   useEffect(() => {
     // Fetch PR-wide beach alerts (shared across all beaches)
@@ -2352,22 +2364,109 @@ export default function PlayaSeguraPR() {
             <div style={{ marginBottom: "6px", fontSize: "14px", color: "#cbd5e1", fontWeight: 700, fontFamily: "var(--font-playfair), 'Playfair Display', serif", letterSpacing: "0.01em" }}>
               Playa Segura PR
             </div>
-            <div style={{ marginBottom: "12px", fontSize: "12px", color: "#334155" }}>
+            <div style={{ marginBottom: "12px", fontSize: "12px", color: "#94a3b8" }}>
               47 beaches across Puerto Rico · Real-time conditions powered by{" "}
-              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NOAA</a>
+              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NOAA</a>
               {", "}
-              <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#475569", textDecoration: "underline" }}>NWS San Juan</a>
+              <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NWS San Juan</a>
               {" & NDBC"}
             </div>
-            <div style={{ fontSize: "11px", color: "#1e3048", lineHeight: 1.6 }}>
+            <div style={{ fontSize: "11px", color: "#64748b", lineHeight: 1.6 }}>
               All conditions are advisory only. Always exercise personal judgment and obey posted signs and lifeguard instructions.
             </div>
-            <div style={{ marginTop: "16px", fontSize: "11px", color: "#1e3048" }}>
+            <div style={{ marginTop: "16px", fontSize: "11px", color: "#475569" }}>
               Coming soon: Interactive map · Push alerts · Spanish
             </div>
           </div>
 
           </div>{/* end pattern wrapper */}
+        </div>
+      )}
+
+      {/* ── First-visit disclaimer modal ─────────────────────────────────────── */}
+      {showDisclaimer && (
+        <div
+          onClick={dismissDisclaimer}
+          style={{
+            position: "fixed", inset: 0, zIndex: 1000,
+            background: "rgba(3,9,18,0.82)", backdropFilter: "blur(6px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background: "#0d1b2e", borderRadius: "20px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
+              padding: "36px 32px 28px", maxWidth: "480px", width: "100%",
+              animation: "fadeUp 0.35s ease",
+              fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+            }}
+          >
+            {/* Icon */}
+            <div style={{ marginBottom: "16px", display: "flex", justifyContent: "center" }}>
+              <div style={{
+                width: "52px", height: "52px", borderRadius: "50%",
+                background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.2)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <LifeBuoy size={26} color="#38bdf8" />
+              </div>
+            </div>
+            {/* Title */}
+            <h2 style={{
+              margin: "0 0 10px", textAlign: "center",
+              fontSize: "22px", fontWeight: 800, color: "#f1f5f9",
+              fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+            }}>
+              Before You Head to the Beach
+            </h2>
+            {/* Body */}
+            <p style={{
+              margin: "0 0 20px", fontSize: "14px", lineHeight: 1.7,
+              color: "#94a3b8", textAlign: "center",
+            }}>
+              All conditions are advisory only, sourced from the NWS. Always exercise personal judgment and obey posted signs and lifeguard instructions.
+            </p>
+            {/* NWS links */}
+            <div style={{
+              background: "rgba(56,189,248,0.05)", borderRadius: "12px",
+              border: "1px solid rgba(56,189,248,0.12)",
+              padding: "14px 16px", marginBottom: "24px", textAlign: "center",
+              fontSize: "13px", color: "#64748b",
+            }}>
+              Official forecasts:{" "}
+              <a href="https://www.weather.gov/sju/beach" target="_blank" rel="noopener noreferrer"
+                style={{ color: "#7dd3fc", textDecoration: "underline" }}>
+                NWS San Juan Beach Forecast
+              </a>
+              {" · "}
+              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer"
+                style={{ color: "#7dd3fc", textDecoration: "underline" }}>
+                NOAA
+              </a>
+            </div>
+            {/* Dismiss */}
+            <button
+              onClick={dismissDisclaimer}
+              style={{
+                appearance: "none", WebkitAppearance: "none",
+                width: "100%", padding: "14px", margin: 0,
+                borderRadius: "12px", border: "none", cursor: "pointer",
+                background: "linear-gradient(135deg, #0ea5e9, #0284c7)",
+                color: "#fff", fontSize: "15px", fontWeight: 700,
+                fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                letterSpacing: "0.01em",
+              }}
+            >
+              I understand — Show me the beaches
+            </button>
+            <p style={{ margin: "12px 0 0", textAlign: "center", fontSize: "11px", color: "#334155" }}>
+              This message won't appear again on this device.
+            </p>
+          </div>
         </div>
       )}
     </div>
