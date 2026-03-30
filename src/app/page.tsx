@@ -1577,8 +1577,8 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                       {alert.headline}
                     </p>
                   )}
-                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                    {alert.description.length > 300 ? alert.description.slice(0, 300) + "…" : alert.description}
+                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", whiteSpace: "pre-wrap" }}>
+                    {alert.description}
                   </p>
                   <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
                     Source: NWS San Juan · Expires: {new Date(alert.expires).toLocaleString("en-US", {
