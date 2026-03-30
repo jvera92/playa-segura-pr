@@ -19,6 +19,8 @@ import type { SurfZonePeriod } from "@/lib/surf-forecast-api";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
+export type Lang = 'en' | 'es'
+
 // RiskLevel and RiskAssessment are exported from weather-utils — no local redefinition needed.
 
 interface ForecastDay {
@@ -1179,11 +1181,19 @@ const RISK_CONFIG: Record<RiskLevel, RiskConfig> = {
   extreme:  { label: "Extreme Danger", color: "#ef4444", bg: "#450a0a", message: "DO NOT SWIM" },
 };
 
-const SAFETY_TIPS: { icon: LucideIcon; title: string; text: string }[] = [
-  { icon: Waves,    title: "Rip Currents", text: "If caught, swim parallel to shore until free of the current, then swim back. Never fight against it." },
-  { icon: Flag,     title: "Flag System",  text: "Red = Danger/No swimming. Yellow = Caution. Green = Safe. Double red = Beach closed." },
-  { icon: Users,    title: "Buddy System", text: "Never swim alone. Always keep an eye on children and weak swimmers in the water." },
-  { icon: LifeBuoy, title: "Life Jackets", text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
+const SAFETY_TIPS: { icon: LucideIcon; en: { title: string; text: string }; es: { title: string; text: string } }[] = [
+  { icon: Waves,
+    en: { title: "Rip Currents",  text: "If caught, swim parallel to shore until free of the current, then swim back. Never fight against it." },
+    es: { title: "Corrientes Jalad.", text: "Si te atrapa una corriente, nada paralelo a la orilla hasta salir, luego regresa a nado. Nunca luches contra ella." } },
+  { icon: Flag,
+    en: { title: "Flag System",   text: "Red = Danger/No swimming. Yellow = Caution. Green = Safe. Double red = Beach closed." },
+    es: { title: "Sistema de Banderas", text: "Roja = Peligro/No nadar. Amarilla = Precaución. Verde = Seguro. Doble roja = Playa cerrada." } },
+  { icon: Users,
+    en: { title: "Buddy System",  text: "Never swim alone. Always keep an eye on children and weak swimmers in the water." },
+    es: { title: "Sistema de Compañero", text: "Nunca nades solo. Siempre vigila a los niños y nadadores débiles en el agua." } },
+  { icon: LifeBuoy,
+    en: { title: "Life Jackets",  text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
+    es: { title: "Chalecos Salvavidas", text: "Los no-nadadores y niños siempre deben usar chalecos aprobados por la Guardia Costera en el océano." } },
 ];
 
 // ─── EMERGENCY CONTACTS ───────────────────────────────────────────────────────
@@ -1212,6 +1222,151 @@ const EMERGENCY_CONTACTS = {
     { municipality: "Fajardo",    tel: "7878632020", display: "(787) 863-2020" },
     { municipality: "Vieques",    tel: "7877412020", display: "(787) 741-2020" },
   ],
+};
+
+// ─── UI TRANSLATIONS ─────────────────────────────────────────────────────────
+
+const UI = {
+  en: {
+    disclaimer: {
+      title: "Before You Head to the Beach",
+      body: "All conditions are advisory only, sourced from the NWS. Always exercise personal judgment and obey posted signs and lifeguard instructions.",
+      officialForecasts: "Official forecasts:",
+      button: "I Understand — Show me the beaches",
+    },
+    header: {
+      tagline: "Puerto Rico's beach guide — real-time conditions & safety",
+      loading: "Loading data…",
+      updated: (ago: string) => `Updated ${ago}`,
+      searchPlaceholder: "Search beaches, towns...",
+      allRegions: "All Regions",
+    },
+    ticker: {
+      label: (n: number) => `${n} NWS Alert${n > 1 ? 's' : ''}`,
+      live: "LIVE",
+    },
+    safetyGuide: { title: "Ocean Safety Quick Guide" },
+    emergency: {
+      title: "Emergency Contacts",
+      verify: "Always dial 911 for immediate emergencies. Verify local precinct numbers at",
+      municipalPolice: "Local Police — Coastal Municipalities",
+    },
+    risk: {
+      low: "Low Risk", moderate: "Moderate Risk", high: "High Risk", extreme: "Extreme Danger",
+      unknown: "Risk Unknown",
+      short: { low: "Low", moderate: "Moderate", high: "High", extreme: "Extreme" },
+      msg: {
+        low: "Conditions are favorable for swimming",
+        moderate: "Use caution — some hazards present",
+        high: "Swimming not recommended",
+        extreme: "DO NOT SWIM",
+        unavailable: "Risk data unavailable —",
+        checkNws: "check NWS directly ↗",
+      },
+    },
+    sources: { nwsLive: "NWS LIVE", nwsSurf: "NWS SURF ZONE", buoyData: "BUOY DATA" },
+    detail: {
+      getDirections: "Get Directions",
+      liveConditions: "Live Conditions",
+      todayForecast: "Today's Forecast",
+      fiveDayForecast: "5-Day Outlook",
+      nwsAlertsHeader: "NWS Live Alerts",
+      nwsLiveBadge: "NWS LIVE",
+      alertExpires: (d: string) => `Source: NWS San Juan · Expires: ${d}`,
+      amenities: "Amenities & Facilities",
+      tips: "Tips & Local Knowledge",
+      dataSources: "Data sources:",
+      conditionsAdvisory: "Conditions are advisory only. Always assess local conditions before entering the water.",
+    },
+    cond: {
+      surfHeight: "Surf Height", ripCurrents: "Rip Currents", wind: "Wind",
+      waterTemp: "Water Temp", uvIndex: "UV Index", airTemp: "Air Temp",
+      humidity: "Humidity", visibility: "Visibility", swell: "Swell",
+      tide: "Tide", nextHigh: "Next High Tide", nextLow: "Next Low Tide",
+      unavailable: "Unavailable",
+    },
+    forecast: { day: "Day", high: "High", low: "Low", rain: "Rain", surf: "Surf", risk: "Risk" },
+    home: {
+      noBeachesTitle: "No beaches found",
+      noBeachesSub: "Try adjusting your search or filters",
+      dataUnavailable: "Data unavailable · Check NWS ↗",
+    },
+    footer: {
+      beaches: "47 beaches across Puerto Rico · Real-time conditions powered by",
+      advisory: "All conditions are advisory only. Always exercise personal judgment and obey posted signs and lifeguard instructions.",
+      comingSoon: "Coming soon: Interactive map · Push alerts",
+    },
+  },
+  es: {
+    disclaimer: {
+      title: "Antes de Ir a la Playa",
+      body: "Las condiciones son de referencia únicamente, basadas en el NWS. Siempre usa tu juicio personal y obedece los letreros y las instrucciones de los guardavidas.",
+      officialForecasts: "Pronósticos oficiales:",
+      button: "Entendido — Llevarme a las Playas",
+    },
+    header: {
+      tagline: "Guía de playas de Puerto Rico — condiciones en tiempo real y seguridad",
+      loading: "Cargando datos…",
+      updated: (ago: string) => `Actualizado hace ${ago}`,
+      searchPlaceholder: "Buscar playas, pueblos...",
+      allRegions: "Todas las Regiones",
+    },
+    ticker: {
+      label: (n: number) => `${n} Alerta${n > 1 ? 's' : ''} NWS`,
+      live: "EN VIVO",
+    },
+    safetyGuide: { title: "Guía Rápida de Seguridad en el Mar" },
+    emergency: {
+      title: "Contactos de Emergencia",
+      verify: "Siempre llama al 911 en emergencias. Verifica los números de precinctos en",
+      municipalPolice: "Policía Local — Municipios Costeros",
+    },
+    risk: {
+      low: "Riesgo Bajo", moderate: "Riesgo Moderado", high: "Riesgo Alto", extreme: "Peligro Extremo",
+      unknown: "Riesgo Desconocido",
+      short: { low: "Bajo", moderate: "Moderado", high: "Alto", extreme: "Extremo" },
+      msg: {
+        low: "Condiciones favorables para nadar",
+        moderate: "Precaución — algunos peligros presentes",
+        high: "No se recomienda nadar",
+        extreme: "NO NADES",
+        unavailable: "Datos de riesgo no disponibles —",
+        checkNws: "consulta el NWS directamente ↗",
+      },
+    },
+    sources: { nwsLive: "NWS EN VIVO", nwsSurf: "ZONA SURF NWS", buoyData: "DATOS DE BOYA" },
+    detail: {
+      getDirections: "Cómo Llegar",
+      liveConditions: "Condiciones en Vivo",
+      todayForecast: "Pronóstico de Hoy",
+      fiveDayForecast: "Pronóstico de 5 Días",
+      nwsAlertsHeader: "Alertas en Vivo del NWS",
+      nwsLiveBadge: "NWS EN VIVO",
+      alertExpires: (d: string) => `Fuente: NWS San Juan · Vence: ${d}`,
+      amenities: "Facilidades y Servicios",
+      tips: "Consejos y Conocimiento Local",
+      dataSources: "Fuentes de datos:",
+      conditionsAdvisory: "Las condiciones son de referencia únicamente. Evalúa siempre las condiciones locales antes de entrar al agua.",
+    },
+    cond: {
+      surfHeight: "Altura de Olas", ripCurrents: "Corrientes Jalad.", wind: "Viento",
+      waterTemp: "Temp. del Agua", uvIndex: "Índice UV", airTemp: "Temp. del Aire",
+      humidity: "Humedad", visibility: "Visibilidad", swell: "Swell",
+      tide: "Marea", nextHigh: "Próx. Marea Alta", nextLow: "Próx. Marea Baja",
+      unavailable: "No Disponible",
+    },
+    forecast: { day: "Día", high: "Máx", low: "Mín", rain: "Lluvia", surf: "Surf", risk: "Riesgo" },
+    home: {
+      noBeachesTitle: "No se encontraron playas",
+      noBeachesSub: "Intenta ajustar tu búsqueda o filtros",
+      dataUnavailable: "Datos no disponibles · Ver NWS ↗",
+    },
+    footer: {
+      beaches: "47 playas en Puerto Rico · Condiciones en tiempo real por",
+      advisory: "Las condiciones son de referencia únicamente. Siempre usa tu propio juicio y obedece los letreros y las instrucciones de los guardavidas.",
+      comingSoon: "Próximamente: Mapa interactivo · Alertas push",
+    },
+  },
 };
 
 // ─── LIVE DATA CACHE ─────────────────────────────────────────────────────────
@@ -1296,8 +1451,9 @@ function WeatherIcon({ iconKey, size = 16, color }: { iconKey: string; size?: nu
   return <Icon size={size} color={color} />;
 }
 
-function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md" | "lg" }) {
+function RiskBadge({ level, size = "md", lang = "en" }: { level: RiskLevel; size?: "sm" | "md" | "lg"; lang?: Lang }) {
   const r = RISK_CONFIG[level];
+  const label = UI[lang].risk[level];
   const sizes = {
     sm: { padding: "3px 10px",  fontSize: "11px", iconSize: 11 },
     md: { padding: "5px 14px",  fontSize: "13px", iconSize: 13 },
@@ -1313,16 +1469,17 @@ function RiskBadge({ level, size = "md" }: { level: RiskLevel; size?: "sm" | "md
       fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase",
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
     }}>
-      <BadgeIcon size={s.iconSize} /> {r.label}
+      <BadgeIcon size={s.iconSize} /> {label}
     </span>
   );
 }
 
-function BeachCard({ beach, onClick, liveData, riskAssessment }: {
+function BeachCard({ beach, onClick, liveData, riskAssessment, lang = "en" }: {
   beach: Beach;
   onClick: () => void;
   liveData?: LiveBeachData;
   riskAssessment?: RiskAssessment;
+  lang?: Lang;
 }) {
   return (
     <button onClick={onClick} className="beach-card" style={{
@@ -1364,7 +1521,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
         <div style={{ position: "absolute", bottom: "14px", left: "14px", right: "56px" }}>
           {riskAssessment && !riskAssessment.unavailable && (
             <div style={{ marginBottom: "7px" }}>
-              <RiskBadge level={riskAssessment.level} size="sm" />
+              <RiskBadge level={riskAssessment.level} size="sm" lang={lang} />
             </div>
           )}
           {riskAssessment?.unavailable && (
@@ -1377,7 +1534,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
                 fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
                 border: "1px solid rgba(255,255,255,0.12)",
               }}>
-                Risk unknown
+                {UI[lang].risk.unknown}
               </span>
             </div>
           )}
@@ -1416,7 +1573,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
               onClick={e => e.stopPropagation()}
               style={{ fontSize: "11px", color: "#f87171", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}
             >
-              Data unavailable · Check NWS ↗
+              {UI[lang].home.dataUnavailable}
             </a>
           ) : (
             <>
@@ -1456,7 +1613,7 @@ function ConditionBlock({ label, value, icon, accent }: {
   );
 }
 
-function ForecastRow({ f }: { f: ForecastDay }) {
+function ForecastRow({ f, lang = "en" }: { f: ForecastDay; lang?: Lang }) {
   return (
     <div style={{
       display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
@@ -1471,17 +1628,18 @@ function ForecastRow({ f }: { f: ForecastDay }) {
       <span style={{ color: "#64748b" }}>{f.low}</span>
       <span>{f.precip}</span>
       <span>{f.surf}</span>
-      <span><RiskBadge level={f.risk} size="sm" /></span>
+      <span><RiskBadge level={f.risk} size="sm" lang={lang} /></span>
     </div>
   );
 }
 
-function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
+function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang = "en" }: {
   beach: Beach;
   onBack: () => void;
   liveData?: LiveBeachData;
   prAlerts?: BeachAlert[];
   riskAssessment?: RiskAssessment;
+  lang?: Lang;
 }) {
   const effectiveRisk = riskAssessment?.unavailable ? beach.riskLevel : (riskAssessment?.level ?? beach.riskLevel);
   const r = RISK_CONFIG[effectiveRisk];
@@ -1531,10 +1689,10 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                 fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
                 border: "1px solid rgba(255,255,255,0.15)",
               }}>
-                <AlertTriangle size={14} /> Risk Unknown
+                <AlertTriangle size={14} /> {UI[lang].risk.unknown}
               </span>
             ) : (
-              <RiskBadge level={effectiveRisk} size="lg" />
+              <RiskBadge level={effectiveRisk} size="lg" lang={lang} />
             )}
             {riskAssessment && !riskAssessment.unavailable && (
               <span style={{
@@ -1544,9 +1702,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                 borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em",
                 background: "rgba(0,0,0,0.4)", backdropFilter: "blur(4px)",
               }}>
-                {riskAssessment.source === 'nws-alert' ? 'NWS LIVE'
-                  : riskAssessment.source === 'surf-forecast' ? 'NWS SURF ZONE'
-                  : 'BUOY DATA'}
+                {riskAssessment.source === 'nws-alert' ? UI[lang].sources.nwsLive
+                  : riskAssessment.source === 'surf-forecast' ? UI[lang].sources.nwsSurf
+                  : UI[lang].sources.buoyData}
               </span>
             )}
           </div>
@@ -1573,7 +1731,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textDecoration: "none",
             }}
           >
-            <MapPin size={14} /> Get Directions
+            <MapPin size={14} /> {UI[lang].detail.getDirections}
           </a>
         </div>
       </div>
@@ -1613,7 +1771,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                       fontSize: "10px", fontWeight: 700, color: "#22c55e",
                       border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px",
                       letterSpacing: "0.08em", flexShrink: 0,
-                    }}>NWS LIVE</span>
+                    }}>{UI[lang].detail.nwsLiveBadge}</span>
                     <span style={{
                       color: alertColor, flexShrink: 0, display: "flex",
                       transform: isExpanded ? "rotate(180deg)" : "none",
@@ -1635,9 +1793,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                         {alert.description}
                       </p>
                       <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                        Source: NWS San Juan · Expires: {new Date(alert.expires).toLocaleString("en-US", {
+                        {UI[lang].detail.alertExpires(new Date(alert.expires).toLocaleString(lang === 'es' ? 'es-PR' : 'en-US', {
                           month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
-                        })}
+                        }))}
                       </p>
                     </div>
                   )}
@@ -1656,14 +1814,14 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           }}>
             <AlertTriangle size={24} color="#94a3b8" />
             <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-              Risk data unavailable —{" "}
+              {UI[lang].risk.msg.unavailable}{" "}
               <a
                 href="https://www.weather.gov/sju/beach"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "#38bdf8", textDecoration: "underline" }}
               >
-                check NWS directly ↗
+                {UI[lang].risk.msg.checkNws}
               </a>
             </p>
           </div>
@@ -1676,7 +1834,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
              effectiveRisk === "extreme" ? <XCircle size={24} color={r.color} /> :
              <AlertTriangle size={24} color={r.color} />}
             <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: r.color, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-              {riskAssessment?.message ?? r.message}
+              {UI[lang].risk.msg[effectiveRisk]}
             </p>
           </div>
         )}
@@ -1692,7 +1850,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
-          Current Conditions
+          {UI[lang].detail.liveConditions}
           {liveData?.weather && (
             <>
               <span style={{
@@ -1735,44 +1893,44 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", marginBottom: "28px" }}>
           <ConditionBlock
-            icon={<Waves size={12} />} label="Surf Height" accent={r.color}
+            icon={<Waves size={12} />} label={UI[lang].cond.surfHeight} accent={r.color}
             value={liveData?.surfForecast?.surfHeightText != null
               ? liveData.surfForecast.surfHeightText
               : liveData?.buoy?.waveHeightFt != null
                 ? `${liveData.buoy.waveHeightFt} ft`
                 : c.waveHeight}
           />
-          <ConditionBlock icon={<AlertTriangle size={12} />} label="Rip Currents"
+          <ConditionBlock icon={<AlertTriangle size={12} />} label={UI[lang].cond.ripCurrents}
             value={riskAssessment && !riskAssessment.unavailable
-              ? RISK_CONFIG[riskAssessment.level].label.replace(' Risk','').replace(' Danger','')
+              ? UI[lang].risk.short[riskAssessment.level]
               : c.ripCurrentRisk}
             accent={r.color}
           />
-          <ConditionBlock icon={<Wind size={12} />} label="Wind"
-            value={liveData?.error ? "Unavailable" : liveData?.weather?.wind ?? c.wind}
+          <ConditionBlock icon={<Wind size={12} />} label={UI[lang].cond.wind}
+            value={liveData?.error ? UI[lang].cond.unavailable : liveData?.weather?.wind ?? c.wind}
           />
-          <ConditionBlock icon={<Thermometer size={12} />} label="Water Temp" accent="#38bdf8"
+          <ConditionBlock icon={<Thermometer size={12} />} label={UI[lang].cond.waterTemp} accent="#38bdf8"
             value={liveData?.buoy?.waterTempF != null
               ? `${liveData.buoy.waterTempF}°F`
               : c.waterTemp}
           />
-          <ConditionBlock icon={<Sun size={12} />} label="UV Index"
+          <ConditionBlock icon={<Sun size={12} />} label={UI[lang].cond.uvIndex}
             value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
             accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"}
           />
-          <ConditionBlock icon={<Thermometer size={12} />} label="Air Temp"
-            value={liveData?.error ? "Unavailable" : liveData?.weather?.airTemp ?? c.airTemp}
+          <ConditionBlock icon={<Thermometer size={12} />} label={UI[lang].cond.airTemp}
+            value={liveData?.error ? UI[lang].cond.unavailable : liveData?.weather?.airTemp ?? c.airTemp}
           />
-          <ConditionBlock icon={<Droplets size={12} />} label="Humidity" value={c.humidity} />
-          <ConditionBlock icon={<Eye size={12} />} label="Visibility" value={c.visibility} />
-          <ConditionBlock icon={<Waves size={12} />} label="Swell"
+          <ConditionBlock icon={<Droplets size={12} />} label={UI[lang].cond.humidity} value={c.humidity} />
+          <ConditionBlock icon={<Eye size={12} />} label={UI[lang].cond.visibility} value={c.visibility} />
+          <ConditionBlock icon={<Waves size={12} />} label={UI[lang].cond.swell}
             value={liveData?.buoy
               ? `${liveData.buoy.dominantPeriodS != null ? liveData.buoy.dominantPeriodS + 's' : c.swellPeriod} ${liveData.buoy.swellDirectionCompass ?? c.swellDirection}`
               : `${c.swellPeriod} ${c.swellDirection}`}
           />
-          <ConditionBlock icon={<Anchor size={12} />} label="Tide" value={c.tideStatus} />
-          <ConditionBlock icon={<ArrowUp size={12} />} label="Next High Tide" value={c.nextHighTide} />
-          <ConditionBlock icon={<ArrowDown size={12} />} label="Next Low Tide" value={c.nextLowTide} />
+          <ConditionBlock icon={<Anchor size={12} />} label={UI[lang].cond.tide} value={c.tideStatus} />
+          <ConditionBlock icon={<ArrowUp size={12} />} label={UI[lang].cond.nextHigh} value={c.nextHighTide} />
+          <ConditionBlock icon={<ArrowDown size={12} />} label={UI[lang].cond.nextLow} value={c.nextLowTide} />
         </div>
         {/* Data attribution */}
         {(liveData?.surfForecast || liveData?.buoy) && (
@@ -1806,7 +1964,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
-          5-Day Beach Forecast
+          {UI[lang].detail.fiveDayForecast}
           {(liveData?.forecast?.length ?? 0) > 0 && (
             <span style={{
               fontSize: "10px", fontWeight: 700, color: "#22c55e",
@@ -1824,7 +1982,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
             fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
           }}>
             <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#f87171" }}>
-              Forecast data unavailable
+              {UI[lang].home.dataUnavailable}
             </p>
             <a
               href="https://www.weather.gov/sju/"
@@ -1832,7 +1990,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
               rel="noopener noreferrer"
               style={{ fontSize: "13px", color: "#64748b", textDecoration: "underline" }}
             >
-              Check the NWS San Juan forecast directly ↗
+              {UI[lang].risk.msg.checkNws}
             </a>
           </div>
         ) : (
@@ -1849,9 +2007,9 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
             color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
             borderBottom: "1px solid rgba(0,0,0,0.06)",
           }}>
-            <span>Day</span><span></span><span>High</span><span>Low</span><span>Rain</span><span>Surf</span><span>Risk</span>
+            <span>{UI[lang].forecast.day}</span><span></span><span>{UI[lang].forecast.high}</span><span>{UI[lang].forecast.low}</span><span>{UI[lang].forecast.rain}</span><span>{UI[lang].forecast.surf}</span><span>{UI[lang].forecast.risk}</span>
           </div>
-          {displayForecast.map((f, i) => <ForecastRow key={i} f={f} />)}
+          {displayForecast.map((f, i) => <ForecastRow key={i} f={f} lang={lang} />)}
         </div>
 
         {/* Mobile: stacked card layout */}
@@ -1867,7 +2025,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                   <WeatherIcon iconKey={f.icon} size={22} />
                   <span style={{ fontWeight: 700, fontSize: "15px", color: "#0f172a" }}>{f.day}</span>
                 </div>
-                <RiskBadge level={f.risk} size="sm" />
+                <RiskBadge level={f.risk} size="sm" lang={lang} />
               </div>
               <div style={{ display: "flex", gap: "16px", fontSize: "13px", color: "#94a3b8", flexWrap: "wrap" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><ArrowUp size={12} /> {f.high}</span>
@@ -1886,7 +2044,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
         }}>
-          Local Tips
+          {UI[lang].detail.tips}
         </h2>
         <div style={{
           background: "rgba(212,165,86,0.07)", borderRadius: "14px", padding: "18px 20px",
@@ -1902,7 +2060,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
         }}>
-          Amenities & Facilities
+          {UI[lang].detail.amenities}
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {beach.amenities.map((a, i) => (
@@ -1921,14 +2079,14 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           textAlign: "center", padding: "20px", borderTop: "1px solid rgba(0,0,0,0.08)",
           fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
         }}>
-          Data sources:{" "}
+          {UI[lang].detail.dataSources}{" "}
           <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NOAA</a>
           {" · "}
           <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NWS San Juan</a>
           {" · "}
           <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
           {" · PR DNER"}<br />
-          Conditions are advisory only. Always assess local conditions before entering the water.
+          {UI[lang].detail.conditionsAdvisory}
         </div>
       </div>
     </div>
@@ -1937,8 +2095,13 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
 
-function formatAgo(ts: number): string {
+function formatAgo(ts: number, lang: Lang = 'en'): string {
   const mins = Math.floor((Date.now() - ts) / 60_000);
+  if (lang === 'es') {
+    if (mins < 1) return "ahora mismo";
+    if (mins === 1) return "1 min";
+    return `${mins} min`;
+  }
   if (mins < 1) return "just now";
   if (mins === 1) return "1 min ago";
   return `${mins} min ago`;
@@ -1951,6 +2114,15 @@ export default function PlayaSeguraPR() {
   const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window !== 'undefined') return (localStorage.getItem('playa-lang') as Lang) ?? 'en';
+    return 'en';
+  });
+  const toggleLang = () => {
+    const next: Lang = lang === 'en' ? 'es' : 'en';
+    setLang(next);
+    if (typeof window !== 'undefined') localStorage.setItem('playa-lang', next);
+  };
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
   const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -2213,6 +2385,7 @@ export default function PlayaSeguraPR() {
           onBack={() => setView("home")}
           liveData={liveBeachData.get(selectedBeach.id)}
           prAlerts={prAlerts ?? undefined}
+          lang={lang}
           riskAssessment={(() => {
             const d = liveBeachData.get(selectedBeach.id);
             const ready = prAlerts !== null ||
@@ -2253,17 +2426,36 @@ export default function PlayaSeguraPR() {
               Playa Segura
             </h1>
             <p style={{ margin: "0 0 6px", fontSize: "15px", color: "#475569", lineHeight: 1.5, fontWeight: 400, letterSpacing: "0.01em" }}>
-              Puerto Rico's beach guide — real-time conditions & safety
+              {UI[lang].header.tagline}
             </p>
             <p style={{ margin: "0 0 24px", fontSize: "11px", color: "#94a3b8", letterSpacing: "0.02em" }}>
-              {lastRefreshedAt !== null ? `Updated ${formatAgo(lastRefreshedAt)}` : "Loading data…"}
+              {lastRefreshedAt !== null ? UI[lang].header.updated(formatAgo(lastRefreshedAt, lang)) : UI[lang].header.loading}
             </p>
+
+            {/* Lang toggle */}
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "16px" }}>
+              <button onClick={toggleLang} style={{
+                appearance: "none", WebkitAppearance: "none", margin: 0,
+                cursor: "pointer", display: "inline-flex", borderRadius: "99px",
+                overflow: "hidden", border: "1.5px solid rgba(14,165,233,0.35)",
+                fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+              }}>
+                {(["en", "es"] as Lang[]).map(l => (
+                  <span key={l} style={{
+                    padding: "5px 18px", fontSize: "12px", fontWeight: 700,
+                    background: lang === l ? "#0ea5e9" : "transparent",
+                    color: lang === l ? "#fff" : "#64748b",
+                    letterSpacing: "0.05em", transition: "all 0.2s",
+                  }}>{l.toUpperCase()}</span>
+                ))}
+              </button>
+            </div>
 
             {/* Search */}
             <div style={{ position: "relative", maxWidth: "480px", margin: "0 auto 16px" }}>
               <input
                 type="text"
-                placeholder="Search beaches, towns..."
+                placeholder={UI[lang].header.searchPlaceholder}
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 style={{
@@ -2298,7 +2490,7 @@ export default function PlayaSeguraPR() {
                   color: regionFilter === r ? "#38bdf8" : "#64748b",
                   transition: "all 0.2s",
                 }}>
-                  {r}
+                  {r === "All" ? UI[lang].header.allRegions : r}
                 </button>
               ))}
             </div>
@@ -2312,13 +2504,13 @@ export default function PlayaSeguraPR() {
             <div style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.85) 0%, rgba(153,27,27,0.90) 100%)", borderBottom: "2px solid rgba(239,68,68,0.6)", boxShadow: "0 2px 8px rgba(239,68,68,0.3)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#fef2f2", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
-                  <AlertTriangle size={12} /> {nwsBeachAlerts.length} NWS Alert{nwsBeachAlerts.length > 1 ? "s" : ""}
+                  <AlertTriangle size={12} /> {UI[lang].ticker.label(nwsBeachAlerts.length)}
                 </span>
                 <div style={{ fontSize: "12px", color: "#fecaca", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
                   {nwsBeachAlerts.map(a => a.event).join(" · ")}
                 </div>
                 <span style={{ fontSize: "10px", fontWeight: 700, color: "#bbf7d0", border: "1px solid #86efac", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto", background: "rgba(0,0,0,0.2)" }}>
-                  LIVE
+                  {UI[lang].ticker.live}
                 </span>
               </div>
             </div>
@@ -2335,7 +2527,7 @@ export default function PlayaSeguraPR() {
               transition: "all 0.2s", boxShadow: "0 2px 8px rgba(56,189,248,0.12)",
             }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#38bdf8" }}>
-                <LifeBuoy size={16} /> Ocean Safety Quick Guide
+                <LifeBuoy size={16} /> {UI[lang].safetyGuide.title}
               </span>
               <span style={{
                 color: "#38bdf8", flexShrink: 0, display: "flex",
@@ -2358,8 +2550,8 @@ export default function PlayaSeguraPR() {
                     padding: "18px 16px", border: "1.5px solid rgba(56,189,248,0.35)",
                   }}>
                     <div style={{ marginBottom: "10px", color: "#38bdf8" }}><tip.icon size={22} /></div>
-                    <div style={{ fontWeight: 700, fontSize: "14px", color: "#0f172a", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{tip.title}</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.65 }}>{tip.text}</div>
+                    <div style={{ fontWeight: 700, fontSize: "14px", color: "#0f172a", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{tip[lang].title}</div>
+                    <div style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.65 }}>{tip[lang].text}</div>
                   </div>
                 ))}
               </div>
@@ -2378,7 +2570,7 @@ export default function PlayaSeguraPR() {
               transition: "all 0.2s", boxShadow: "0 2px 8px rgba(239,68,68,0.08)",
             }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#ef4444" }}>
-                <Phone size={16} /> Emergency Contacts
+                <Phone size={16} /> {UI[lang].emergency.title}
               </span>
               <span style={{
                 color: "#ef4444", flexShrink: 0, display: "flex",
@@ -2429,7 +2621,7 @@ export default function PlayaSeguraPR() {
                 {/* Municipal Police */}
                 <div style={{ marginBottom: "10px" }}>
                   <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.08em", padding: "0 4px 6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                    Local Police — Coastal Municipalities
+                    {UI[lang].emergency.municipalPolice}
                   </div>
                   <div style={{ background: "rgba(255,255,255,0.7)", borderRadius: "14px", border: "1.5px solid rgba(239,68,68,0.2)", overflow: "hidden" }}>
                     {EMERGENCY_CONTACTS.municipal.map((m, i, arr) => (
@@ -2451,7 +2643,7 @@ export default function PlayaSeguraPR() {
                 </div>
 
                 <div style={{ fontSize: "11px", color: "#94a3b8", textAlign: "center", padding: "4px 8px 8px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                  Always dial 911 for immediate emergencies. Verify local precinct numbers at <span style={{ color: "#0ea5e9" }}>policia.pr.gov</span>
+                  {UI[lang].emergency.verify} <span style={{ color: "#0ea5e9" }}>policia.pr.gov</span>
                 </div>
               </div>
             )}
@@ -2463,7 +2655,7 @@ export default function PlayaSeguraPR() {
               {Object.entries(RISK_CONFIG).map(([key, val]) => (
                 <div key={key} style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12px", fontWeight: 600, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
                   <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: val.color, flexShrink: 0, boxShadow: `0 0 6px ${val.color}60` }} />
-                  {val.label}
+                  {UI[lang].risk[key as RiskLevel]}
                 </div>
               ))}
             </div>
@@ -2486,14 +2678,15 @@ export default function PlayaSeguraPR() {
                   onClick={() => handleSelectBeach(b)}
                   liveData={bData}
                   riskAssessment={riskReady ? computeBeachRisk(prAlerts ? filterAlertsForZone(prAlerts, b.surfZone) : null, bData?.surfForecast ?? null, bData?.buoy?.waveHeightFt ?? null, b.name) : undefined}
+                  lang={lang}
                 />
               );
             })}
             {filtered.length === 0 && (
               <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px 20px", color: "#475569" }}>
                 <div style={{ marginBottom: "12px", display: "flex", justifyContent: "center" }}><Waves size={48} /></div>
-                <p style={{ fontSize: "16px", fontWeight: 600 }}>No beaches found</p>
-                <p style={{ fontSize: "13px" }}>Try adjusting your search or filters</p>
+                <p style={{ fontSize: "16px", fontWeight: 600 }}>{UI[lang].home.noBeachesTitle}</p>
+                <p style={{ fontSize: "13px" }}>{UI[lang].home.noBeachesSub}</p>
               </div>
             )}
           </div>
@@ -2507,17 +2700,17 @@ export default function PlayaSeguraPR() {
               Playa Segura PR
             </div>
             <div style={{ marginBottom: "12px", fontSize: "12px", color: "#64748b" }}>
-              47 beaches across Puerto Rico · Real-time conditions powered by{" "}
+              {UI[lang].footer.beaches}{" "}
               <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NOAA</a>
               {", "}
               <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NWS San Juan</a>
               {" & NDBC"}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", lineHeight: 1.6 }}>
-              All conditions are advisory only. Always exercise personal judgment and obey posted signs and lifeguard instructions.
+              {UI[lang].footer.advisory}
             </div>
             <div style={{ marginTop: "16px", fontSize: "11px", color: "#475569" }}>
-              Coming soon: Interactive map · Push alerts · Spanish
+              {UI[lang].footer.comingSoon}
             </div>
           </div>
 
@@ -2546,6 +2739,24 @@ export default function PlayaSeguraPR() {
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
             }}
           >
+            {/* Lang toggle — top right of modal */}
+            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "8px" }}>
+              <button onClick={toggleLang} style={{
+                appearance: "none", WebkitAppearance: "none", margin: 0,
+                cursor: "pointer", display: "inline-flex", borderRadius: "99px",
+                overflow: "hidden", border: "1.5px solid rgba(14,165,233,0.35)",
+                fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+              }}>
+                {(["en", "es"] as Lang[]).map(l => (
+                  <span key={l} style={{
+                    padding: "5px 14px", fontSize: "12px", fontWeight: 700,
+                    background: lang === l ? "#0ea5e9" : "transparent",
+                    color: lang === l ? "#fff" : "#64748b",
+                    letterSpacing: "0.05em", transition: "all 0.2s",
+                  }}>{l.toUpperCase()}</span>
+                ))}
+              </button>
+            </div>
             {/* Icon */}
             <div style={{ marginBottom: "16px", display: "flex", justifyContent: "center" }}>
               <div style={{
@@ -2562,14 +2773,14 @@ export default function PlayaSeguraPR() {
               fontSize: "22px", fontWeight: 800, color: "#0f172a",
               fontFamily: "var(--font-playfair), 'Playfair Display', serif",
             }}>
-              Before You Head to the Beach
+              {UI[lang].disclaimer.title}
             </h2>
             {/* Body */}
             <p style={{
               margin: "0 0 20px", fontSize: "14px", lineHeight: 1.7,
               color: "#475569", textAlign: "center",
             }}>
-              All conditions are advisory only, sourced from the NWS. Always exercise personal judgment and obey posted signs and lifeguard instructions.
+              {UI[lang].disclaimer.body}
             </p>
             {/* NWS links */}
             <div style={{
@@ -2578,7 +2789,7 @@ export default function PlayaSeguraPR() {
               padding: "14px 16px", marginBottom: "24px", textAlign: "center",
               fontSize: "13px", color: "#64748b",
             }}>
-              Official forecasts:{" "}
+              {UI[lang].disclaimer.officialForecasts}{" "}
               <a href="https://www.weather.gov/sju/beach" target="_blank" rel="noopener noreferrer"
                 style={{ color: "#0ea5e9", textDecoration: "underline" }}>
                 NWS San Juan Beach Forecast
@@ -2602,7 +2813,7 @@ export default function PlayaSeguraPR() {
                 letterSpacing: "0.01em",
               }}
             >
-              I understand — Show me the beaches
+              {UI[lang].disclaimer.button}
             </button>
           </div>
         </div>
