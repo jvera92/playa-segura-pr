@@ -2255,15 +2255,15 @@ export default function PlayaSeguraPR() {
 
           {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
           {nwsBeachAlerts.length > 0 ? (
-            <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: "1px solid rgba(239,68,68,0.15)" }}>
+            <div style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.85) 0%, rgba(153,27,27,0.90) 100%)", borderBottom: "2px solid rgba(239,68,68,0.6)", boxShadow: "0 2px 8px rgba(239,68,68,0.3)" }}>
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#fef2f2", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
                   <AlertTriangle size={12} /> {nwsBeachAlerts.length} NWS Alert{nwsBeachAlerts.length > 1 ? "s" : ""}
                 </span>
-                <div style={{ fontSize: "12px", color: "#f87171", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                <div style={{ fontSize: "12px", color: "#fecaca", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
                   {nwsBeachAlerts.map(a => a.event).join(" · ")}
                 </div>
-                <span style={{ fontSize: "10px", fontWeight: 700, color: "#22c55e", border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto" }}>
+                <span style={{ fontSize: "10px", fontWeight: 700, color: "#bbf7d0", border: "1px solid #86efac", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto", background: "rgba(0,0,0,0.2)" }}>
                   LIVE
                 </span>
               </div>
@@ -2276,9 +2276,9 @@ export default function PlayaSeguraPR() {
               appearance: "none", WebkitAppearance: "none",
               margin: 0, boxSizing: "border-box", cursor: "pointer", width: "100%",
               display: "flex", alignItems: "center", justifyContent: "space-between",
-              background: "rgba(56,189,248,0.06)", borderRadius: "14px",
-              padding: "14px 20px", border: "1px solid rgba(56,189,248,0.12)",
-              transition: "all 0.2s",
+              background: "linear-gradient(135deg, rgba(2,132,199,0.18) 0%, rgba(14,165,233,0.14) 100%)", borderRadius: "14px",
+              padding: "14px 20px", border: "1.5px solid rgba(56,189,248,0.45)",
+              transition: "all 0.2s", boxShadow: "0 2px 8px rgba(56,189,248,0.12)",
             }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#38bdf8" }}>
                 <LifeBuoy size={16} /> Ocean Safety Quick Guide
@@ -2300,8 +2300,8 @@ export default function PlayaSeguraPR() {
               }}>
                 {SAFETY_TIPS.map((tip, i) => (
                   <div key={i} style={{
-                    background: "rgba(56,189,248,0.08)", borderRadius: "14px",
-                    padding: "18px 16px", border: "1px solid rgba(56,189,248,0.1)",
+                    background: "linear-gradient(135deg, rgba(2,132,199,0.16) 0%, rgba(14,165,233,0.12) 100%)", borderRadius: "14px",
+                    padding: "18px 16px", border: "1.5px solid rgba(56,189,248,0.35)",
                   }}>
                     <div style={{ marginBottom: "10px", color: "#38bdf8" }}><tip.icon size={22} /></div>
                     <div style={{ fontWeight: 700, fontSize: "14px", color: "#0f172a", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{tip.title}</div>
