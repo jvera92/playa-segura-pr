@@ -61,8 +61,10 @@ interface Beach {
   surfZone: string;
   image: string;
   description: string;
+  descriptionEs?: string;
   amenities: string[];
   tips: string;
+  tipsEs?: string;
   riskLevel: RiskLevel;
   conditions: BeachConditions;
   forecast: ForecastDay[];
@@ -96,8 +98,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.32921, lng: -65.3152 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&h=400&fit=crop",
     description: "Consistently ranked among the world's best beaches. Crystal-clear waters and a wide horseshoe bay surrounded by green hills. Famous for the abandoned military tank on the sand.",
+    descriptionEs: "Reconocida entre las mejores playas del mundo. Aguas cristalinas y una amplia bahía en herradura rodeada de colinas verdes. Famosa por el tanque militar abandonado en la arena.",
     amenities: ["Restrooms", "Food kiosks", "Parking", "Camping"],
     tips: "Arrive early on weekends. The left side tends to have calmer waters. Watch for jellyfish during winter months. 15-20 min hike from parking.",
+    tipsEs: "Llega temprano los fines de semana. El lado izquierdo tiende a tener aguas más tranquilas. Cuidado con las medusas en los meses de invierno. Caminata de 15-20 min desde el estacionamiento.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "ENE",
@@ -119,8 +123,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.45734, lng: -66.07199 }, buoyStation: "41053", surfZone: "prz001", // San Juan
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Urban beach in the heart of San Juan's hotel district. Popular with tourists but can have strong currents, especially during winter swells.",
+    descriptionEs: "Playa urbana en el corazón del distrito hotelero de San Juan. Popular entre turistas, pero puede tener corrientes fuertes, especialmente durante las marejadas de invierno.",
     amenities: ["Hotels nearby", "Restaurants", "Water sports rentals"],
     tips: "Strong currents are common. Swim only in lifeguard-patrolled areas. Eastern section near the Marriott tends to have calmer waters.",
+    tipsEs: "Las corrientes fuertes son comunes. Nada solo en áreas vigiladas por guardavidas. La sección este, cerca del Marriott, tiende a tener aguas más tranquilas.",
     riskLevel: "high",
     conditions: {
       waveHeight: "4-6 ft", swellPeriod: "12s", swellDirection: "NNW",
@@ -142,8 +148,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.93606, lng: -67.18904 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&h=400&fit=crop",
     description: "Stunning secluded beach at the southwestern tip of PR near the salt flats and Los Morrillos Lighthouse. Turquoise waters and dramatic cliffs.",
+    descriptionEs: "Impresionante playa apartada en el extremo suroeste de Puerto Rico, cerca de las salinas y el Faro de Los Morrillos. Aguas turquesas y acantilados espectaculares.",
     amenities: ["Parking (limited)", "None — bring supplies", "Hiking trail access"],
     tips: "No lifeguards. Bring plenty of water and sunscreen. 15-20 min hike from parking. Dirt road can be muddy when it rains. Leave no trace.",
+    tipsEs: "Sin guardavidas. Lleva suficiente agua y protector solar. Caminata de 15-20 min desde el estacionamiento. El camino de tierra puede estar lodoso cuando llueve. No dejes rastro.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "SSW",
@@ -165,8 +173,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.45896, lng: -67.16394 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&h=400&fit=crop",
     description: "Famous for its colorful pier and excellent snorkeling. Beloved local beach with vibrant atmosphere and clear waters.",
+    descriptionEs: "Famosa por su colorido muelle y su excelente snorkel. Playa muy querida por los locales con ambiente vibrante y aguas claras.",
     amenities: ["Parking", "Food vendors", "Restrooms", "Snorkeling", "Diving pier"],
     tips: "The area around the pier has calmer water ideal for snorkeling. The open-water side can have strong currents. Arrive before 10 AM on weekends.",
+    tipsEs: "El área alrededor del muelle tiene aguas más tranquilas, ideal para snorkel. El lado de mar abierto puede tener corrientes fuertes. Llega antes de las 10 AM los fines de semana.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "3-4 ft", swellPeriod: "10s", swellDirection: "NW",
@@ -188,8 +198,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.38487, lng: -65.72941 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=600&h=400&fit=crop",
     description: "One of PR's most family-friendly beaches. Long crescent of calm palm-lined shore with a protective reef. Famous food kiosks nearby.",
+    descriptionEs: "Una de las playas más familiares de Puerto Rico. Larga franja de arena con palmeras y aguas tranquilas protegidas por un arrecife. Famosos quioscos de comida en las cercanías.",
     amenities: ["Restrooms", "Showers", "Parking ($5)", "Food kiosks", "Accessibility ramps"],
     tips: "The reef protects from strong waves, excellent for families. The famous 'kioskos' are a 5-min walk east — try the alcapurrias.",
+    tipsEs: "El arrecife protege de las olas fuertes, excelente para familias. Los famosos quioscos están a 5 min a pie al este — prueba las alcapurrias.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "E",
@@ -211,8 +223,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.36478, lng: -67.26994 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=600&h=400&fit=crop",
     description: "World-renowned surf beach named after the nearby nuclear dome. Powerful winter swells make this a surfing mecca — extremely dangerous for casual swimmers.",
+    descriptionEs: "Playa de surf de fama mundial, nombrada por el domo nuclear cercano. Las potentes olas de invierno la convierten en una meca del surf — extremadamente peligrosa para nadadores ocasionales.",
     amenities: ["Parking (roadside)", "Surf shops nearby", "Restaurants nearby"],
     tips: "NOT a swimming beach during surf season (Oct-Apr). Even experienced swimmers get caught in powerful currents. Watch surfers from the cliff overlook instead.",
+    tipsEs: "NO es una playa para nadar durante la temporada de surf (oct-abr). Incluso nadadores expertos quedan atrapados en corrientes poderosas. Observa a los surfistas desde el mirador del acantilado.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "8-12 ft", swellPeriod: "14s", swellDirection: "WNW",
@@ -234,8 +248,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.51546, lng: -67.07488 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1476673160081-cf065607f449?w=600&h=400&fit=crop",
     description: "Wild, beautiful beach popular with surfers and bodyboarders. Rocky outcrops and strong currents make it risky for inexperienced swimmers.",
+    descriptionEs: "Playa salvaje y hermosa, popular entre surfistas y bodyboarders. Los afloramientos rocosos y las fuertes corrientes la hacen peligrosa para nadadores sin experiencia.",
     amenities: ["Parking", "Food kiosks", "Restrooms"],
     tips: "Strong currents even on calm days. Rocky bottom can cause injuries. Best for watching surfers or wading in shallow areas only. Not recommended for children.",
+    tipsEs: "Corrientes fuertes incluso en días tranquilos. El fondo rocoso puede causar lesiones. Ideal para ver surfistas o caminar en aguas poco profundas únicamente. No recomendada para niños.",
     riskLevel: "high",
     conditions: {
       waveHeight: "5-7 ft", swellPeriod: "11s", swellDirection: "NNW",
@@ -257,8 +273,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.04122, lng: -67.2062 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600&h=400&fit=crop",
     description: "Tranquil tree-lined beach with calm Caribbean waters. Less crowded than many popular beaches, offering a peaceful retreat with gentle swimming conditions.",
+    descriptionEs: "Playa tranquila bordeada de árboles con aguas caribeñas en calma. Menos concurrida que muchas playas populares, ofrece un retiro pacífico con condiciones de natación suaves.",
     amenities: ["Parking", "Restrooms", "Shade trees", "Picnic areas", "Restaurant/Bar"],
     tips: "Great for families and relaxed swimming. The mangrove area on the south end is beautiful for kayaking. Bring your own food and drinks as vendors are limited.",
+    tipsEs: "Ideal para familias y nadar relajadamente. El área de manglares en el extremo sur es hermosa para kayak. Lleva tu propia comida y bebidas, ya que los vendedores son limitados.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "4s", swellDirection: "S",
@@ -280,8 +298,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.46711, lng: -66.08997 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "San Juan's best beach for snorkeling. A reef barrier creates calm, clear waters perfect for swimming. Located between Puerta de Tierra and Condado with ruins of an 18th-century artillery battery nearby.",
+    descriptionEs: "La mejor playa de San Juan para hacer snorkel. Un arrecife crea aguas tranquilas y claras, perfectas para nadar. Ubicada entre Puerta de Tierra y Condado, con ruinas de una batería de artillería del siglo XVIII.",
     amenities: ["Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
     tips: "Reef-protected waters are calm and ideal for snorkeling. Scuba Dogs offers gear rentals. Arrive early for parking. Blue Flag certified beach.",
+    tipsEs: "Las aguas protegidas por el arrecife son tranquilas e ideales para snorkel. Scuba Dogs ofrece alquiler de equipo. Llega temprano para estacionar. Playa certificada Bandera Azul.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "NE",
@@ -303,8 +323,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.36979, lng: -65.63585 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Dreamy crescent beach with calm, clear waters. One of the best-maintained public beaches (balneario) in PR. Starting point for hiking to Playa Escondida.",
+    descriptionEs: "Soñada playa en media luna con aguas tranquilas y claras. Uno de los balnearios mejor mantenidos de Puerto Rico. Punto de partida para la caminata a Playa Escondida.",
     amenities: ["Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
     tips: "Calm waters ideal for families and snorkeling. Gets busy on weekends. Camping available with permit. Starting point for trail to the more secluded Playa Escondida.",
+    tipsEs: "Aguas tranquilas ideales para familias y snorkel. Se llena los fines de semana. Camping disponible con permiso. Punto de partida para el sendero hacia la más apartada Playa Escondida.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "E",
@@ -326,8 +348,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.01981, lng: -67.17198 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular public beaches on the southwest coast. Long stretch of calm Caribbean water with white sand. Lively atmosphere with vendors and restaurants.",
+    descriptionEs: "Una de las playas públicas más populares de la costa suroeste. Larga franja de arena blanca con aguas caribeñas en calma. Ambiente animado con vendedores y restaurantes.",
     amenities: ["Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
     tips: "Calm waters perfect for families. Gets very crowded on weekends and holidays. The town of Boquerón has excellent seafood restaurants. Blue Flag certified.",
+    tipsEs: "Aguas tranquilas perfectas para familias. Se llena mucho los fines de semana y feriados. El pueblo de Boquerón tiene excelentes restaurantes de mariscos. Certificada Bandera Azul.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "4s", swellDirection: "SW",
@@ -349,8 +373,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.45507, lng: -66.05458 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A favorite among locals, this wide sandy beach between Condado and Isla Verde has a more laid-back vibe than the hotel-district beaches. Popular for kitesurfing and volleyball.",
+    descriptionEs: "Favorita entre los locales, esta amplia playa arenosa entre Condado e Isla Verde tiene un ambiente más relajado que las playas del distrito hotelero. Popular para el kitesurf y el voleibol.",
     amenities: ["Limited — residential area", "some food trucks"],
     tips: "Less tourist-oriented than Condado. Good for kitesurfing on windy days. Limited amenities — bring your own supplies. Strong currents possible.",
+    tipsEs: "Menos turística que Condado. Buena para kitesurf en días de viento. Facilidades limitadas — lleva tus propios suministros. Posibles corrientes fuertes.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "NE",
@@ -372,8 +398,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.44517, lng: -66.01406 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Long stretch of golden sand lined with high-rise hotels and resorts. One of the most accessible beaches from the airport. Active water sports scene.",
+    descriptionEs: "Larga franja de arena dorada bordeada de hoteles y resorts. Una de las playas más accesibles desde el aeropuerto. Activa escena de deportes acuáticos.",
     amenities: ["Hotels", "Restaurants", "Water sports", "Chair/umbrella rentals"],
     tips: "Western end near the hotels has calmer waters. Eastern end can have stronger currents. Plenty of amenities and food options within walking distance.",
+    tipsEs: "El extremo oeste, cerca de los hoteles, tiene aguas más tranquilas. El extremo este puede tener corrientes más fuertes. Muchas facilidades y opciones de comida a pie.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "NE",
@@ -395,8 +423,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.09625, lng: -65.45429 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most accessible beach in Vieques. Wide crescent of soft sand with turquoise waters and palm trees. Part of a government-managed balneario.",
+    descriptionEs: "La playa más accesible de Vieques. Amplia media luna de arena suave con aguas turquesas y palmeras. Parte de un balneario administrado por el gobierno.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
     tips: "Calm waters great for swimming. Can get busy on weekends with locals. Bring supplies as vendors are limited. Gate closes at certain hours.",
+    tipsEs: "Aguas tranquilas ideales para nadar. Puede concurrirse los fines de semana con locales. Lleva suministros ya que los vendedores son limitados. La verja cierra a ciertas horas.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "SE",
@@ -418,8 +448,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.11338, lng: -65.38743 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Inside the Vieques National Wildlife Refuge. White sand that sparkles like diamond dust with waters shifting from turquoise to deep blue. One of the Caribbean's most beautiful beaches.",
+    descriptionEs: "Dentro del Refugio Nacional de Vida Silvestre de Vieques. Arena blanca que brilla como polvo de diamante con aguas que van del turquesa al azul profundo. Una de las playas más bellas del Caribe.",
     amenities: ["None — bring everything"],
     tips: "Dirt road access requires patience. No facilities — bring water, food, shade, sunscreen. Multiple numbered beach areas along the road. Snorkeling at rocky spots.",
+    tipsEs: "El acceso por camino de tierra requiere paciencia. Sin facilidades — lleva agua, comida, sombra y protector solar. Múltiples áreas numeradas a lo largo del camino. Snorkel en las zonas rocosas.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "SE",
@@ -441,8 +473,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.32459, lng: -65.32977 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Puerto Rico's premier snorkeling beaches. Accessible only by a 20-minute trail from Flamenco Beach. Pristine reef with abundant marine life.",
+    descriptionEs: "Una de las mejores playas para snorkel de Puerto Rico. Accesible únicamente por un sendero de 20 minutos desde Playa Flamenco. Arrecife prístino con abundante vida marina.",
     amenities: ["None — bring everything"],
     tips: "Must hike from Flamenco Beach — no road access. Bring snorkeling gear, water, and snacks. No shade or facilities. The reef starts very close to shore.",
+    tipsEs: "Debes caminar desde Playa Flamenco — sin acceso por carretera. Lleva equipo de snorkel, agua y meriendas. Sin sombra ni facilidades. El arrecife comienza muy cerca de la orilla.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "7s", swellDirection: "ENE",
@@ -464,8 +498,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.47285, lng: -66.48545 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural pool formed by a horseshoe-shaped rock formation. Turquoise water enters through two channels creating an almost perfect semi-circle. One of PR's most photographed beaches.",
+    descriptionEs: "Una piscina natural única formada por una formación rocosa en herradura. El agua turquesa entra por dos canales creando un semicírculo casi perfecto. Una de las playas más fotografiadas de Puerto Rico.",
     amenities: ["Limited parking", "Small food kiosk"],
     tips: "In winter, large waves crash over the rocks creating dramatic splashes. The pool is calmer but can still have strong water movement. Rocks can be slippery. Not ideal for small children during high surf.",
+    tipsEs: "En invierno, grandes olas chocan contra las rocas creando salpicaduras espectaculares. La piscina es más tranquila pero puede tener movimiento fuerte. Las rocas pueden ser resbaladizas. No es ideal para niños pequeños con oleaje alto.",
     riskLevel: "high",
     conditions: {
       waveHeight: "3-5 ft", swellPeriod: "10s", swellDirection: "N",
@@ -487,8 +523,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.47699, lng: -66.50667 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden series of natural tidal pools along Manatí's coastline. Crystal-clear shallow pools formed by the rocky coast. Popular with locals for a calm swimming experience.",
+    descriptionEs: "Una serie escondida de piscinas naturales de marea a lo largo de la costa de Manatí. Piscinas poco profundas de agua cristalina formadas por la costa rocosa. Popular entre los locales para nadar tranquilamente.",
     amenities: ["Free roadside parking"],
     tips: "The pools are shallow and generally calm but ocean conditions affect them. Visit at low tide for best experience. Rocks are sharp — wear water shoes.",
+    tipsEs: "Las piscinas son poco profundas y generalmente tranquilas, pero las condiciones del océano las afectan. Visítalas en marea baja para mejor experiencia. Las rocas son filosas — usa zapatos de agua.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "N",
@@ -510,8 +548,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach with calm waters protected by a natural cove. Popular with families. Surrounded by lush vegetation and coconut palms.",
+    descriptionEs: "Playa administrada por el gobierno con aguas tranquilas protegidas por una cala natural. Popular entre familias. Rodeada de vegetación exuberante y palmas de coco.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
     tips: "Calm waters in the main cove. Left side has better snorkeling. Gets very busy on holidays. Camping available with reservation.",
+    tipsEs: "Aguas tranquilas en la cala principal. El lado izquierdo tiene mejor snorkel. Se llena mucho en días festivos. Camping disponible con reservación.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "NE",
@@ -533,8 +573,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.50803, lng: -67.13617 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden gem accessible only by trail. Dramatic cliffs frame this secluded beach. Not great for swimming but spectacular for scenery and photography.",
+    descriptionEs: "Una joya escondida accesible solo por sendero. Imponentes acantilados enmarcan esta playa apartada. No es ideal para nadar, pero es espectacular para el paisaje y la fotografía.",
     amenities: ["None — bring everything"],
     tips: "Requires a hike through vegetation. NOT safe for swimming — strong currents and rocky bottom. Best for photographs and exploring. Bring water and sturdy shoes.",
+    tipsEs: "Requiere una caminata por la vegetación. NO es segura para nadar — corrientes fuertes y fondo rocoso. Ideal para fotografías y exploración. Lleva agua y zapatos resistentes.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "5-8 ft", swellPeriod: "12s", swellDirection: "NW",
@@ -556,8 +598,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.97676, lng: -67.21276 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A long stretch of beach on PR's southwest coast near the salt flats. Shallow, warm Caribbean waters. Starting point for the Cabo Rojo bike trail.",
+    descriptionEs: "Una larga franja de playa en la costa suroeste de Puerto Rico, cerca de las salinas. Aguas caribeñas cálidas y poco profundas. Punto de partida para la ruta ciclista de Cabo Rojo.",
     amenities: ["Parking", "Restaurants", "Some kiosks"],
     tips: "Shallow waters ideal for wading. Can be hot with limited shade. Great sunset views. Several restaurants along the beach road.",
+    tipsEs: "Aguas poco profundas ideales para caminar. Puede hacer mucho calor con sombra limitada. Excelentes vistas al atardecer. Varios restaurantes a lo largo del camino de la playa.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "4s", swellDirection: "SW",
@@ -579,8 +623,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.3497, lng: -67.26423 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Part of the Tres Palmas Marine Reserve, protecting PR's most treasured elkhorn coral. Excellent snorkeling spot and popular surf break.",
+    descriptionEs: "Parte de la Reserva Marina Tres Palmas, que protege el coral cuerno de alce más preciado de Puerto Rico. Excelente punto de snorkel y popular rompiente de surf.",
     amenities: ["None — bring supplies"],
     tips: "Named for the concrete steps leading to the water. In summer calm waters are great for snorkeling the reef. In winter, surfing only — dangerous for swimmers. Marine reserve — don't touch coral.",
+    tipsEs: "Nombrada por los escalones de concreto que llevan al agua. En verano las aguas tranquilas son ideales para snorkel en el arrecife. En invierno, solo surf — peligrosa para nadadores. Reserva marina — no toques el coral.",
     riskLevel: "high",
     conditions: {
       waveHeight: "6-8 ft", swellPeriod: "12s", swellDirection: "WNW",
@@ -1430,6 +1476,28 @@ function mergeForecast(
   })
 }
 
+// ─── TRANSLATION HELPERS ─────────────────────────────────────────────────────
+
+function translateDay(day: string, lang: Lang): string {
+  if (lang !== 'es') return day
+  const map: Record<string, string> = {
+    'Today': 'Hoy', 'Tonight': 'Esta Noche', 'Tomorrow': 'Mañana',
+    'Mon': 'Lun', 'Tue': 'Mar', 'Wed': 'Mié', 'Thu': 'Jue',
+    'Fri': 'Vie', 'Sat': 'Sáb', 'Sun': 'Dom',
+  }
+  return map[day] ?? day
+}
+
+function translateSurfHeight(text: string, lang: Lang): string {
+  if (lang !== 'es' || !text || text === '—') return text
+  return text
+    .replace(/\baround\b/gi, 'Aprox.')
+    .replace(/\bfeet\b/gi, 'pies')
+    .replace(/\bfoot\b/gi, 'pie')
+    .replace(/\bto\b/gi, 'a')
+    .replace(/\bft\b/gi, 'pies')
+}
+
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
 const WEATHER_ICONS: Record<WeatherIconKey, LucideIcon> = {
@@ -1562,7 +1630,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment, lang = "en" }: {
           display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
           overflow: "hidden",
         }}>
-          {beach.description}
+          {lang === 'es' && beach.descriptionEs ? beach.descriptionEs : beach.description}
         </p>
         <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "8px 12px", fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
           {liveData?.error ? (
@@ -1622,12 +1690,12 @@ function ForecastRow({ f, lang = "en" }: { f: ForecastDay; lang?: Lang }) {
       borderBottom: "1px solid rgba(0,0,0,0.06)",
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", color: "#1e293b",
     }}>
-      <span style={{ fontWeight: 600 }}>{f.day}</span>
+      <span style={{ fontWeight: 600 }}>{translateDay(f.day, lang)}</span>
       <span style={{ display: "flex", alignItems: "center" }}><WeatherIcon iconKey={f.icon} size={20} /></span>
       <span>{f.high}</span>
       <span style={{ color: "#64748b" }}>{f.low}</span>
       <span>{f.precip}</span>
-      <span>{f.surf}</span>
+      <span>{translateSurfHeight(f.surf, lang)}</span>
       <span><RiskBadge level={f.risk} size="sm" lang={lang} /></span>
     </div>
   );
@@ -2028,7 +2096,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <WeatherIcon iconKey={f.icon} size={22} />
-                  <span style={{ fontWeight: 700, fontSize: "15px", color: "#0f172a" }}>{f.day}</span>
+                  <span style={{ fontWeight: 700, fontSize: "15px", color: "#0f172a" }}>{translateDay(f.day, lang)}</span>
                 </div>
                 <RiskBadge level={f.risk} size="sm" lang={lang} />
               </div>
@@ -2036,7 +2104,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><ArrowUp size={12} /> {f.high}</span>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "3px", color: "#64748b" }}><ArrowDown size={12} /> {f.low}</span>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><CloudRain size={12} /> {f.precip}</span>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><Waves size={12} /> {f.surf}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}><Waves size={12} /> {translateSurfHeight(f.surf, lang)}</span>
               </div>
             </div>
           ))}
@@ -2056,7 +2124,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
           border: "1px solid rgba(212,165,86,0.18)", marginBottom: "28px",
         }}>
           <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.7, color: "#78350f", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", display: "flex", gap: "8px" }}>
-            <Lightbulb size={16} style={{ flexShrink: 0, marginTop: "2px" }} color="#d4a556" />{beach.tips}
+            <Lightbulb size={16} style={{ flexShrink: 0, marginTop: "2px" }} color="#d4a556" />{lang === 'es' && beach.tipsEs ? beach.tipsEs : beach.tips}
           </p>
         </div>
 
