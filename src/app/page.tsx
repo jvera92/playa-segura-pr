@@ -1454,6 +1454,7 @@ const UI = {
       beaches: "47 beaches across Puerto Rico · Real-time conditions powered by",
       advisory: "All conditions are advisory only. Always exercise personal judgment and obey posted signs and lifeguard instructions.",
       comingSoon: "Coming soon: Interactive map · Push alerts",
+      contactUs: "Contact Us",
     },
   },
   es: {
@@ -1524,6 +1525,7 @@ const UI = {
       beaches: "47 playas en Puerto Rico · Condiciones en tiempo real por",
       advisory: "Las condiciones son de referencia únicamente. Siempre usa tu propio juicio y obedece los letreros y las instrucciones de los guardavidas.",
       comingSoon: "Próximamente: Mapa interactivo · Alertas push",
+      contactUs: "Contáctanos",
     },
   },
 };
@@ -2897,6 +2899,14 @@ export default function PlayaSeguraPR() {
             </div>
             <div style={{ marginTop: "16px", fontSize: "11px", color: "#475569" }}>
               {UI[lang].footer.comingSoon}
+            </div>
+            <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+              <div style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                {UI[lang].footer.contactUs}
+              </div>
+              <a href="mailto:playasegurapr@gmail.com" style={{ fontSize: "13px", color: "#0ea5e9", textDecoration: "none", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                playasegurapr@gmail.com
+              </a>
             </div>
           </div>
 
