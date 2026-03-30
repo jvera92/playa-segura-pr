@@ -67,6 +67,10 @@ export interface ForecastResponse {
 export interface NWSAlertProperties {
   id: string
   areaDesc: string
+  geocode?: {
+    UGC?: string[]
+    SAME?: string[]
+  }
   sent: string
   effective: string
   onset: string | null

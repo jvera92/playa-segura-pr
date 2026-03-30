@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import {
-  mapNWSForecast, extractLiveWeather, extractBeachAlerts,
+  mapNWSForecast, extractLiveWeather, extractBeachAlerts, filterAlertsForZone,
   forecastIcon, conditionLabel, computeBeachRisk,
   type LiveForecastDay, type LiveWeather, type BeachAlert, type WeatherIconKey,
   type RiskLevel, type RiskAssessment, type SurfZoneRisk,
@@ -1544,10 +1544,10 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
       </div>
 
       <div style={{ padding: "24px", maxWidth: "800px", margin: "0 auto" }}>
-        {/* NWS Live Alerts */}
-        {prAlerts && prAlerts.length > 0 && (
+        {/* NWS Live Alerts — filtered to this beach's NWS zone */}
+        {prAlerts && filterAlertsForZone(prAlerts, beach.surfZone).length > 0 && (
           <div style={{ marginBottom: "24px" }}>
-            {prAlerts.map((alert, i) => {
+            {filterAlertsForZone(prAlerts, beach.surfZone).map((alert, i) => {
               const isCritical = alert.severity === "Extreme" || alert.severity === "Severe";
               const alertColor = isCritical ? "#ef4444" : "#eab308";
               const alertBg = isCritical ? "rgba(239,68,68,0.08)" : "rgba(234,179,8,0.08)";
@@ -2162,7 +2162,7 @@ export default function PlayaSeguraPR() {
               d?.surfForecastError === true || d?.surfForecast != null ||
               d?.buoyError === true || d?.buoy != null;
             return ready
-              ? computeBeachRisk(prAlerts, d?.surfForecast ?? null, d?.buoy?.waveHeightFt ?? null, selectedBeach.name)
+              ? computeBeachRisk(prAlerts ? filterAlertsForZone(prAlerts, selectedBeach.surfZone) : null, d?.surfForecast ?? null, d?.buoy?.waveHeightFt ?? null, selectedBeach.name)
               : undefined;
           })()}
         />
@@ -2337,7 +2337,7 @@ export default function PlayaSeguraPR() {
                   beach={b}
                   onClick={() => handleSelectBeach(b)}
                   liveData={bData}
-                  riskAssessment={riskReady ? computeBeachRisk(prAlerts, bData?.surfForecast ?? null, bData?.buoy?.waveHeightFt ?? null, b.name) : undefined}
+                  riskAssessment={riskReady ? computeBeachRisk(prAlerts ? filterAlertsForZone(prAlerts, b.surfZone) : null, bData?.surfForecast ?? null, bData?.buoy?.waveHeightFt ?? null, b.name) : undefined}
                 />
               );
             })}

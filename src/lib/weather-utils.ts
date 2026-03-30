@@ -43,6 +43,8 @@ export interface BeachAlert {
   description: string
   severity: string
   expires: string
+  /** Lowercase NWS UGC zone codes this alert applies to, e.g. ["prz001","prz002"]. Empty = zone unknown, show everywhere. */
+  zones: string[]
 }
 
 // ─── ALERT CLASSIFICATION ────────────────────────────────────────────────────
@@ -84,7 +86,14 @@ export function extractBeachAlerts(features: NWSAlertFeature[]): BeachAlert[] {
       description: f.properties.description,
       severity: f.properties.severity,
       expires: f.properties.expires,
+      zones: (f.properties.geocode?.UGC ?? []).map(z => z.toLowerCase()),
     }))
+}
+
+/** Filter alerts to only those applicable to a specific NWS zone (e.g. "prz012").
+ *  Alerts with no zone data are included for all beaches (fail-safe). */
+export function filterAlertsForZone(alerts: BeachAlert[], beachZone: string): BeachAlert[] {
+  return alerts.filter(a => a.zones.length === 0 || a.zones.includes(beachZone))
 }
 
 // ─── ICON MAPPING ─────────────────────────────────────────────────────────────
