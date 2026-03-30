@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -17,9 +17,21 @@ const playfairDisplay = Playfair_Display({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: '#0f172a',
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   title: "Playa Segura PR · Beach Safety & Conditions",
   description: "Real-time beach conditions and safety information for Puerto Rico. Know before you go.",
+  appleWebApp: {
+    capable: true,
+    title: "Playa Segura PR",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({
@@ -29,7 +41,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${playfairDisplay.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')})}`,
+          }}
+        />
+      </body>
     </html>
   );
 }
