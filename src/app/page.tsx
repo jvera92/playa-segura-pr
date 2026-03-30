@@ -1300,9 +1300,9 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
       appearance: "none", WebkitAppearance: "none",
       padding: 0, margin: 0, textAlign: "left",
       cursor: "pointer", display: "flex", flexDirection: "column",
-      borderRadius: "18px", overflow: "hidden", background: "#0b1929",
-      border: "1px solid rgba(255,255,255,0.07)",
-      boxShadow: "0 4px 28px rgba(0,0,0,0.4)", width: "100%",
+      borderRadius: "18px", overflow: "hidden", background: "#d8e2ec",
+      border: "1px solid rgba(0,0,0,0.08)",
+      boxShadow: "0 2px 16px rgba(0,0,0,0.08)", width: "100%",
     }}>
       {/* Image with full text overlay */}
       <div style={{ position: "relative", height: "220px", overflow: "hidden" }}>
@@ -1414,13 +1414,13 @@ function ConditionBlock({ label, value, icon, accent }: {
 }) {
   return (
     <div style={{
-      background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "16px",
-      border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px",
+      background: "#d8e2ec", borderRadius: "12px", padding: "16px",
+      border: "1px solid rgba(0,0,0,0.08)", display: "flex", flexDirection: "column", gap: "4px",
     }}>
-      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
         {icon} {label}
       </span>
-      <span style={{ fontSize: "20px", fontWeight: 700, color: accent || "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+      <span style={{ fontSize: "20px", fontWeight: 700, color: accent || "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
         {value}
       </span>
     </div>
@@ -1433,8 +1433,8 @@ function ForecastRow({ f }: { f: ForecastDay }) {
       display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
       columnGap: "8px",
       alignItems: "center", padding: "12px 16px", fontSize: "13px",
-      borderBottom: "1px solid rgba(255,255,255,0.04)",
-      fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", color: "#cbd5e1",
+      borderBottom: "1px solid rgba(0,0,0,0.06)",
+      fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", color: "#1e293b",
     }}>
       <span style={{ fontWeight: 600 }}>{f.day}</span>
       <span style={{ display: "flex", alignItems: "center" }}><WeatherIcon iconKey={f.icon} size={20} /></span>
@@ -1573,11 +1573,11 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
                     }}>NWS LIVE</span>
                   </div>
                   {alert.headline && (
-                    <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#e2e8f0", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                    <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
                       {alert.headline}
                     </p>
                   )}
-                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#cbd5e1", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
                     {alert.description.length > 300 ? alert.description.slice(0, 300) + "…" : alert.description}
                   </p>
                   <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
@@ -1626,14 +1626,14 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         )}
 
         {/* About */}
-        <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#94a3b8", marginBottom: "32px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", maxWidth: "680px" }}>
+        <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#475569", marginBottom: "32px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", maxWidth: "680px" }}>
           {beach.description}
         </p>
 
         {/* Current Conditions Grid */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
           Current Conditions
@@ -1720,7 +1720,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         </div>
         {/* Data attribution */}
         {(liveData?.surfForecast || liveData?.buoy) && (
-          <p style={{ fontSize: "11px", color: "#334155", marginTop: "-20px", marginBottom: "28px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+          <p style={{ fontSize: "11px", color: "#64748b", marginTop: "-20px", marginBottom: "28px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
             {liveData?.surfForecast && (
               <>
                 Surf forecast:{" "}
@@ -1747,7 +1747,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* 5-Day Forecast */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
           5-Day Beach Forecast
@@ -1783,15 +1783,15 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           <>
         {/* Desktop: table layout */}
         <div className="forecast-table" style={{
-          background: "rgba(255,255,255,0.02)", borderRadius: "14px",
-          border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", marginBottom: "28px",
+          background: "#d8e2ec", borderRadius: "14px",
+          border: "1px solid rgba(0,0,0,0.08)", overflow: "hidden", marginBottom: "28px",
         }}>
           <div style={{
             display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
             columnGap: "8px",
             padding: "10px 16px", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.06em",
-            color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
+            borderBottom: "1px solid rgba(0,0,0,0.06)",
           }}>
             <span>Day</span><span></span><span>High</span><span>Low</span><span>Rain</span><span>Surf</span><span>Risk</span>
           </div>
@@ -1802,14 +1802,14 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         <div className="forecast-cards" style={{ marginBottom: "28px" }}>
           {displayForecast.map((f, i) => (
             <div key={i} style={{
-              background: "rgba(255,255,255,0.02)", borderRadius: "12px",
-              border: "1px solid rgba(255,255,255,0.06)", padding: "12px 16px",
+              background: "#d8e2ec", borderRadius: "12px",
+              border: "1px solid rgba(0,0,0,0.08)", padding: "12px 16px",
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
             }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <WeatherIcon iconKey={f.icon} size={22} />
-                  <span style={{ fontWeight: 700, fontSize: "15px", color: "#e2e8f0" }}>{f.day}</span>
+                  <span style={{ fontWeight: 700, fontSize: "15px", color: "#0f172a" }}>{f.day}</span>
                 </div>
                 <RiskBadge level={f.risk} size="sm" />
               </div>
@@ -1828,7 +1828,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* Local Tips */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
         }}>
           Local Tips
         </h2>
@@ -1836,7 +1836,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           background: "rgba(212,165,86,0.07)", borderRadius: "14px", padding: "18px 20px",
           border: "1px solid rgba(212,165,86,0.18)", marginBottom: "28px",
         }}>
-          <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.7, color: "#e2d9c7", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", display: "flex", gap: "8px" }}>
+          <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.7, color: "#78350f", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", display: "flex", gap: "8px" }}>
             <Lightbulb size={16} style={{ flexShrink: 0, marginTop: "2px" }} color="#d4a556" />{beach.tips}
           </p>
         </div>
@@ -1844,7 +1844,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* Amenities */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
         }}>
           Amenities & Facilities
         </h2>
@@ -1852,7 +1852,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           {beach.amenities.map((a, i) => (
             <span key={i} style={{
               background: "rgba(56,189,248,0.06)", border: "1px solid rgba(56,189,248,0.14)",
-              borderRadius: "99px", padding: "7px 16px", fontSize: "13px", color: "#7dd3fc",
+              borderRadius: "99px", padding: "7px 16px", fontSize: "13px", color: "#0369a1",
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 500,
             }}>
               {a}
@@ -1862,15 +1862,15 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
 
         {/* Data Source */}
         <div style={{
-          textAlign: "center", padding: "20px", borderTop: "1px solid rgba(255,255,255,0.04)",
+          textAlign: "center", padding: "20px", borderTop: "1px solid rgba(0,0,0,0.08)",
           fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
         }}>
           Data sources:{" "}
-          <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NOAA</a>
+          <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NOAA</a>
           {" · "}
-          <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NWS San Juan</a>
+          <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NWS San Juan</a>
           {" · "}
-          <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
+          <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${beach.buoyStation}`} target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NDBC Buoy {beach.buoyStation}</a>
           {" · PR DNER"}<br />
           Conditions are advisory only. Always assess local conditions before entering the water.
         </div>
@@ -2090,7 +2090,7 @@ export default function PlayaSeguraPR() {
 
   return (
     <div ref={scrollRef} style={{
-      minHeight: "100vh", background: "#0f172a", color: "#e2e8f0",
+      minHeight: "100vh", background: "#f0f4f8", color: "#0f172a",
       fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", overflowY: "auto",
     }}>
       <style>{`
@@ -2099,8 +2099,8 @@ export default function PlayaSeguraPR() {
         @keyframes slideIn { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-        input::placeholder { color: #475569; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+        input::placeholder { color: #94a3b8; }
         /* ── Responsive: forecast table vs stacked cards ── */
         .forecast-table { display: block; }
         .forecast-cards { display: none; }
@@ -2120,7 +2120,7 @@ export default function PlayaSeguraPR() {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         @media (hover: hover) {
-          .beach-card:hover { transform: translateY(-6px); box-shadow: 0 18px 52px rgba(0,0,0,0.6) !important; }
+          .beach-card:hover { transform: translateY(-6px); box-shadow: 0 18px 52px rgba(0,0,0,0.15) !important; }
         }
         .beach-card:active { transform: scale(0.97); opacity: 0.9; }
         .region-btn {
@@ -2171,8 +2171,8 @@ export default function PlayaSeguraPR() {
           {/* Header */}
           <div style={{
             padding: "64px 24px 36px", textAlign: "center",
-            background: "linear-gradient(180deg, #030d1a 0%, #061525 50%, #0f172a 100%)",
-            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            background: "#ffffff",
+            borderBottom: "1px solid rgba(0,0,0,0.07)",
             overflow: "visible",
           }}>
             <div style={{
@@ -2189,16 +2189,16 @@ export default function PlayaSeguraPR() {
               margin: "0 0 10px", padding: "0 16px 8px", textAlign: "center",
               fontSize: "clamp(28px, 10vw, 54px)", fontWeight: 900, lineHeight: 1.2, letterSpacing: "-0.02em",
               fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-              background: "linear-gradient(135deg, #fef3c7 0%, #7dd3fc 40%, #0ea5e9 100%)",
+              background: "linear-gradient(135deg, #0f172a 0%, #1e4d7b 45%, #0ea5e9 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               overflow: "visible",
             }}>
               Playa Segura
             </h1>
-            <p style={{ margin: "0 0 6px", fontSize: "15px", color: "#94a3b8", lineHeight: 1.5, fontWeight: 400, letterSpacing: "0.01em" }}>
+            <p style={{ margin: "0 0 6px", fontSize: "15px", color: "#475569", lineHeight: 1.5, fontWeight: 400, letterSpacing: "0.01em" }}>
               Puerto Rico's beach guide — real-time conditions & safety
             </p>
-            <p style={{ margin: "0 0 24px", fontSize: "11px", color: "#334155", letterSpacing: "0.02em" }}>
+            <p style={{ margin: "0 0 24px", fontSize: "11px", color: "#94a3b8", letterSpacing: "0.02em" }}>
               {lastRefreshedAt !== null ? `Updated ${formatAgo(lastRefreshedAt)}` : "Loading data…"}
             </p>
 
@@ -2211,18 +2211,18 @@ export default function PlayaSeguraPR() {
                 onChange={e => setSearchQuery(e.target.value)}
                 style={{
                   width: "100%", padding: "14px 20px 14px 44px", borderRadius: "14px",
-                  border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)",
-                  color: "#e2e8f0", fontSize: "15px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                  border: "1px solid rgba(0,0,0,0.12)", background: "#ffffff",
+                  color: "#0f172a", fontSize: "15px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
                   outline: "none", transition: "border 0.2s",
                   appearance: "none", WebkitAppearance: "none",
                   touchAction: "manipulation", WebkitTapHighlightColor: "transparent",
                 }}
-                onFocus={e => (e.target.style.borderColor = "rgba(56,189,248,0.4)")}
-                onBlur={e  => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
+                onFocus={e => (e.target.style.borderColor = "rgba(14,165,233,0.5)")}
+                onBlur={e  => (e.target.style.borderColor = "rgba(0,0,0,0.12)")}
               />
               <span style={{
                 position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)",
-                color: "#475569", display: "flex",
+                color: "#94a3b8", display: "flex",
               }}>
                 <Search size={18} />
               </span>
@@ -2236,7 +2236,7 @@ export default function PlayaSeguraPR() {
                   margin: 0,
                   cursor: "pointer", padding: "6px 16px", borderRadius: "99px",
                   fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
-                  border: `1px solid ${regionFilter === r ? "#38bdf8" : "rgba(255,255,255,0.08)"}`,
+                  border: `1px solid ${regionFilter === r ? "#0ea5e9" : "rgba(0,0,0,0.12)"}`,
                   background: regionFilter === r ? "rgba(56,189,248,0.12)" : "transparent",
                   color: regionFilter === r ? "#38bdf8" : "#64748b",
                   transition: "all 0.2s",
@@ -2249,7 +2249,7 @@ export default function PlayaSeguraPR() {
 
           {/* Pattern background starts here — below the header */}
           <div style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpath d='M0 20 C20 5 60 35 80 20' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3Cpath d='M0 40 C20 25 60 55 80 40' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3Cpath d='M0 0 C20 -15 60 15 80 0' fill='none' stroke='%231e293b' stroke-width='1.5'/%3E%3C/svg%3E\")",
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpath d='M0 20 C20 5 60 35 80 20' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3Cpath d='M0 40 C20 25 60 55 80 40' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3Cpath d='M0 0 C20 -15 60 15 80 0' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3C/svg%3E\")",
             backgroundRepeat: "repeat",
           }}>
 
@@ -2300,11 +2300,11 @@ export default function PlayaSeguraPR() {
               }}>
                 {SAFETY_TIPS.map((tip, i) => (
                   <div key={i} style={{
-                    background: "rgba(56,189,248,0.04)", borderRadius: "14px",
+                    background: "rgba(56,189,248,0.08)", borderRadius: "14px",
                     padding: "18px 16px", border: "1px solid rgba(56,189,248,0.1)",
                   }}>
                     <div style={{ marginBottom: "10px", color: "#38bdf8" }}><tip.icon size={22} /></div>
-                    <div style={{ fontWeight: 700, fontSize: "14px", color: "#e2e8f0", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{tip.title}</div>
+                    <div style={{ fontWeight: 700, fontSize: "14px", color: "#0f172a", marginBottom: "6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{tip.title}</div>
                     <div style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.65 }}>{tip.text}</div>
                   </div>
                 ))}
@@ -2316,7 +2316,7 @@ export default function PlayaSeguraPR() {
           <div style={{ padding: "20px 24px 8px", maxWidth: "960px", margin: "0 auto" }}>
             <div className="risk-legend">
               {Object.entries(RISK_CONFIG).map(([key, val]) => (
-                <div key={key} style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12px", fontWeight: 600, color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                <div key={key} style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12px", fontWeight: 600, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
                   <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: val.color, flexShrink: 0, boxShadow: `0 0 6px ${val.color}60` }} />
                   {val.label}
                 </div>
@@ -2356,16 +2356,16 @@ export default function PlayaSeguraPR() {
           {/* Footer */}
           <div style={{
             textAlign: "center", padding: "40px 24px",
-            borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: "11px", color: "#475569",
+            borderTop: "1px solid rgba(0,0,0,0.08)", fontSize: "11px", color: "#475569",
           }}>
-            <div style={{ marginBottom: "6px", fontSize: "14px", color: "#cbd5e1", fontWeight: 700, fontFamily: "var(--font-playfair), 'Playfair Display', serif", letterSpacing: "0.01em" }}>
+            <div style={{ marginBottom: "6px", fontSize: "14px", color: "#0f172a", fontWeight: 700, fontFamily: "var(--font-playfair), 'Playfair Display', serif", letterSpacing: "0.01em" }}>
               Playa Segura PR
             </div>
-            <div style={{ marginBottom: "12px", fontSize: "12px", color: "#94a3b8" }}>
+            <div style={{ marginBottom: "12px", fontSize: "12px", color: "#64748b" }}>
               47 beaches across Puerto Rico · Real-time conditions powered by{" "}
-              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NOAA</a>
+              <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NOAA</a>
               {", "}
-              <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#7dd3fc", textDecoration: "underline" }}>NWS San Juan</a>
+              <a href="https://www.weather.gov/sju/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea5e9", textDecoration: "underline" }}>NWS San Juan</a>
               {" & NDBC"}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", lineHeight: 1.6 }}>
@@ -2393,9 +2393,9 @@ export default function PlayaSeguraPR() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: "#0d1b2e", borderRadius: "20px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
+              background: "#ffffff", borderRadius: "20px",
+              border: "1px solid rgba(0,0,0,0.08)",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.18)",
               padding: "36px 32px 28px", maxWidth: "480px", width: "100%",
               animation: "fadeUp 0.35s ease",
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
@@ -2414,7 +2414,7 @@ export default function PlayaSeguraPR() {
             {/* Title */}
             <h2 style={{
               margin: "0 0 10px", textAlign: "center",
-              fontSize: "22px", fontWeight: 800, color: "#f1f5f9",
+              fontSize: "22px", fontWeight: 800, color: "#0f172a",
               fontFamily: "var(--font-playfair), 'Playfair Display', serif",
             }}>
               Before You Head to the Beach
@@ -2422,7 +2422,7 @@ export default function PlayaSeguraPR() {
             {/* Body */}
             <p style={{
               margin: "0 0 20px", fontSize: "14px", lineHeight: 1.7,
-              color: "#94a3b8", textAlign: "center",
+              color: "#475569", textAlign: "center",
             }}>
               All conditions are advisory only, sourced from the NWS. Always exercise personal judgment and obey posted signs and lifeguard instructions.
             </p>
@@ -2435,12 +2435,12 @@ export default function PlayaSeguraPR() {
             }}>
               Official forecasts:{" "}
               <a href="https://www.weather.gov/sju/beach" target="_blank" rel="noopener noreferrer"
-                style={{ color: "#7dd3fc", textDecoration: "underline" }}>
+                style={{ color: "#0ea5e9", textDecoration: "underline" }}>
                 NWS San Juan Beach Forecast
               </a>
               {" · "}
               <a href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer"
-                style={{ color: "#7dd3fc", textDecoration: "underline" }}>
+                style={{ color: "#0ea5e9", textDecoration: "underline" }}>
                 NOAA
               </a>
             </div>
