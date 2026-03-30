@@ -1457,6 +1457,12 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
   const effectiveRisk = riskAssessment?.unavailable ? beach.riskLevel : (riskAssessment?.level ?? beach.riskLevel);
   const r = RISK_CONFIG[effectiveRisk];
   const c = beach.conditions;
+  const [expandedAlerts, setExpandedAlerts] = useState<Set<number>>(new Set());
+  const toggleAlert = (i: number) => setExpandedAlerts(prev => {
+    const next = new Set(prev);
+    next.has(i) ? next.delete(i) : next.add(i);
+    return next;
+  });
   const rawForecast: ForecastDay[] = (liveData?.forecast?.length ?? 0) > 0
     ? mergeForecast(beach.forecast, liveData!.forecast, liveData?.surfForecastPeriods ?? [])
     : (beach.forecast ?? []);
@@ -1552,39 +1558,60 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
               const alertColor = isCritical ? "#ef4444" : "#eab308";
               const alertBg = isCritical ? "rgba(239,68,68,0.08)" : "rgba(234,179,8,0.08)";
               const alertBorder = isCritical ? "rgba(239,68,68,0.3)" : "rgba(234,179,8,0.3)";
+              const isExpanded = expandedAlerts.has(i);
               return (
                 <div key={i} style={{
-                  background: alertBg,
-                  border: `1px solid ${alertBorder}`,
-                  borderRadius: "14px", padding: "18px 20px", marginBottom: "12px",
+                  background: alertBg, border: `1px solid ${alertBorder}`,
+                  borderRadius: "14px", marginBottom: "12px", overflow: "hidden",
                 }}>
-                  <div style={{
-                    display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px",
-                    fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
-                    fontWeight: 700, color: alertColor, fontSize: "13px",
-                    textTransform: "uppercase", letterSpacing: "0.05em",
+                  {/* Collapsed header — always visible */}
+                  <button onClick={() => toggleAlert(i)} style={{
+                    appearance: "none", WebkitAppearance: "none",
+                    width: "100%", background: "none", border: "none", cursor: "pointer",
+                    display: "flex", alignItems: "center", gap: "10px",
+                    padding: "16px 20px", boxSizing: "border-box",
                   }}>
-                    <AlertTriangle size={14} />
-                    <span style={{ flex: 1 }}>{alert.event}</span>
+                    <AlertTriangle size={14} color={alertColor} style={{ flexShrink: 0 }} />
+                    <span style={{
+                      flex: 1, textAlign: "left",
+                      fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                      fontWeight: 700, color: alertColor, fontSize: "13px",
+                      textTransform: "uppercase", letterSpacing: "0.05em",
+                    }}>
+                      {alert.event}
+                    </span>
                     <span style={{
                       fontSize: "10px", fontWeight: 700, color: "#22c55e",
                       border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px",
-                      letterSpacing: "0.08em",
+                      letterSpacing: "0.08em", flexShrink: 0,
                     }}>NWS LIVE</span>
-                  </div>
-                  {alert.headline && (
-                    <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                      {alert.headline}
-                    </p>
+                    <span style={{
+                      color: alertColor, flexShrink: 0, display: "flex",
+                      transform: isExpanded ? "rotate(180deg)" : "none",
+                      transition: "transform 0.25s",
+                    }}>
+                      <ChevronDown size={16} />
+                    </span>
+                  </button>
+
+                  {/* Expanded body */}
+                  {isExpanded && (
+                    <div style={{ padding: "0 20px 16px", borderTop: `1px solid ${alertBorder}` }}>
+                      {alert.headline && (
+                        <p style={{ margin: "12px 0 8px", fontSize: "14px", fontWeight: 600, color: "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                          {alert.headline}
+                        </p>
+                      )}
+                      <p style={{ margin: "12px 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", whiteSpace: "pre-wrap" }}>
+                        {alert.description}
+                      </p>
+                      <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                        Source: NWS San Juan · Expires: {new Date(alert.expires).toLocaleString("en-US", {
+                          month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
                   )}
-                  <p style={{ margin: "0 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#1e293b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", whiteSpace: "pre-wrap" }}>
-                    {alert.description}
-                  </p>
-                  <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
-                    Source: NWS San Juan · Expires: {new Date(alert.expires).toLocaleString("en-US", {
-                      month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
-                    })}
-                  </p>
                 </div>
               );
             })}
