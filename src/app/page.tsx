@@ -1325,7 +1325,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment }: {
   riskAssessment?: RiskAssessment;
 }) {
   return (
-    <button onClick={onClick} onTouchStart={e => { e.preventDefault(); onClick(); }} className="beach-card" style={{
+    <button onClick={onClick} className="beach-card" style={{
       appearance: "none", WebkitAppearance: "none",
       padding: 0, margin: 0, textAlign: "left",
       cursor: "pointer", display: "flex", flexDirection: "column",
