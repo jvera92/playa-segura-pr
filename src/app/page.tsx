@@ -2247,11 +2247,8 @@ export default function PlayaSeguraPR() {
             </div>
           </div>
 
-          {/* Pattern background starts here — below the header */}
-          <div style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpath d='M0 20 C20 5 60 35 80 20' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3Cpath d='M0 40 C20 25 60 55 80 40' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3Cpath d='M0 0 C20 -15 60 15 80 0' fill='none' stroke='%23c7d4e3' stroke-width='1.5'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-          }}>
+          {/* Content area below the header */}
+          <div>
 
           {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
           {nwsBeachAlerts.length > 0 ? (
