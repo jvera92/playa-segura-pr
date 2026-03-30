@@ -2401,7 +2401,7 @@ export default function PlayaSeguraPR() {
                 }}>
                   <Phone size={22} color="#fff" />
                   <span style={{ fontSize: "28px", fontWeight: 900, color: "#fff", letterSpacing: "0.05em", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>911</span>
-                  <span style={{ fontSize: "13px", color: "#fecaca", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>Police · Fire · Medical · Coast Guard</span>
+                  <span style={{ fontSize: "13px", color: "#fecaca", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>Police · Fire · Medical</span>
                 </a>
 
                 {/* Primary contacts */}
