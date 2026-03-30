@@ -187,10 +187,25 @@ export function extractLiveWeather(periods: ForecastPeriod[]): LiveWeather {
 // ─── CONDITION LABEL ─────────────────────────────────────────────────────────
 // Maps NWS shortForecast (often wordy) to a compact display label, ≤ 16 chars.
 
-export function conditionLabel(shortForecast: string): string {
+export function conditionLabel(shortForecast: string, lang: 'en' | 'es' = 'en'): string {
   const f = shortForecast.toLowerCase()
   const isChance = f.includes('chance') || f.includes('slight') ||
                    f.includes('isolated') || f.includes('scattered')
+  if (lang === 'es') {
+    const prefix = isChance ? 'Posible ' : ''
+    if (f.includes('thunder') || f.includes('t-storm')) return `${prefix}Tormenta`
+    if (f.includes('shower') || f.includes('drizzle'))  return `${prefix}Aguaceros`
+    if (f.includes('rain'))                              return `${prefix}Lluvia`
+    if (f.includes('snow') || f.includes('blizzard'))   return 'Nieve'
+    if (f.includes('fog') || f.includes('haze'))        return 'Neblina'
+    if (f.includes('breezy') || f.includes('windy'))    return 'Ventoso'
+    if (f.includes('mostly cloudy') || f.includes('overcast')) return 'Nublado'
+    if (f.includes('partly cloudy') || f.includes('partly sunny')) return 'Parcialmente Nublado'
+    if (f.includes('mostly sunny') || f.includes('mostly clear'))  return 'Mayormente Soleado'
+    if (f.includes('sunny') || f.includes('clear'))     return 'Soleado'
+    if (f.includes('cloud'))                             return 'Nublado'
+    return shortForecast.length > 16 ? shortForecast.slice(0, 14) + '…' : shortForecast
+  }
   const prefix = isChance ? 'Chance ' : ''
   if (f.includes('thunder') || f.includes('t-storm')) return `${prefix}Thunderstorms`
   if (f.includes('shower') || f.includes('drizzle'))  return `${prefix}Showers`

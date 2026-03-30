@@ -648,8 +648,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.34042, lng: -67.25497 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most family-friendly beach in Rincón with calm waters and good facilities. A balneario (government-managed beach) with amenities most Rincón beaches lack.",
+    descriptionEs: "La playa más familiar de Rincón con aguas tranquilas y buenas instalaciones. Un balneario con servicios que la mayoría de las playas de Rincón no tienen.",
     amenities: ["Restrooms", "Showers", "Parking", "Playground"],
     tips: "Calmer than other Rincón beaches. Good for families. The playground makes it good for kids. Visit in summer for calmest conditions.",
+    tipsEs: "Más tranquila que otras playas de Rincón. Buena para familias. El área de juegos la hace ideal para niños. Visita en verano para las condiciones más tranquilas.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "7s", swellDirection: "W",
@@ -671,8 +673,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.35811, lng: -67.26946 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Rincón's iconic surf breaks, famous worldwide. Named after a nearby restaurant. Draws surfers from around the globe during winter swell season.",
+    descriptionEs: "Uno de los rompientes más icónicos de Rincón, famoso en todo el mundo. Su nombre viene de un restaurante cercano. Atrae surfistas de todo el mundo durante la temporada de olas de invierno.",
     amenities: ["None — surf shops nearby"],
     tips: "FOR EXPERIENCED SURFERS ONLY during winter. In summer, calmer conditions allow casual swimming. Watch from the beach bars above if you're not surfing.",
+    tipsEs: "SOLO PARA SURFISTAS EXPERIMENTADOS en invierno. En verano, las condiciones más tranquilas permiten nadar. Observa desde los bares de la playa de arriba si no surfeas.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "8-12 ft", swellPeriod: "14s", swellDirection: "WNW",
@@ -694,8 +698,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.95298, lng: -66.88402 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most visited beaches in southern PR. Calm Caribbean waters with a beautiful backdrop of the Guánica Dry Forest. Great for snorkeling and families.",
+    descriptionEs: "Una de las playas más visitadas del sur de Puerto Rico. Aguas caribeñas tranquilas con el hermoso telón de fondo del Bosque Seco de Guánica. Ideal para el snorkel y las familias.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Playground"],
     tips: "Calm waters ideal for children. Good snorkeling along the edges. Near the Guánica Dry Forest (UNESCO Biosphere Reserve) for hiking. Bring reef-safe sunscreen.",
+    tipsEs: "Aguas tranquilas ideales para niños. Buen snorkel a lo largo de los bordes. Cerca del Bosque Seco de Guánica (Reserva de la Biosfera UNESCO) para senderismo. Trae protector solar apto para arrecifes.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "4s", swellDirection: "S",
@@ -717,8 +723,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.93703, lng: -66.95485 }, buoyStation: "42085", surfZone: "prz011", // Southwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Small, calm Caribbean beach in Guánica. Clear shallow waters with a laid-back local vibe. Less crowded than neighboring Caña Gorda.",
+    descriptionEs: "Pequeña playa caribeña tranquila en Guánica. Aguas claras y poco profundas con un ambiente local relajado. Menos concurrida que la vecina Caña Gorda.",
     amenities: ["Limited parking", "Small restaurant"],
     tips: "Very calm, shallow waters. Good for wading and relaxing. Limited facilities — bring supplies. Less crowded alternative to Caña Gorda.",
+    tipsEs: "Aguas muy tranquilas y poco profundas. Buena para vadear y relajarse. Instalaciones limitadas — trae lo necesario. Alternativa menos concurrida a Caña Gorda.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5 ft", swellPeriod: "4s", swellDirection: "S",
@@ -740,8 +748,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.1538, lng: -65.76299 }, buoyStation: "41056", surfZone: "prz003", // East coast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A wide beach on the southeast coast near the Palmas del Mar resort area. Known for its calm waters and views of Monkey Island (Cayo Santiago).",
+    descriptionEs: "Amplia playa en la costa sureste, cerca del área de resort Palmas del Mar. Conocida por sus aguas tranquilas y las vistas de la Isla de los Monos (Cayo Santiago).",
     amenities: ["Restrooms", "Parking", "Picnic areas"],
     tips: "You can see Cayo Santiago (Monkey Island) from here — home to a research colony of rhesus monkeys. Calm waters for swimming. Good jumping-off point for kayak tours.",
+    tipsEs: "Desde aquí puedes ver Cayo Santiago (Isla de los Monos) — hogar de una colonia de investigación de macacos. Aguas tranquilas para nadar. Buen punto de partida para tours en kayak.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "E",
@@ -763,8 +773,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.99049, lng: -65.88394 }, buoyStation: "41056", surfZone: "prz003", // East/Southeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded nature reserve beach on the southeast coast with a historic lighthouse (Faro Punta Tuna). Leaning palm trees and unspoiled coastline.",
+    descriptionEs: "Playa apartada de reserva natural en la costa sureste con un histórico faro (Faro Punta Tuna). Palmeras inclinadas y costas vírgenes.",
     amenities: ["Free limited parking"],
     tips: "Protected nature reserve — no buildings along the shore. Great for long walks and photography. The lighthouse is picturesque. Check conditions before swimming — currents possible.",
+    tipsEs: "Reserva natural protegida — sin edificios a lo largo de la costa. Ideal para caminatas largas y fotografía. El faro es pintoresco. Verifica las condiciones antes de nadar — puede haber corrientes.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "SE",
@@ -786,8 +798,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 17.88549, lng: -66.52809 }, buoyStation: "42085", surfZone: "prz007", // South Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "On the uninhabited Caja de Muertos (Coffin Island) off Ponce's coast. Pristine white sand and incredibly clear turquoise water. Accessible only by boat.",
+    descriptionEs: "En la deshabitada Caja de Muertos frente a la costa de Ponce. Arena blanca prístina y aguas turquesas increíblemente claras. Accesible únicamente en bote.",
     amenities: ["Basic restrooms", "Pavilions"],
     tips: "Book a boat tour from Ponce (La Guancha). Bring everything you need — limited facilities. Snorkeling is excellent. Island also has a historic lighthouse to explore.",
+    tipsEs: "Reserva un tour en bote desde Ponce (La Guancha). Lleva todo lo que necesitas — instalaciones limitadas. El snorkel es excelente. La isla también tiene un histórico faro para explorar.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "5s", swellDirection: "S",
@@ -809,8 +823,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.47229, lng: -67.16892 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A quieter alternative to nearby Crash Boat. Small rocky cove with clear waters, popular for snorkeling. Less crowded and more intimate.",
+    descriptionEs: "Una alternativa más tranquila al cercano Crash Boat. Pequeña cala rocosa con aguas claras, popular para el snorkel. Menos concurrida y más íntima.",
     amenities: ["Limited parking"],
     tips: "Calmer than Crash Boat but still check conditions. Good snorkeling near the rocks. Limited parking and facilities. Bring your own supplies.",
+    tipsEs: "Más tranquila que Crash Boat, pero verifica las condiciones. Buen snorkel cerca de las rocas. Estacionamiento e instalaciones limitadas. Trae tus propios suministros.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "9s", swellDirection: "NW",
@@ -832,8 +848,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.48921, lng: -66.95935 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A dramatic beach framed by limestone cliffs and a railroad tunnel. Part of the Guajataca State Forest area. Known for powerful waves and dramatic scenery.",
+    descriptionEs: "Dramática playa enmarcada por acantilados de piedra caliza y un túnel de ferrocarril. Parte del área del Bosque Estatal de Guajataca. Conocida por sus poderosas olas y su impresionante paisaje.",
     amenities: ["Parking", "Food kiosks"],
     tips: "NOT recommended for swimming — powerful waves and dangerous currents. Best for photography and wave watching. The nearby Guajataca Tunnel is a landmark.",
+    tipsEs: "NO se recomienda nadar — olas poderosas y corrientes peligrosas. Ideal para fotografía y observar las olas. El cercano Túnel de Guajataca es un hito histórico.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "6-10 ft", swellPeriod: "13s", swellDirection: "NW",
@@ -855,8 +873,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.51479, lng: -67.06479 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Home to one of PR's most Instagram-famous natural pools — a semi-circle formation similar to Mar Chiquita. Also known as 'Blue Hole' or 'La Poza' area.",
+    descriptionEs: "Alberga una de las piscinas naturales más famosas de Puerto Rico en Instagram — una formación semicircular similar a Mar Chiquita. También conocida como 'Blue Hole' o área de 'La Poza'.",
     amenities: ["Limited — natural pools area nearby"],
     tips: "Natural pools are best at low tide. Rocks are slippery — wear water shoes. Not suitable for swimming in the open ocean area. Check tide tables before visiting.",
+    tipsEs: "Las piscinas naturales son mejores en marea baja. Las rocas son resbaladizas — usa zapatos de agua. No apto para nadar en el área del océano abierto. Consulta las tablas de mareas antes de visitar.",
     riskLevel: "high",
     conditions: {
       waveHeight: "4-6 ft", swellPeriod: "11s", swellDirection: "NNW",
@@ -878,8 +898,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach in the resort town of Dorado. Long stretch of sand with facilities and relatively calm conditions for the north coast.",
+    descriptionEs: "Playa administrada por el gobierno en el pueblo turístico de Dorado. Larga franja de arena con instalaciones y condiciones relativamente tranquilas para la costa norte.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
     tips: "Good for families. Near the Dorado resort area. Can have moderate surf — check conditions. Less crowded on weekdays.",
+    tipsEs: "Buena para familias. Cerca del área de resort de Dorado. Puede tener oleaje moderado — verifica las condiciones. Menos concurrida entre semana.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "7s", swellDirection: "NE",
@@ -901,8 +923,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.09243, lng: -65.44485 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A beautiful secluded beach on Vieques' south coast within the Wildlife Refuge. White sand and turquoise water that's remarkably calm and clear. One of the least visited beaches despite being one of the most stunning.",
+    descriptionEs: "Hermosa playa apartada en la costa sur de Vieques, dentro del Refugio de Vida Silvestre. Arena blanca y aguas turquesas notablemente tranquilas y claras. Una de las playas menos visitadas a pesar de ser una de las más impresionantes.",
     amenities: ["None — uninhabited island"],
     tips: "Inside the Wildlife Refuge — check gate hours. Very secluded, often nearly empty. Calm, clear waters great for swimming. Dirt road access. Arrive early for the best experience with minimal crowds.",
+    tipsEs: "Dentro del Refugio de Vida Silvestre — verifica los horarios de la entrada. Muy apartada, a menudo casi vacía. Aguas tranquilas y claras ideales para nadar. Acceso por carretera de tierra. Llega temprano para la mejor experiencia con mínima concurrencia.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "ENE",
@@ -924,8 +948,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.10953, lng: -65.41273 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular beaches in the Vieques Wildlife Refuge. Named for its reddish sand, this beach offers calm waters and easy access compared to other refuge beaches. A great first stop on a Vieques beach tour.",
+    descriptionEs: "Una de las playas más populares del Refugio de Vida Silvestre de Vieques. Nombrada por su arena rojiza, ofrece aguas tranquilas y acceso fácil en comparación con otras playas del refugio. Una excelente primera parada en un recorrido de playas de Vieques.",
     amenities: ["Gazebos", "Restrooms (basic)"],
     tips: "Inside the Wildlife Refuge — gate hours apply. Easier access than La Chiva. Bring supplies as facilities are basic. Good snorkeling near rocky areas.",
+    tipsEs: "Dentro del Refugio de Vida Silvestre — aplican horarios de entrada. Acceso más fácil que La Chiva. Lleva suministros ya que las instalaciones son básicas. Buen snorkel cerca de las áreas rocosas.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "SE",
@@ -947,8 +973,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.32014, lng: -65.2551 }, buoyStation: "41056", surfZone: "prz012", // Culebra
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A less crowded alternative to Flamenco Beach with equally stunning diamond-dust sand and crystal-clear waters. Sea turtles nest here between April and June. Natural caves and sea grape vines add to its wild beauty.",
+    descriptionEs: "Una alternativa menos concurrida a la Playa Flamenco con la misma arena brillante y aguas cristalinas. Las tortugas marinas anidan aquí entre abril y junio. Las cuevas naturales y las uvas de playa añaden a su belleza salvaje.",
     amenities: ["None — bring everything"],
     tips: "Quieter than Flamenco. Watch for turtle nesting sites Apr-Jun. No facilities — bring all supplies including shade. Great spot to set up a hammock between trees.",
+    tipsEs: "Más tranquila que Flamenco. Ten cuidado con los nidos de tortugas de abr-jun. Sin instalaciones — trae todo lo necesario incluyendo sombra. Excelente lugar para colgar una hamaca entre los árboles.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "7s", swellDirection: "E",
@@ -970,8 +998,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.37065, lng: -67.2587 }, buoyStation: "41115", surfZone: "prz010", // West
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A popular surf beach in Rincón with a wide sandy shoreline. More beginner-friendly than Domes or María's during moderate conditions. The laid-back beach town vibe makes it a favorite for both locals and visitors.",
+    descriptionEs: "Popular playa de surf en Rincón con una amplia orilla de arena. Más accesible para principiantes que Domes o María's en condiciones moderadas. El ambiente relajado del pueblo playero la convierte en favorita tanto de locales como de visitantes.",
     amenities: ["Parking", "Restaurants nearby"],
     tips: "Better for beginner surfers than other Rincón breaks. In summer conditions are calmer for swimming. Nearby restaurants and accommodation make it convenient for extended stays.",
+    tipsEs: "Mejor para surfistas principiantes que otros rompientes de Rincón. En verano las condiciones son más tranquilas para nadar. Los restaurantes y alojamientos cercanos la hacen conveniente para estadías prolongadas.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "3-5 ft", swellPeriod: "10s", swellDirection: "W",
@@ -993,8 +1023,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.38432, lng: -65.59169 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A small uninhabited island off Fajardo's coast with some of the clearest water on Puerto Rico's east coast. Long strips of reef alongside an abandoned pier host abundant marine life. Accessible by water taxi or catamaran tour.",
+    descriptionEs: "Pequeña isla deshabitada frente a la costa de Fajardo con algunas de las aguas más claras de la costa este de Puerto Rico. Largas franjas de arrecife junto a un muelle abandonado albergan abundante vida marina. Accesible en taxi acuático o tour en catamarán.",
     amenities: ["None — uninhabited cay"],
     tips: "Book a boat tour from Fajardo. The water clarity here is exceptional for snorkeling. Bring everything — no facilities. Popular with catamaran tours from Fajardo.",
+    tipsEs: "Reserva un tour en bote desde Fajardo. La claridad del agua aquí es excepcional para el snorkel. Lleva todo — sin instalaciones. Popular entre los tours en catamarán desde Fajardo.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "E",
@@ -1016,8 +1048,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.09467, lng: -65.47127 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A town beach along Vieques' Esperanza malecón (boardwalk). Calm Caribbean waters with a lively waterfront lined with restaurants and bars. The most accessible beach in Vieques — no car needed if staying in Esperanza.",
+    descriptionEs: "Playa urbana a lo largo del malecón de Esperanza en Vieques. Aguas caribeñas tranquilas con un animado frente al mar bordeado de restaurantes y bares. La playa más accesible de Vieques — no se necesita carro si te quedas en Esperanza.",
     amenities: ["Restaurants nearby", "Malecón boardwalk"],
     tips: "Walk-to beach from Esperanza town. Calm waters for swimming. Great sunset spot. The malecón has restaurants and bars — try the local seafood. Good starting point for bioluminescent bay tours.",
+    tipsEs: "Playa accesible caminando desde el pueblo de Esperanza. Aguas tranquilas para nadar. Excelente lugar para ver el atardecer. El malecón tiene restaurantes y bares — prueba los mariscos locales. Buen punto de partida para tours a la bahía bioluminiscente.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5 ft", swellPeriod: "4s", swellDirection: "SE",
@@ -1039,8 +1073,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.48193, lng: -66.69678 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural beach pool where ocean waves crash over coral reefs into a calm, sheltered pool. The golden sand and dramatic wave action make it one of the most unique beach experiences in Puerto Rico.",
+    descriptionEs: "Piscina natural de playa única donde las olas del océano rompen sobre los arrecifes de coral hacia una piscina tranquila y protegida. La arena dorada y la dramática acción de las olas la convierten en una de las experiencias de playa más únicas de Puerto Rico.",
     amenities: ["Limited parking"],
     tips: "Best visited when waves are moderate — too calm and the pool doesn't fill, too rough and it's dangerous. Wear water shoes on the reef. Great for photography. Not suitable for traditional swimming.",
+    tipsEs: "Es mejor visitarla cuando las olas son moderadas — muy tranquilas y la piscina no se llena, muy fuertes y es peligrosa. Usa zapatos de agua en el arrecife. Ideal para fotografía. No apta para natación tradicional.",
     riskLevel: "high",
     conditions: {
       waveHeight: "4-6 ft", swellPeriod: "11s", swellDirection: "N",
@@ -1062,8 +1098,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.37687, lng: -65.6453 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded beach accessible by hiking trail from Seven Seas Beach. Protected by a coral wall creating a shallow, calm area. Surrounded by lush rainforest scenery from nearby El Yunque.",
+    descriptionEs: "Playa apartada accesible por sendero desde la Playa Seven Seas. Protegida por un muro de coral que crea un área poco profunda y tranquila. Rodeada de la exuberante vegetación del bosque lluvioso cercano a El Yunque.",
     amenities: ["None — hike-in only"],
     tips: "Must hike from Seven Seas Beach. The trail also connects to Playa Colorá. Waters may appear calm but dangerous currents exist — people have drowned here. Stay in the coral-protected shallow area only.",
+    tipsEs: "Debes caminar desde la Playa Seven Seas. El sendero también conecta con Playa Colorá. Las aguas pueden parecer tranquilas pero existen corrientes peligrosas — personas han muerto aquí. Quédate solo en el área poco profunda protegida por el coral.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "E",
@@ -1085,8 +1123,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.48371, lng: -66.90212 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A charming small beach tucked between dramatic limestone cliffs in Quebradillas. The sheltered cove provides calmer conditions than nearby open-coast beaches. A local favorite that rarely appears in tourist guides.",
+    descriptionEs: "Encantadora playa pequeña escondida entre imponentes acantilados de piedra caliza en Quebradillas. La cala protegida ofrece condiciones más tranquilas que las playas cercanas de costa abierta. Una favorita de los locales que raramente aparece en guías turísticas.",
     amenities: ["Limited parking"],
     tips: "Sheltered cove is calmer than open north coast. Limited parking — arrive early. The cliffs provide some afternoon shade. A quieter alternative to busier northwest beaches.",
+    tipsEs: "La cala protegida es más tranquila que la costa norte abierta. Estacionamiento limitado — llega temprano. Los acantilados dan algo de sombra por las tardes. Una alternativa más tranquila a las playas más concurridas del noroeste.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "NW",
@@ -1108,8 +1148,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz005", // North Central
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families. Soft golden sand and postcard-worthy views.",
+    descriptionEs: "Distinguido con la certificación Bandera Azul, Puerto Nuevo es famoso por sus dramáticas formaciones rocosas naturales. Enormes afloramientos protegen el área de natación de las fuertes olas, creando aguas tranquilas ideales para familias. Arena suave dorada y vistas dignas de una postal.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
     tips: "The rock formations create a natural barrier making this one of the calmest north coast beaches. Blue Flag certified — high water quality and safety standards. Great for photography at golden hour. Gets busy on weekends.",
+    tipsEs: "Las formaciones rocosas crean una barrera natural que hace de esta una de las playas más tranquilas de la costa norte. Certificada con Bandera Azul — altos estándares de calidad del agua y seguridad. Excelente para fotografía en la hora dorada. Se llena los fines de semana.",
     riskLevel: "low",
     conditions: {
       waveHeight: "1-2 ft", swellPeriod: "6s", swellDirection: "NE",
@@ -1131,8 +1173,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.46107, lng: -66.08232 }, buoyStation: "41053", surfZone: "prz001", // Metro
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the smallest and most charming beaches in San Juan. Calm, shallow waters tucked between the Condado lagoon bridge and the hotel strip. A hidden family-friendly gem popular with locals.",
+    descriptionEs: "Una de las playas más pequeñas y encantadoras de San Juan. Aguas tranquilas y poco profundas escondidas entre el puente de la laguna de Condado y el corredor de hoteles. Una joya familiar escondida popular entre los locales.",
     amenities: ["None — walk from Condado hotels"],
     tips: "No parking — walk from Condado district toward Puente Dos Hermanos. Calm, shallow water perfect for small children. Less crowded than main Condado Beach. Protected from strong ocean currents.",
+    tipsEs: "Sin estacionamiento — camina desde el distrito de Condado hacia el Puente Dos Hermanos. Aguas tranquilas y poco profundas perfectas para niños pequeños. Menos concurrida que la Playa Condado principal. Protegida de las fuertes corrientes oceánicas.",
     riskLevel: "low",
     conditions: {
       waveHeight: "0.5-1 ft", swellPeriod: "5s", swellDirection: "NE",
@@ -1154,8 +1198,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.09576, lng: -65.49233 }, buoyStation: "41056", surfZone: "prz013", // Vieques
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A dramatic black sand beach on Vieques accessible by a short hike through lush forest. The volcanic sand contrasts beautifully with bright blue water, creating an otherworldly setting. Rarely crowded — a true hidden gem.",
+    descriptionEs: "Dramática playa de arena negra en Vieques accesible por una corta caminata a través de exuberante bosque. La arena volcánica contrasta hermosamente con el agua azul brillante, creando un ambiente de otro mundo. Rara vez concurrida — una verdadera joya escondida.",
     amenities: ["None — bring everything"],
     tips: "Requires short hike through forest. Rarely crowded — expect solitude. The black sand gets extremely hot in direct sun. Bring water shoes and plenty of water. Not ideal for swimming in rough conditions.",
+    tipsEs: "Requiere una corta caminata por el bosque. Rara vez concurrida — espera soledad. La arena negra se calienta muchísimo bajo el sol directo. Lleva zapatos de agua y abundante agua. No es ideal para nadar en condiciones difíciles.",
     riskLevel: "high",
     conditions: {
       waveHeight: "3-4 ft", swellPeriod: "9s", swellDirection: "SE",
@@ -1177,8 +1223,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.5139, lng: -67.03619 }, buoyStation: "41121", surfZone: "prz008", // Northwest
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A natural tidal pool near Jobos Beach where waves break over rock formations creating shallow, calm waters — similar to Mar Chiquita. A local family favorite offering a safe wading experience for children.",
+    descriptionEs: "Piscina natural de marea cerca de la Playa Jobos donde las olas rompen sobre formaciones rocosas creando aguas poco profundas y tranquilas — similar a Mar Chiquita. Favorita de las familias locales que ofrece una experiencia segura de vadear para los niños.",
     amenities: ["Free parking"],
     tips: "Just minutes from Jobos Beach. Waves break over rocks creating a calm shallow pool. Best at low to moderate tide. Wear water shoes on the rocks. A much safer alternative to swimming at Jobos.",
+    tipsEs: "A solo minutos de la Playa Jobos. Las olas rompen sobre las rocas creando una piscina tranquila y poco profunda. Mejor en marea baja o moderada. Usa zapatos de agua en las rocas. Una alternativa mucho más segura para nadar que Jobos.",
     riskLevel: "moderate",
     conditions: {
       waveHeight: "3-5 ft", swellPeriod: "10s", swellDirection: "NNW",
@@ -1200,8 +1248,10 @@ const BEACHES: Beach[] = [
     coords: { lat: 18.37717, lng: -65.64114 }, buoyStation: "41053", surfZone: "prz002", // Northeast
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Named for its distinctive reddish-colored sand, this secluded beach is reached by hiking from Seven Seas Beach. Turquoise waters contrast dramatically with the rust-toned sand. A true hidden gem for adventurous visitors.",
+    descriptionEs: "Nombrada por su distintiva arena de color rojizo, esta playa apartada se alcanza caminando desde la Playa Seven Seas. Las aguas turquesas contrastan dramáticamente con la arena de tono óxido. Una verdadera joya escondida para visitantes aventureros.",
     amenities: ["None — hike-in only"],
     tips: "Access via the same trail system as Playa Escondida from Seven Seas Beach. Bring all supplies. The reddish sand is unique on the island. Currents can be dangerous — exercise extreme caution in the water.",
+    tipsEs: "Acceso por el mismo sistema de senderos que Playa Escondida desde la Playa Seven Seas. Lleva todos los suministros. La arena rojiza es única en la isla. Las corrientes pueden ser peligrosas — extrema precaución en el agua.",
     riskLevel: "extreme",
     conditions: {
       waveHeight: "2-3 ft", swellPeriod: "8s", swellDirection: "E",
@@ -1711,7 +1761,7 @@ function BeachCard({ beach, onClick, liveData, riskAssessment, lang = "en" }: {
               {liveData?.weather ? (
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", whiteSpace: "nowrap" }}>
                   <WeatherIcon iconKey={forecastIcon(liveData.weather.shortForecast)} size={12} />
-                  {conditionLabel(liveData.weather.shortForecast)}
+                  {conditionLabel(liveData.weather.shortForecast, lang)}
                 </span>
               ) : (
                 <span style={{ color: "#334155" }}>· · ·</span>
