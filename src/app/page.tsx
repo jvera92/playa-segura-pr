@@ -1417,7 +1417,7 @@ function ConditionBlock({ label, value, icon, accent }: {
       background: "#d8e2ec", borderRadius: "12px", padding: "16px",
       border: "1px solid rgba(0,0,0,0.08)", display: "flex", flexDirection: "column", gap: "4px",
     }}>
-      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em" }}>
         {icon} {label}
       </span>
       <span style={{ fontSize: "20px", fontWeight: 700, color: accent || "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
@@ -1633,7 +1633,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* Current Conditions Grid */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
           Current Conditions
@@ -1747,7 +1747,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
         {/* 5-Day Forecast */}
         <h2 style={{
           fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
+          color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 700, marginBottom: "12px",
           display: "flex", alignItems: "center", gap: "8px",
         }}>
           5-Day Beach Forecast
@@ -1790,7 +1790,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
             display: "grid", gridTemplateColumns: "80px 40px 70px 70px 60px 90px 1fr",
             columnGap: "8px",
             padding: "10px 16px", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.06em",
-            color: "#94a3b8", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
+            color: "#475569", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 600,
             borderBottom: "1px solid rgba(0,0,0,0.06)",
           }}>
             <span>Day</span><span></span><span>High</span><span>Low</span><span>Rain</span><span>Surf</span><span>Risk</span>
