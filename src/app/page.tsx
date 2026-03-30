@@ -1272,6 +1272,69 @@ const EMERGENCY_CONTACTS = {
 
 // ─── UI TRANSLATIONS ─────────────────────────────────────────────────────────
 
+const AMENITY_ES: Record<string, string> = {
+  "Restrooms": "Baños",
+  "Basic restrooms": "Baños básicos",
+  "Food kiosks": "Quioscos de comida",
+  "Small food kiosk": "Pequeño quiosco de comida",
+  "Some kiosks": "Algunos quioscos",
+  "Food vendors": "Vendedores de comida",
+  "Parking": "Estacionamiento",
+  "Parking (limited)": "Estacionamiento (limitado)",
+  "Parking (roadside)": "Estacionamiento al borde de la carretera",
+  "Parking ($5)": "Estacionamiento ($5)",
+  "Limited parking": "Estacionamiento limitado",
+  "Free roadside parking": "Estacionamiento gratuito",
+  "Showers": "Duchas",
+  "Camping": "Camping",
+  "Hotels": "Hoteles",
+  "Hotels nearby": "Hoteles cercanos",
+  "Restaurants": "Restaurantes",
+  "Restaurants nearby": "Restaurantes cercanos",
+  "Restaurant/Bar": "Restaurante/Bar",
+  "Water sports rentals": "Alquiler de deportes acuáticos",
+  "Water sports": "Deportes acuáticos",
+  "Chair rentals": "Alquiler de sillas",
+  "Chair/umbrella rentals": "Alquiler de sillas/sombrillas",
+  "Snorkeling": "Snorkel",
+  "Snorkeling gear rental": "Alquiler de equipo de snorkel",
+  "Diving pier": "Muelle de buceo",
+  "Hiking trail access": "Acceso a senderos",
+  "Picnic areas": "Áreas de picnic",
+  "Shade trees": "Árboles de sombra",
+  "Playground": "Área de juegos",
+  "Accessibility ramps": "Rampas de accesibilidad",
+  "Pavilions": "Pabellones",
+  "Surf shops nearby": "Tiendas de surf cercanas",
+  "None — bring supplies": "Ninguna — lleva lo necesario",
+  "None — bring everything": "Ninguna — lleva todo lo necesario",
+  "None — surf shops nearby": "Ninguna — tiendas de surf cercanas",
+  "Limited — residential area": "Limitada — zona residencial",
+  "some food trucks": "Algunos food trucks",
+  "Limited — natural pools area nearby": "Limitada — piscinas naturales cercanas",
+};
+
+const REGION_ES: Record<string, string> = {
+  "East Islands": "Islas del Este",
+  "Metro": "Metro",
+  "Southwest": "Suroeste",
+  "Northwest": "Noroeste",
+  "Northeast": "Noreste",
+  "West": "Oeste",
+  "North Central": "Norte Central",
+  "Southeast": "Sureste",
+  "South Central": "Sur Central",
+};
+
+const TIDE_ES: Record<string, string> = {
+  Rising: "Subiendo", Falling: "Bajando", High: "Alta", Low: "Baja",
+};
+
+const VIS_ES: Record<string, string> = {
+  Excellent: "Excelente", Good: "Buena", Fair: "Regular",
+};
+
+
 const UI = {
   en: {
     disclaimer: {
@@ -1914,7 +1977,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
 
         {/* About */}
         <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#475569", marginBottom: "32px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", maxWidth: "680px" }}>
-          {beach.description}
+          {lang === 'es' && beach.descriptionEs ? beach.descriptionEs : beach.description}
         </p>
 
         {/* Current Conditions Grid */}
@@ -1968,7 +2031,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
           <ConditionBlock
             icon={<Waves size={12} />} label={UI[lang].cond.surfHeight} accent={r.color}
             value={liveData?.surfForecast?.surfHeightText != null
-              ? liveData.surfForecast.surfHeightText
+              ? translateSurfHeight(liveData.surfForecast.surfHeightText, lang)
               : liveData?.buoy?.waveHeightFt != null
                 ? `${liveData.buoy.waveHeightFt} ft`
                 : c.waveHeight}
@@ -1988,20 +2051,20 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
               : c.waterTemp}
           />
           <ConditionBlock icon={<Sun size={12} />} label={UI[lang].cond.uvIndex}
-            value={c.uvIndex >= 11 ? `${c.uvIndex} (Extreme)` : c.uvIndex >= 8 ? `${c.uvIndex} (Very High)` : `${c.uvIndex}`}
+            value={c.uvIndex >= 11 ? `${c.uvIndex} (${lang === 'es' ? 'Extremo' : 'Extreme'})` : c.uvIndex >= 8 ? `${c.uvIndex} (${lang === 'es' ? 'Muy Alto' : 'Very High'})` : `${c.uvIndex}`}
             accent={c.uvIndex >= 11 ? "#ef4444" : c.uvIndex >= 8 ? "#f97316" : "#eab308"}
           />
           <ConditionBlock icon={<Thermometer size={12} />} label={UI[lang].cond.airTemp}
             value={liveData?.error ? UI[lang].cond.unavailable : liveData?.weather?.airTemp ?? c.airTemp}
           />
           <ConditionBlock icon={<Droplets size={12} />} label={UI[lang].cond.humidity} value={c.humidity} />
-          <ConditionBlock icon={<Eye size={12} />} label={UI[lang].cond.visibility} value={c.visibility} />
+          <ConditionBlock icon={<Eye size={12} />} label={UI[lang].cond.visibility} value={lang === 'es' ? (VIS_ES[c.visibility] ?? c.visibility) : c.visibility} />
           <ConditionBlock icon={<Waves size={12} />} label={UI[lang].cond.swell}
             value={liveData?.buoy
               ? `${liveData.buoy.dominantPeriodS != null ? liveData.buoy.dominantPeriodS + 's' : c.swellPeriod} ${liveData.buoy.swellDirectionCompass ?? c.swellDirection}`
               : `${c.swellPeriod} ${c.swellDirection}`}
           />
-          <ConditionBlock icon={<Anchor size={12} />} label={UI[lang].cond.tide} value={c.tideStatus} />
+          <ConditionBlock icon={<Anchor size={12} />} label={UI[lang].cond.tide} value={lang === 'es' ? (TIDE_ES[c.tideStatus] ?? c.tideStatus) : c.tideStatus} />
           <ConditionBlock icon={<ArrowUp size={12} />} label={UI[lang].cond.nextHigh} value={c.nextHighTide} />
           <ConditionBlock icon={<ArrowDown size={12} />} label={UI[lang].cond.nextLow} value={c.nextLowTide} />
         </div>
@@ -2142,7 +2205,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment, lang =
               borderRadius: "99px", padding: "7px 16px", fontSize: "13px", color: "#0369a1",
               fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", fontWeight: 500,
             }}>
-              {a}
+              {lang === 'es' ? (AMENITY_ES[a] ?? a) : a}
             </span>
           ))}
         </div>
@@ -2563,7 +2626,7 @@ export default function PlayaSeguraPR() {
                   color: regionFilter === r ? "#38bdf8" : "#64748b",
                   transition: "all 0.2s",
                 }}>
-                  {r === "All" ? UI[lang].header.allRegions : r}
+                  {r === "All" ? UI[lang].header.allRegions : (lang === 'es' ? (REGION_ES[r] ?? r) : r)}
                 </button>
               ))}
             </div>
