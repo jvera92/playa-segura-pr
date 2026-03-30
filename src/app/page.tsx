@@ -5,6 +5,7 @@ import {
   Sun, SunMedium, Cloud, CloudDrizzle, CloudRain, CloudLightning, CloudSnow, CloudFog, Wind,
   Waves, Thermometer, Eye, Droplets, AlertTriangle, Search, MapPin, ArrowLeft, ChevronDown,
   LifeBuoy, CheckCircle, XCircle, Lightbulb, Flag, Users, Anchor, ArrowUp, ArrowDown,
+  Phone, Shield,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -1185,6 +1186,34 @@ const SAFETY_TIPS: { icon: LucideIcon; title: string; text: string }[] = [
   { icon: LifeBuoy, title: "Life Jackets", text: "Non-swimmers and children should always wear U.S. Coast Guard-approved life jackets in the ocean." },
 ];
 
+// ─── EMERGENCY CONTACTS ───────────────────────────────────────────────────────
+
+const EMERGENCY_CONTACTS = {
+  primary: [
+    { name: "Emergency Services",              tel: "911",         display: "911",              note: "Police · Fire · Medical · Coast Guard" },
+    { name: "US Coast Guard Sector San Juan",  tel: "7872892041",  display: "(787) 289-2041",   note: "Maritime search & rescue · VHF Ch. 16" },
+    { name: "FURA — Maritime Police Unit",     tel: "7877923333",  display: "(787) 792-3333",   note: "PRPD maritime & rapid response division" },
+    { name: "NMEAD — Emergency Management",    tel: "7877240124",  display: "(787) 724-0124",   note: "Puerto Rico Emergency Mgmt Agency" },
+  ],
+  municipal: [
+    { municipality: "San Juan",   tel: "7877267020", display: "(787) 726-7020" },
+    { municipality: "Aguadilla",  tel: "7878822020", display: "(787) 882-2020" },
+    { municipality: "Luquillo",   tel: "7878892020", display: "(787) 889-2020" },
+    { municipality: "Cabo Rojo",  tel: "7878512020", display: "(787) 851-2020" },
+    { municipality: "Culebra",    tel: "7877423501", display: "(787) 742-3501" },
+    { municipality: "Rincón",     tel: "7878232020", display: "(787) 823-2020" },
+    { municipality: "Isabela",    tel: "7878722020", display: "(787) 872-2020" },
+    { municipality: "Guánica",    tel: "7878212020", display: "(787) 821-2020" },
+    { municipality: "Humacao",    tel: "7878522020", display: "(787) 852-2020" },
+    { municipality: "Dorado",     tel: "7877962020", display: "(787) 796-2020" },
+    { municipality: "Arecibo",    tel: "7878782020", display: "(787) 878-2020" },
+    { municipality: "Ponce",      tel: "7872844040", display: "(787) 284-4040" },
+    { municipality: "Mayagüez",   tel: "7878328383", display: "(787) 832-8383" },
+    { municipality: "Fajardo",    tel: "7878632020", display: "(787) 863-2020" },
+    { municipality: "Vieques",    tel: "7877412020", display: "(787) 741-2020" },
+  ],
+};
+
 // ─── LIVE DATA CACHE ─────────────────────────────────────────────────────────
 // Module-level — survives view state changes (home ↔ detail) without re-fetching.
 
@@ -1923,6 +1952,7 @@ export default function PlayaSeguraPR() {
   const [searchQuery, setSearchQuery] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
+  const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -2332,6 +2362,97 @@ export default function PlayaSeguraPR() {
                     <div style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.65 }}>{tip.text}</div>
                   </div>
                 ))}
+              </div>
+            )}
+          </div>
+
+          {/* Emergency Contacts */}
+          <div style={{ padding: "12px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
+            <button onClick={() => setShowEmergencyContacts(!showEmergencyContacts)} className="safety-toggle" style={{
+              appearance: "none", WebkitAppearance: "none",
+              margin: 0, boxSizing: "border-box", cursor: "pointer", width: "100%",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "linear-gradient(135deg, rgba(185,28,28,0.12) 0%, rgba(239,68,68,0.08) 100%)",
+              borderRadius: "14px", padding: "14px 20px",
+              border: "1.5px solid rgba(239,68,68,0.35)",
+              transition: "all 0.2s", boxShadow: "0 2px 8px rgba(239,68,68,0.08)",
+            }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#ef4444" }}>
+                <Phone size={16} /> Emergency Contacts
+              </span>
+              <span style={{
+                color: "#ef4444", flexShrink: 0, display: "flex",
+                transform: showEmergencyContacts ? "rotate(180deg)" : "none",
+                transition: "transform 0.3s",
+              }}>
+                <ChevronDown size={18} />
+              </span>
+            </button>
+
+            {showEmergencyContacts && (
+              <div style={{ marginTop: "12px", animation: "fadeUp 0.3s ease" }}>
+
+                {/* 911 callout */}
+                <a href="tel:911" style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: "12px",
+                  background: "linear-gradient(135deg, #b91c1c 0%, #991b1b 100%)",
+                  borderRadius: "14px", padding: "18px 20px", marginBottom: "10px",
+                  textDecoration: "none", border: "none",
+                }}>
+                  <Phone size={22} color="#fff" />
+                  <span style={{ fontSize: "28px", fontWeight: 900, color: "#fff", letterSpacing: "0.05em", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>911</span>
+                  <span style={{ fontSize: "13px", color: "#fecaca", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>Police · Fire · Medical · Coast Guard</span>
+                </a>
+
+                {/* Primary contacts */}
+                <div style={{ background: "rgba(255,255,255,0.7)", borderRadius: "14px", border: "1.5px solid rgba(239,68,68,0.2)", overflow: "hidden", marginBottom: "10px" }}>
+                  {EMERGENCY_CONTACTS.primary.slice(1).map((c, i, arr) => (
+                    <div key={i} style={{
+                      display: "flex", alignItems: "center", gap: "12px",
+                      padding: "14px 16px",
+                      borderBottom: i < arr.length - 1 ? "1px solid rgba(239,68,68,0.1)" : "none",
+                    }}>
+                      <Anchor size={14} color="#ef4444" style={{ flexShrink: 0 }} />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{c.name}</div>
+                        <div style={{ fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{c.note}</div>
+                      </div>
+                      <a href={`tel:${c.tel}`} style={{
+                        fontSize: "13px", fontWeight: 700, color: "#ef4444",
+                        textDecoration: "none", whiteSpace: "nowrap",
+                        fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                      }}>{c.display}</a>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Municipal Police */}
+                <div style={{ marginBottom: "10px" }}>
+                  <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.08em", padding: "0 4px 6px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                    Local Police — Coastal Municipalities
+                  </div>
+                  <div style={{ background: "rgba(255,255,255,0.7)", borderRadius: "14px", border: "1.5px solid rgba(239,68,68,0.2)", overflow: "hidden" }}>
+                    {EMERGENCY_CONTACTS.municipal.map((m, i, arr) => (
+                      <div key={i} style={{
+                        display: "flex", alignItems: "center", gap: "12px",
+                        padding: "11px 16px",
+                        borderBottom: i < arr.length - 1 ? "1px solid rgba(239,68,68,0.1)" : "none",
+                      }}>
+                        <Shield size={13} color="#ef4444" style={{ flexShrink: 0 }} />
+                        <div style={{ flex: 1, fontSize: "13px", fontWeight: 600, color: "#0f172a", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>{m.municipality}</div>
+                        <a href={`tel:${m.tel}`} style={{
+                          fontSize: "13px", fontWeight: 700, color: "#ef4444",
+                          textDecoration: "none", whiteSpace: "nowrap",
+                          fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                        }}>{m.display}</a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ fontSize: "11px", color: "#94a3b8", textAlign: "center", padding: "4px 8px 8px", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                  Always dial 911 for immediate emergencies. Verify local precinct numbers at <span style={{ color: "#0ea5e9" }}>policia.pr.gov</span>
+                </div>
               </div>
             )}
           </div>
