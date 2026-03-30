@@ -1516,7 +1516,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
             )}
           </div>
           <h1 style={{
-            margin: "12px 0 4px", fontSize: "34px", fontWeight: 900, color: "#fff",
+            margin: "12px 0 4px", fontSize: "42px", fontWeight: 900, color: "#fff",
             fontFamily: "var(--font-playfair), 'Playfair Display', serif",
             lineHeight: 1.1, letterSpacing: "-0.01em",
           }}>
