@@ -1184,7 +1184,7 @@ const RISK_CONFIG: Record<RiskLevel, RiskConfig> = {
 const SAFETY_TIPS: { icon: LucideIcon; en: { title: string; text: string }; es: { title: string; text: string } }[] = [
   { icon: Waves,
     en: { title: "Rip Currents",  text: "If caught, swim parallel to shore until free of the current, then swim back. Never fight against it." },
-    es: { title: "Corrientes Jalad.", text: "Si te atrapa una corriente, nada paralelo a la orilla hasta salir, luego regresa a nado. Nunca luches contra ella." } },
+    es: { title: "Corrientes", text: "Si te atrapa una corriente, nada paralelo a la orilla hasta salir, luego regresa a nado. Nunca luches contra ella." } },
   { icon: Flag,
     en: { title: "Flag System",   text: "Red = Danger/No swimming. Yellow = Caution. Green = Safe. Double red = Beach closed." },
     es: { title: "Sistema de Banderas", text: "Roja = Peligro/No nadar. Amarilla = Precaución. Verde = Seguro. Doble roja = Playa cerrada." } },
@@ -1349,7 +1349,7 @@ const UI = {
       conditionsAdvisory: "Las condiciones son de referencia únicamente. Evalúa siempre las condiciones locales antes de entrar al agua.",
     },
     cond: {
-      surfHeight: "Altura de Olas", ripCurrents: "Corrientes Jalad.", wind: "Viento",
+      surfHeight: "Altura de Olas", ripCurrents: "Corrientes", wind: "Viento",
       waterTemp: "Temp. del Agua", uvIndex: "Índice UV", airTemp: "Temp. del Aire",
       humidity: "Humedad", visibility: "Visibilidad", swell: "Swell",
       tide: "Marea", nextHigh: "Próx. Marea Alta", nextLow: "Próx. Marea Baja",
