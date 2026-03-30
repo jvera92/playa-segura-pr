@@ -1613,7 +1613,7 @@ function BeachDetail({ beach, onBack, liveData, prAlerts, riskAssessment }: {
           </div>
         ) : (
           <div style={{
-            background: `${r.color}10`, border: `1px solid ${r.color}25`, borderRadius: "12px",
+            background: `${r.color}28`, border: `1px solid ${r.color}60`, borderRadius: "12px",
             padding: "14px 18px", marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px",
           }}>
             {effectiveRisk === "low" ? <CheckCircle size={24} color={r.color} /> :
