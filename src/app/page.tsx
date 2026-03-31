@@ -2665,13 +2665,13 @@ export default function PlayaSeguraPR() {
             overflow: "visible",
           }}>
             <div style={{
-              fontSize: "11px", fontWeight: 700, textTransform: "uppercase",
+              fontSize: "13px", fontWeight: 700, textTransform: "uppercase",
               letterSpacing: "0.25em", color: "#38bdf8", marginBottom: "14px",
-              display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
             }}>
               Puerto Rico
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w40/pr.png" alt="Puerto Rico flag" style={{ height: "13px", width: "auto", borderRadius: "2px", opacity: 0.85 }} />
+              <img src="https://flagcdn.com/w40/pr.png" alt="Puerto Rico flag" style={{ height: "18px", width: "auto", borderRadius: "2px", opacity: 0.9 }} />
             </div>
             <h1 style={{
               display: "block", width: "100%", boxSizing: "border-box",
