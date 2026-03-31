@@ -32,6 +32,39 @@ export default function PrivacyPolicy() {
           Last updated: March 30, 2026
         </p>
 
+        {/* Summary bullets — bilingual */}
+        <div style={{
+          background: "#ffffff", borderRadius: "14px", padding: "20px 24px",
+          border: "1px solid rgba(14,165,233,0.2)", marginBottom: "40px",
+        }}>
+          <div style={{ marginBottom: "20px" }}>
+            <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#0ea5e9", marginBottom: "10px" }}>
+              English
+            </div>
+            <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", color: "#1e293b", lineHeight: 1.9 }}>
+              <li>Playa Segura PR does not collect, store, or share any personal information</li>
+              <li>We do not require account creation or login</li>
+              <li>We do not use cookies for tracking</li>
+              <li>We do not track your location</li>
+              <li>Weather and safety data comes from official U.S. government sources (NOAA, NWS, NDBC)</li>
+              <li>This app is provided for informational purposes only and should not replace personal judgment or official lifeguard instructions</li>
+            </ul>
+          </div>
+          <div style={{ borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: "20px" }}>
+            <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#0ea5e9", marginBottom: "10px" }}>
+              Español
+            </div>
+            <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", color: "#1e293b", lineHeight: 1.9 }}>
+              <li>Playa Segura PR no recopila, almacena ni comparte información personal</li>
+              <li>No requerimos creación de cuenta ni inicio de sesión</li>
+              <li>No usamos cookies de rastreo</li>
+              <li>No rastreamos tu ubicación</li>
+              <li>Los datos meteorológicos y de seguridad provienen de fuentes oficiales del gobierno de EE.UU. (NOAA, NWS, NDBC)</li>
+              <li>Esta aplicación es solo para fines informativos y no debe reemplazar el juicio personal ni las instrucciones oficiales de los salvavidas</li>
+            </ul>
+          </div>
+        </div>
+
         <Section title="Overview">
           Playa Segura PR ("we", "our", or "the app") is a free public-service web app that provides
           real-time beach conditions and safety information for Puerto Rico. We are committed to
