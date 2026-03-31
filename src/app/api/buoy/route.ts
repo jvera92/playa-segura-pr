@@ -1,6 +1,10 @@
 import { getBuoyObservation } from '@/lib/buoy-api'
+import { rateLimit } from '@/lib/rate-limit'
 
 export async function GET(request: Request) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   const { searchParams } = new URL(request.url)
   const station = searchParams.get('station')
 

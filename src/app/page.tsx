@@ -3133,6 +3133,14 @@ export default function PlayaSeguraPR() {
                 playasegurapr@gmail.com
               </a>
             </div>
+            <div style={{ marginTop: "16px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
+              <a href="/privacy" style={{ fontSize: "12px", color: "#64748b", textDecoration: "none", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                {lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}
+              </a>
+              <a href="/terms" style={{ fontSize: "12px", color: "#64748b", textDecoration: "none", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                {lang === 'es' ? 'Términos de Servicio' : 'Terms of Service'}
+              </a>
+            </div>
           </div>
 
           </div>{/* end pattern wrapper */}

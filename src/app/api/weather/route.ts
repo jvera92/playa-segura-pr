@@ -1,6 +1,10 @@
 import { getWeatherForecast } from '@/lib/weather-api'
+import { rateLimit } from '@/lib/rate-limit'
 
 export async function GET(request: Request) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   const { searchParams } = new URL(request.url)
   const latParam = searchParams.get('lat')
   const lngParam = searchParams.get('lng')

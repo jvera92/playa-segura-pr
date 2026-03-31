@@ -1,8 +1,12 @@
 import { getSurfZoneForecast } from '@/lib/surf-forecast-api'
+import { rateLimit } from '@/lib/rate-limit'
 
 const VALID_ZONES = new Set(['prz001','prz002','prz003','prz005','prz007','prz008','prz010','prz011','prz012','prz013'])
 
 export async function GET(request: Request) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   const { searchParams } = new URL(request.url)
   const zone = searchParams.get('zone')?.toLowerCase()
 
