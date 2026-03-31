@@ -5,7 +5,7 @@ import {
   Sun, SunMedium, Cloud, CloudDrizzle, CloudRain, CloudLightning, CloudSnow, CloudFog, Wind,
   Waves, Thermometer, Eye, Droplets, AlertTriangle, Search, MapPin, ArrowLeft, ChevronDown,
   LifeBuoy, CheckCircle, XCircle, Lightbulb, Flag, Users, Anchor, ArrowUp, ArrowDown,
-  Phone, Shield,
+  Phone, Shield, Smartphone, X,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -1456,6 +1456,25 @@ const UI = {
       comingSoon: "Coming soon: Interactive map · Push alerts",
       contactUs: "Contact Us",
     },
+    install: {
+      bannerText: "Install Playa Segura",
+      bannerSub: "Add to your home screen — no app store needed",
+      modalTitle: "Install Playa Segura",
+      iosTitle: "iPhone / iPad (Safari)",
+      iosSteps: [
+        'Tap the Share button (□↑) at the bottom of your screen',
+        'Scroll down and tap "Add to Home Screen"',
+        'Tap "Add" in the top right corner',
+      ],
+      androidTitle: "Android (Chrome)",
+      androidSteps: [
+        'Tap the three-dot menu (⋮) in the top right corner',
+        'Tap "Add to Home Screen" or "Install App"',
+        'Tap "Install"',
+      ],
+      note: "Once installed, Playa Segura works like a regular app — no app store needed!",
+      close: "Close",
+    },
   },
   es: {
     disclaimer: {
@@ -1526,6 +1545,25 @@ const UI = {
       advisory: "Las condiciones son de referencia únicamente. Siempre usa tu propio juicio y obedece los letreros y las instrucciones de los guardavidas.",
       comingSoon: "Próximamente: Mapa interactivo · Alertas push",
       contactUs: "Contáctanos",
+    },
+    install: {
+      bannerText: "Instalar Playa Segura",
+      bannerSub: "Añade a tu pantalla de inicio — sin tienda de apps",
+      modalTitle: "Instalar Playa Segura",
+      iosTitle: "iPhone / iPad (Safari)",
+      iosSteps: [
+        'Toca el botón Compartir (□↑) en la parte inferior de tu pantalla',
+        'Desplázate hacia abajo y toca "Agregar a inicio"',
+        'Toca "Agregar" en la esquina superior derecha',
+      ],
+      androidTitle: "Android (Chrome)",
+      androidSteps: [
+        'Toca el menú de tres puntos (⋮) en la esquina superior derecha',
+        'Toca "Agregar a pantalla de inicio" o "Instalar app"',
+        'Toca "Instalar"',
+      ],
+      note: "¡Una vez instalada, Playa Segura funciona como una app normal — sin tienda de apps!",
+      close: "Cerrar",
     },
   },
 };
@@ -2314,7 +2352,18 @@ export default function PlayaSeguraPR() {
   const [showSafetyGuide, setShowSafetyGuide] = useState(false);
   const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showInstallModal, setShowInstallModal] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Show install banner only if not already dismissed and not running as installed PWA
+  useEffect(() => {
+    const isStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      ('standalone' in navigator && (navigator as { standalone?: boolean }).standalone === true);
+    const dismissed = localStorage.getItem('playa-install-dismissed') === '1';
+    if (!isStandalone && !dismissed) setShowInstallBanner(true);
+  }, []);
 
   // ── Live weather state ──────────────────────────────────────────────────────
   const [liveBeachData, setLiveBeachData] = useState<Map<number, LiveBeachData>>(
@@ -2687,6 +2736,181 @@ export default function PlayaSeguraPR() {
 
           {/* Content area below the header */}
           <div>
+
+          {/* Install App Banner */}
+          {showInstallBanner && (
+            <div style={{
+              background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)",
+              borderBottom: "1px solid rgba(14,165,233,0.3)",
+              padding: "10px 16px",
+              display: "flex", alignItems: "center", gap: "12px",
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1, minWidth: 0 }}>
+                <div style={{
+                  width: "36px", height: "36px", borderRadius: "10px", flexShrink: 0,
+                  background: "rgba(14,165,233,0.2)", border: "1px solid rgba(14,165,233,0.35)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <Smartphone size={18} color="#38bdf8" />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#f1f5f9", lineHeight: 1.2 }}>
+                    {UI[lang].install.bannerText}
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#94a3b8", marginTop: "2px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {UI[lang].install.bannerSub}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowInstallModal(true)}
+                style={{
+                  appearance: "none", WebkitAppearance: "none", margin: 0, flexShrink: 0,
+                  cursor: "pointer", padding: "7px 14px", borderRadius: "8px",
+                  background: "#0ea5e9", border: "none",
+                  color: "#fff", fontSize: "12px", fontWeight: 700,
+                  fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {UI[lang].install.bannerText}
+              </button>
+              <button
+                onClick={() => {
+                  setShowInstallBanner(false);
+                  localStorage.setItem('playa-install-dismissed', '1');
+                }}
+                style={{
+                  appearance: "none", WebkitAppearance: "none", margin: 0, flexShrink: 0,
+                  cursor: "pointer", padding: "6px", borderRadius: "6px",
+                  background: "transparent", border: "none", color: "#64748b",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+                aria-label="Dismiss"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          )}
+
+          {/* Install Modal */}
+          {showInstallModal && (
+            <div
+              onClick={() => setShowInstallModal(false)}
+              style={{
+                position: "fixed", inset: 0, zIndex: 1000,
+                background: "rgba(0,0,0,0.6)", display: "flex",
+                alignItems: "flex-end", justifyContent: "center",
+                padding: "0",
+              }}
+            >
+              <div
+                onClick={e => e.stopPropagation()}
+                style={{
+                  background: "#1e293b", borderRadius: "20px 20px 0 0",
+                  width: "100%", maxWidth: "520px",
+                  padding: "24px 24px 40px",
+                  boxShadow: "0 -8px 32px rgba(0,0,0,0.4)",
+                  animation: "slideIn 0.25s ease",
+                  maxHeight: "85vh", overflowY: "auto",
+                }}
+              >
+                {/* Modal header */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <Smartphone size={20} color="#38bdf8" />
+                    <span style={{ fontSize: "16px", fontWeight: 800, color: "#f1f5f9" }}>
+                      {UI[lang].install.modalTitle}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setShowInstallModal(false)}
+                    style={{
+                      appearance: "none", WebkitAppearance: "none", margin: 0,
+                      cursor: "pointer", padding: "6px", borderRadius: "8px",
+                      background: "rgba(255,255,255,0.08)", border: "none", color: "#94a3b8",
+                      display: "flex", alignItems: "center",
+                    }}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* iOS */}
+                <div style={{ marginBottom: "20px" }}>
+                  <div style={{
+                    fontSize: "12px", fontWeight: 700, textTransform: "uppercase",
+                    letterSpacing: "0.1em", color: "#38bdf8", marginBottom: "10px",
+                  }}>
+                    {UI[lang].install.iosTitle}
+                  </div>
+                  {UI[lang].install.iosSteps.map((step, i) => (
+                    <div key={i} style={{ display: "flex", gap: "10px", marginBottom: "8px", alignItems: "flex-start" }}>
+                      <div style={{
+                        width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
+                        background: "rgba(14,165,233,0.2)", border: "1px solid rgba(14,165,233,0.4)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "11px", fontWeight: 800, color: "#38bdf8",
+                      }}>
+                        {i + 1}
+                      </div>
+                      <span style={{ fontSize: "13px", color: "#cbd5e1", lineHeight: 1.5, paddingTop: "2px" }}>{step}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", marginBottom: "20px" }} />
+
+                {/* Android */}
+                <div style={{ marginBottom: "20px" }}>
+                  <div style={{
+                    fontSize: "12px", fontWeight: 700, textTransform: "uppercase",
+                    letterSpacing: "0.1em", color: "#4ade80", marginBottom: "10px",
+                  }}>
+                    {UI[lang].install.androidTitle}
+                  </div>
+                  {UI[lang].install.androidSteps.map((step, i) => (
+                    <div key={i} style={{ display: "flex", gap: "10px", marginBottom: "8px", alignItems: "flex-start" }}>
+                      <div style={{
+                        width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
+                        background: "rgba(74,222,128,0.15)", border: "1px solid rgba(74,222,128,0.35)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "11px", fontWeight: 800, color: "#4ade80",
+                      }}>
+                        {i + 1}
+                      </div>
+                      <span style={{ fontSize: "13px", color: "#cbd5e1", lineHeight: 1.5, paddingTop: "2px" }}>{step}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Note */}
+                <div style={{
+                  background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.25)",
+                  borderRadius: "10px", padding: "12px 14px",
+                }}>
+                  <span style={{ fontSize: "12px", color: "#93c5fd", lineHeight: 1.5 }}>
+                    {UI[lang].install.note}
+                  </span>
+                </div>
+
+                {/* Close button */}
+                <button
+                  onClick={() => setShowInstallModal(false)}
+                  style={{
+                    appearance: "none", WebkitAppearance: "none", margin: "16px 0 0", width: "100%",
+                    cursor: "pointer", padding: "13px", borderRadius: "12px",
+                    background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)",
+                    color: "#cbd5e1", fontSize: "14px", fontWeight: 600,
+                    fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                  }}
+                >
+                  {UI[lang].install.close}
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
           {nwsBeachAlerts.length > 0 ? (
