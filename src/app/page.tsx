@@ -296,7 +296,7 @@ const BEACHES: Beach[] = [
   {
     id: 9, name: "Balneario El Escambrón", municipality: "San Juan", region: "Metro",
     coords: { lat: 18.46711, lng: -66.08997 }, buoyStation: "41053", surfZone: "prz001", // Metro (San Juan)
-    image: "https://images.unsplash.com/photo-1501426026826-31c667bdf23d?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "San Juan's best beach for snorkeling. A reef barrier creates calm, clear waters perfect for swimming. Located between Puerta de Tierra and Condado with ruins of an 18th-century artillery battery nearby.",
     descriptionEs: "La mejor playa de San Juan para hacer snorkel. Un arrecife crea aguas tranquilas y claras, perfectas para nadar. Ubicada entre Puerta de Tierra y Condado, con ruinas de una batería de artillería del siglo XVIII.",
     amenities: ["Restrooms", "Showers", "Parking", "Snorkeling gear rental"],
@@ -321,7 +321,7 @@ const BEACHES: Beach[] = [
   {
     id: 10, name: "Playa Seven Seas", municipality: "Fajardo", region: "Northeast",
     coords: { lat: 18.36979, lng: -65.63585 }, buoyStation: "41053", surfZone: "prz002", // Northeast
-    image: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Dreamy crescent beach with calm, clear waters. One of the best-maintained public beaches (balneario) in PR. Starting point for hiking to Playa Escondida.",
     descriptionEs: "Soñada playa en media luna con aguas tranquilas y claras. Uno de los balnearios mejor mantenidos de Puerto Rico. Punto de partida para la caminata a Playa Escondida.",
     amenities: ["Restrooms", "Showers", "Parking", "Camping", "Picnic areas"],
@@ -346,7 +346,7 @@ const BEACHES: Beach[] = [
   {
     id: 11, name: "Balneario de Boquerón", municipality: "Cabo Rojo", region: "Southwest",
     coords: { lat: 18.01981, lng: -67.17198 }, buoyStation: "42085", surfZone: "prz011", // Southwest (CarICOOS Ponce)
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular public beaches on the southwest coast. Long stretch of calm Caribbean water with white sand. Lively atmosphere with vendors and restaurants.",
     descriptionEs: "Una de las playas públicas más populares de la costa suroeste. Larga franja de arena blanca con aguas caribeñas en calma. Ambiente animado con vendedores y restaurantes.",
     amenities: ["Restrooms", "Showers", "Parking", "Food vendors", "Chair rentals"],
@@ -371,7 +371,7 @@ const BEACHES: Beach[] = [
   {
     id: 12, name: "Ocean Park Beach", municipality: "San Juan", region: "Metro",
     coords: { lat: 18.45507, lng: -66.05458 }, buoyStation: "41053", surfZone: "prz001", // Metro
-    image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A favorite among locals, this wide sandy beach between Condado and Isla Verde has a more laid-back vibe than the hotel-district beaches. Popular for kitesurfing and volleyball.",
     descriptionEs: "Favorita entre los locales, esta amplia playa arenosa entre Condado e Isla Verde tiene un ambiente más relajado que las playas del distrito hotelero. Popular para el kitesurf y el voleibol.",
     amenities: ["Limited — residential area", "some food trucks"],
@@ -396,7 +396,7 @@ const BEACHES: Beach[] = [
   {
     id: 13, name: "Playa Isla Verde", municipality: "Carolina", region: "Metro",
     coords: { lat: 18.44517, lng: -66.01406 }, buoyStation: "41053", surfZone: "prz001", // Metro
-    image: "https://images.unsplash.com/photo-1533760881669-80db4d7b341d?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Long stretch of golden sand lined with high-rise hotels and resorts. One of the most accessible beaches from the airport. Active water sports scene.",
     descriptionEs: "Larga franja de arena dorada bordeada de hoteles y resorts. Una de las playas más accesibles desde el aeropuerto. Activa escena de deportes acuáticos.",
     amenities: ["Hotels", "Restaurants", "Water sports", "Chair/umbrella rentals"],
@@ -421,7 +421,7 @@ const BEACHES: Beach[] = [
   {
     id: 14, name: "Sun Bay (Balneario)", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.09625, lng: -65.45429 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most accessible beach in Vieques. Wide crescent of soft sand with turquoise waters and palm trees. Part of a government-managed balneario.",
     descriptionEs: "La playa más accesible de Vieques. Amplia media luna de arena suave con aguas turquesas y palmeras. Parte de un balneario administrado por el gobierno.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -446,7 +446,7 @@ const BEACHES: Beach[] = [
   {
     id: 15, name: "La Chiva (Blue Beach)", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.11338, lng: -65.38743 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1562883676-8c7feb83f09b?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Inside the Vieques National Wildlife Refuge. White sand that sparkles like diamond dust with waters shifting from turquoise to deep blue. One of the Caribbean's most beautiful beaches.",
     descriptionEs: "Dentro del Refugio Nacional de Vida Silvestre de Vieques. Arena blanca que brilla como polvo de diamante con aguas que van del turquesa al azul profundo. Una de las playas más bellas del Caribe.",
     amenities: ["None — bring everything"],
@@ -471,7 +471,7 @@ const BEACHES: Beach[] = [
   {
     id: 16, name: "Carlos Rosario Beach", municipality: "Culebra", region: "East Islands",
     coords: { lat: 18.32459, lng: -65.32977 }, buoyStation: "41056", surfZone: "prz012", // Culebra
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Puerto Rico's premier snorkeling beaches. Accessible only by a 20-minute trail from Flamenco Beach. Pristine reef with abundant marine life.",
     descriptionEs: "Una de las mejores playas para snorkel de Puerto Rico. Accesible únicamente por un sendero de 20 minutos desde Playa Flamenco. Arrecife prístino con abundante vida marina.",
     amenities: ["None — bring everything"],
@@ -496,7 +496,7 @@ const BEACHES: Beach[] = [
   {
     id: 17, name: "Playa Mar Chiquita", municipality: "Manatí", region: "North Central",
     coords: { lat: 18.47285, lng: -66.48545 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1548005781-6b60f0bbc7d8?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural pool formed by a horseshoe-shaped rock formation. Turquoise water enters through two channels creating an almost perfect semi-circle. One of PR's most photographed beaches.",
     descriptionEs: "Una piscina natural única formada por una formación rocosa en herradura. El agua turquesa entra por dos canales creando un semicírculo casi perfecto. Una de las playas más fotografiadas de Puerto Rico.",
     amenities: ["Limited parking", "Small food kiosk"],
@@ -521,7 +521,7 @@ const BEACHES: Beach[] = [
   {
     id: 18, name: "Poza de las Mujeres", municipality: "Manatí", region: "North Central",
     coords: { lat: 18.47699, lng: -66.50667 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden series of natural tidal pools along Manatí's coastline. Crystal-clear shallow pools formed by the rocky coast. Popular with locals for a calm swimming experience.",
     descriptionEs: "Una serie escondida de piscinas naturales de marea a lo largo de la costa de Manatí. Piscinas poco profundas de agua cristalina formadas por la costa rocosa. Popular entre los locales para nadar tranquilamente.",
     amenities: ["Free roadside parking"],
@@ -546,7 +546,7 @@ const BEACHES: Beach[] = [
   {
     id: 19, name: "Playa Cerro Gordo (Balneario)", municipality: "Vega Alta", region: "North Central",
     coords: { lat: 18.48157, lng: -66.33975 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach with calm waters protected by a natural cove. Popular with families. Surrounded by lush vegetation and coconut palms.",
     descriptionEs: "Playa administrada por el gobierno con aguas tranquilas protegidas por una cala natural. Popular entre familias. Rodeada de vegetación exuberante y palmas de coco.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Camping"],
@@ -571,7 +571,7 @@ const BEACHES: Beach[] = [
   {
     id: 20, name: "Playa Survival", municipality: "Aguadilla", region: "Northwest",
     coords: { lat: 18.50803, lng: -67.13617 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A hidden gem accessible only by trail. Dramatic cliffs frame this secluded beach. Not great for swimming but spectacular for scenery and photography.",
     descriptionEs: "Una joya escondida accesible solo por sendero. Imponentes acantilados enmarcan esta playa apartada. No es ideal para nadar, pero es espectacular para el paisaje y la fotografía.",
     amenities: ["None — bring everything"],
@@ -596,7 +596,7 @@ const BEACHES: Beach[] = [
   {
     id: 21, name: "Playa El Combate", municipality: "Cabo Rojo", region: "Southwest",
     coords: { lat: 17.97676, lng: -67.21276 }, buoyStation: "42085", surfZone: "prz011", // Southwest
-    image: "https://images.unsplash.com/photo-1572194831892-5e77c813f8b2?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A long stretch of beach on PR's southwest coast near the salt flats. Shallow, warm Caribbean waters. Starting point for the Cabo Rojo bike trail.",
     descriptionEs: "Una larga franja de playa en la costa suroeste de Puerto Rico, cerca de las salinas. Aguas caribeñas cálidas y poco profundas. Punto de partida para la ruta ciclista de Cabo Rojo.",
     amenities: ["Parking", "Restaurants", "Some kiosks"],
@@ -621,7 +621,7 @@ const BEACHES: Beach[] = [
   {
     id: 22, name: "Playa Steps (Tres Palmas)", municipality: "Rincón", region: "West",
     coords: { lat: 18.3497, lng: -67.26423 }, buoyStation: "41115", surfZone: "prz010", // West
-    image: "https://images.unsplash.com/photo-1485871800655-7a13f55bf44e?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Part of the Tres Palmas Marine Reserve, protecting PR's most treasured elkhorn coral. Excellent snorkeling spot and popular surf break.",
     descriptionEs: "Parte de la Reserva Marina Tres Palmas, que protege el coral cuerno de alce más preciado de Puerto Rico. Excelente punto de snorkel y popular rompiente de surf.",
     amenities: ["None — bring supplies"],
@@ -646,7 +646,7 @@ const BEACHES: Beach[] = [
   {
     id: 23, name: "Balneario de Rincón", municipality: "Rincón", region: "West",
     coords: { lat: 18.34042, lng: -67.25497 }, buoyStation: "41115", surfZone: "prz010", // West
-    image: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "The most family-friendly beach in Rincón with calm waters and good facilities. A balneario (government-managed beach) with amenities most Rincón beaches lack.",
     descriptionEs: "La playa más familiar de Rincón con aguas tranquilas y buenas instalaciones. Un balneario con servicios que la mayoría de las playas de Rincón no tienen.",
     amenities: ["Restrooms", "Showers", "Parking", "Playground"],
@@ -671,7 +671,7 @@ const BEACHES: Beach[] = [
   {
     id: 24, name: "Playa María's", municipality: "Rincón", region: "West",
     coords: { lat: 18.35811, lng: -67.26946 }, buoyStation: "41115", surfZone: "prz010", // West
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of Rincón's iconic surf breaks, famous worldwide. Named after a nearby restaurant. Draws surfers from around the globe during winter swell season.",
     descriptionEs: "Uno de los rompientes más icónicos de Rincón, famoso en todo el mundo. Su nombre viene de un restaurante cercano. Atrae surfistas de todo el mundo durante la temporada de olas de invierno.",
     amenities: ["None — surf shops nearby"],
@@ -696,7 +696,7 @@ const BEACHES: Beach[] = [
   {
     id: 25, name: "Playa Caña Gorda (Balneario)", municipality: "Guánica", region: "Southwest",
     coords: { lat: 17.95298, lng: -66.88402 }, buoyStation: "42085", surfZone: "prz011", // Southwest
-    image: "https://images.unsplash.com/photo-1591017403286-fd8493524e1e?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most visited beaches in southern PR. Calm Caribbean waters with a beautiful backdrop of the Guánica Dry Forest. Great for snorkeling and families.",
     descriptionEs: "Una de las playas más visitadas del sur de Puerto Rico. Aguas caribeñas tranquilas con el hermoso telón de fondo del Bosque Seco de Guánica. Ideal para el snorkel y las familias.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas", "Playground"],
@@ -721,7 +721,7 @@ const BEACHES: Beach[] = [
   {
     id: 26, name: "Playa Santa", municipality: "Guánica", region: "Southwest",
     coords: { lat: 17.93703, lng: -66.95485 }, buoyStation: "42085", surfZone: "prz011", // Southwest
-    image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Small, calm Caribbean beach in Guánica. Clear shallow waters with a laid-back local vibe. Less crowded than neighboring Caña Gorda.",
     descriptionEs: "Pequeña playa caribeña tranquila en Guánica. Aguas claras y poco profundas con un ambiente local relajado. Menos concurrida que la vecina Caña Gorda.",
     amenities: ["Limited parking", "Small restaurant"],
@@ -746,7 +746,7 @@ const BEACHES: Beach[] = [
   {
     id: 27, name: "Playa Punta Santiago", municipality: "Humacao", region: "Southeast",
     coords: { lat: 18.1538, lng: -65.76299 }, buoyStation: "41056", surfZone: "prz003", // East coast
-    image: "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A wide beach on the southeast coast near the Palmas del Mar resort area. Known for its calm waters and views of Monkey Island (Cayo Santiago).",
     descriptionEs: "Amplia playa en la costa sureste, cerca del área de resort Palmas del Mar. Conocida por sus aguas tranquilas y las vistas de la Isla de los Monos (Cayo Santiago).",
     amenities: ["Restrooms", "Parking", "Picnic areas"],
@@ -771,7 +771,7 @@ const BEACHES: Beach[] = [
   {
     id: 28, name: "Playa Punta Tuna", municipality: "Maunabo", region: "Southeast",
     coords: { lat: 17.99049, lng: -65.88394 }, buoyStation: "41056", surfZone: "prz003", // East/Southeast
-    image: "https://images.unsplash.com/photo-1580737263379-cae26f02a08c?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded nature reserve beach on the southeast coast with a historic lighthouse (Faro Punta Tuna). Leaning palm trees and unspoiled coastline.",
     descriptionEs: "Playa apartada de reserva natural en la costa sureste con un histórico faro (Faro Punta Tuna). Palmeras inclinadas y costas vírgenes.",
     amenities: ["Free limited parking"],
@@ -796,7 +796,7 @@ const BEACHES: Beach[] = [
   {
     id: 29, name: "Playa Pelicano (Caja de Muertos)", municipality: "Ponce", region: "South Central",
     coords: { lat: 17.88549, lng: -66.52809 }, buoyStation: "42085", surfZone: "prz007", // South Central
-    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "On the uninhabited Caja de Muertos (Coffin Island) off Ponce's coast. Pristine white sand and incredibly clear turquoise water. Accessible only by boat.",
     descriptionEs: "En la deshabitada Caja de Muertos frente a la costa de Ponce. Arena blanca prístina y aguas turquesas increíblemente claras. Accesible únicamente en bote.",
     amenities: ["Basic restrooms", "Pavilions"],
@@ -821,7 +821,7 @@ const BEACHES: Beach[] = [
   {
     id: 30, name: "Playa Peña Blanca", municipality: "Aguadilla", region: "Northwest",
     coords: { lat: 18.47229, lng: -67.16892 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1566738780863-f9608f88f3a9?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A quieter alternative to nearby Crash Boat. Small rocky cove with clear waters, popular for snorkeling. Less crowded and more intimate.",
     descriptionEs: "Una alternativa más tranquila al cercano Crash Boat. Pequeña cala rocosa con aguas claras, popular para el snorkel. Menos concurrida y más íntima.",
     amenities: ["Limited parking"],
@@ -846,7 +846,7 @@ const BEACHES: Beach[] = [
   {
     id: 31, name: "Playa Guajataca", municipality: "Quebradillas", region: "Northwest",
     coords: { lat: 18.48921, lng: -66.95935 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A dramatic beach framed by limestone cliffs and a railroad tunnel. Part of the Guajataca State Forest area. Known for powerful waves and dramatic scenery.",
     descriptionEs: "Dramática playa enmarcada por acantilados de piedra caliza y un túnel de ferrocarril. Parte del área del Bosque Estatal de Guajataca. Conocida por sus poderosas olas y su impresionante paisaje.",
     amenities: ["Parking", "Food kiosks"],
@@ -871,7 +871,7 @@ const BEACHES: Beach[] = [
   {
     id: 32, name: "Playa Montones", municipality: "Isabela", region: "Northwest",
     coords: { lat: 18.51479, lng: -67.06479 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Home to one of PR's most Instagram-famous natural pools — a semi-circle formation similar to Mar Chiquita. Also known as 'Blue Hole' or 'La Poza' area.",
     descriptionEs: "Alberga una de las piscinas naturales más famosas de Puerto Rico en Instagram — una formación semicircular similar a Mar Chiquita. También conocida como 'Blue Hole' o área de 'La Poza'.",
     amenities: ["Limited — natural pools area nearby"],
@@ -896,7 +896,7 @@ const BEACHES: Beach[] = [
   {
     id: 33, name: "Playa Dorado (Balneario)", municipality: "Dorado", region: "North Central",
     coords: { lat: 18.47304, lng: -66.28172 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Government-managed beach in the resort town of Dorado. Long stretch of sand with facilities and relatively calm conditions for the north coast.",
     descriptionEs: "Playa administrada por el gobierno en el pueblo turístico de Dorado. Larga franja de arena con instalaciones y condiciones relativamente tranquilas para la costa norte.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -921,7 +921,7 @@ const BEACHES: Beach[] = [
   {
     id: 34, name: "Playa Navio", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.09243, lng: -65.44485 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1541532713592-a6d5b36df1fa?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A beautiful secluded beach on Vieques' south coast within the Wildlife Refuge. White sand and turquoise water that's remarkably calm and clear. One of the least visited beaches despite being one of the most stunning.",
     descriptionEs: "Hermosa playa apartada en la costa sur de Vieques, dentro del Refugio de Vida Silvestre. Arena blanca y aguas turquesas notablemente tranquilas y claras. Una de las playas menos visitadas a pesar de ser una de las más impresionantes.",
     amenities: ["None — uninhabited island"],
@@ -946,7 +946,7 @@ const BEACHES: Beach[] = [
   {
     id: 35, name: "Playa Caracas (Red Beach)", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.10953, lng: -65.41273 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1584200186925-87fa8f93be9b?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the most popular beaches in the Vieques Wildlife Refuge. Named for its reddish sand, this beach offers calm waters and easy access compared to other refuge beaches. A great first stop on a Vieques beach tour.",
     descriptionEs: "Una de las playas más populares del Refugio de Vida Silvestre de Vieques. Nombrada por su arena rojiza, ofrece aguas tranquilas y acceso fácil en comparación con otras playas del refugio. Una excelente primera parada en un recorrido de playas de Vieques.",
     amenities: ["Gazebos", "Restrooms (basic)"],
@@ -971,7 +971,7 @@ const BEACHES: Beach[] = [
   {
     id: 36, name: "Zoni Beach", municipality: "Culebra", region: "East Islands",
     coords: { lat: 18.32014, lng: -65.2551 }, buoyStation: "41056", surfZone: "prz012", // Culebra
-    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A less crowded alternative to Flamenco Beach with equally stunning diamond-dust sand and crystal-clear waters. Sea turtles nest here between April and June. Natural caves and sea grape vines add to its wild beauty.",
     descriptionEs: "Una alternativa menos concurrida a la Playa Flamenco con la misma arena brillante y aguas cristalinas. Las tortugas marinas anidan aquí entre abril y junio. Las cuevas naturales y las uvas de playa añaden a su belleza salvaje.",
     amenities: ["None — bring everything"],
@@ -996,7 +996,7 @@ const BEACHES: Beach[] = [
   {
     id: 37, name: "Sandy Beach", municipality: "Rincón", region: "West",
     coords: { lat: 18.37065, lng: -67.2587 }, buoyStation: "41115", surfZone: "prz010", // West
-    image: "https://images.unsplash.com/photo-1551966775-a4daa5dc89ae?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A popular surf beach in Rincón with a wide sandy shoreline. More beginner-friendly than Domes or María's during moderate conditions. The laid-back beach town vibe makes it a favorite for both locals and visitors.",
     descriptionEs: "Popular playa de surf en Rincón con una amplia orilla de arena. Más accesible para principiantes que Domes o María's en condiciones moderadas. El ambiente relajado del pueblo playero la convierte en favorita tanto de locales como de visitantes.",
     amenities: ["Parking", "Restaurants nearby"],
@@ -1021,7 +1021,7 @@ const BEACHES: Beach[] = [
   {
     id: 38, name: "Cayo Icacos", municipality: "Fajardo", region: "Northeast",
     coords: { lat: 18.38432, lng: -65.59169 }, buoyStation: "41053", surfZone: "prz002", // Northeast
-    image: "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A small uninhabited island off Fajardo's coast with some of the clearest water on Puerto Rico's east coast. Long strips of reef alongside an abandoned pier host abundant marine life. Accessible by water taxi or catamaran tour.",
     descriptionEs: "Pequeña isla deshabitada frente a la costa de Fajardo con algunas de las aguas más claras de la costa este de Puerto Rico. Largas franjas de arrecife junto a un muelle abandonado albergan abundante vida marina. Accesible en taxi acuático o tour en catamarán.",
     amenities: ["None — uninhabited cay"],
@@ -1046,7 +1046,7 @@ const BEACHES: Beach[] = [
   {
     id: 39, name: "Esperanza Beach", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.09467, lng: -65.47127 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1414609245224-aea2b8bf4e6c?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A town beach along Vieques' Esperanza malecón (boardwalk). Calm Caribbean waters with a lively waterfront lined with restaurants and bars. The most accessible beach in Vieques — no car needed if staying in Esperanza.",
     descriptionEs: "Playa urbana a lo largo del malecón de Esperanza en Vieques. Aguas caribeñas tranquilas con un animado frente al mar bordeado de restaurantes y bares. La playa más accesible de Vieques — no se necesita carro si te quedas en Esperanza.",
     amenities: ["Restaurants nearby", "Malecón boardwalk"],
@@ -1071,7 +1071,7 @@ const BEACHES: Beach[] = [
   {
     id: 40, name: "Poza del Obispo", municipality: "Arecibo", region: "North Central",
     coords: { lat: 18.48193, lng: -66.69678 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1535262412227-85541e910204?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A unique natural beach pool where ocean waves crash over coral reefs into a calm, sheltered pool. The golden sand and dramatic wave action make it one of the most unique beach experiences in Puerto Rico.",
     descriptionEs: "Piscina natural de playa única donde las olas del océano rompen sobre los arrecifes de coral hacia una piscina tranquila y protegida. La arena dorada y la dramática acción de las olas la convierten en una de las experiencias de playa más únicas de Puerto Rico.",
     amenities: ["Limited parking"],
@@ -1096,7 +1096,7 @@ const BEACHES: Beach[] = [
   {
     id: 41, name: "Playa Escondida", municipality: "Fajardo", region: "Northeast",
     coords: { lat: 18.37687, lng: -65.6453 }, buoyStation: "41053", surfZone: "prz002", // Northeast
-    image: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A secluded beach accessible by hiking trail from Seven Seas Beach. Protected by a coral wall creating a shallow, calm area. Surrounded by lush rainforest scenery from nearby El Yunque.",
     descriptionEs: "Playa apartada accesible por sendero desde la Playa Seven Seas. Protegida por un muro de coral que crea un área poco profunda y tranquila. Rodeada de la exuberante vegetación del bosque lluvioso cercano a El Yunque.",
     amenities: ["None — hike-in only"],
@@ -1121,7 +1121,7 @@ const BEACHES: Beach[] = [
   {
     id: 42, name: "Playa Puerto Hermina", municipality: "Quebradillas", region: "Northwest",
     coords: { lat: 18.48371, lng: -66.90212 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1515756828782-c2b8d7b6d394?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A charming small beach tucked between dramatic limestone cliffs in Quebradillas. The sheltered cove provides calmer conditions than nearby open-coast beaches. A local favorite that rarely appears in tourist guides.",
     descriptionEs: "Encantadora playa pequeña escondida entre imponentes acantilados de piedra caliza en Quebradillas. La cala protegida ofrece condiciones más tranquilas que las playas cercanas de costa abierta. Una favorita de los locales que raramente aparece en guías turísticas.",
     amenities: ["Limited parking"],
@@ -1146,7 +1146,7 @@ const BEACHES: Beach[] = [
   {
     id: 43, name: "Balneario Puerto Nuevo", municipality: "Vega Baja", region: "North Central",
     coords: { lat: 18.49156, lng: -66.39875 }, buoyStation: "41053", surfZone: "prz005", // North Central
-    image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Distinguished with the Blue Flag designation, Puerto Nuevo is famous for its dramatic natural rock formations. Massive outcrops protect the swimming area from strong waves, creating calm waters ideal for families. Soft golden sand and postcard-worthy views.",
     descriptionEs: "Distinguido con la certificación Bandera Azul, Puerto Nuevo es famoso por sus dramáticas formaciones rocosas naturales. Enormes afloramientos protegen el área de natación de las fuertes olas, creando aguas tranquilas ideales para familias. Arena suave dorada y vistas dignas de una postal.",
     amenities: ["Restrooms", "Showers", "Parking", "Picnic areas"],
@@ -1171,7 +1171,7 @@ const BEACHES: Beach[] = [
   {
     id: 44, name: "Playita del Condado", municipality: "San Juan", region: "Metro",
     coords: { lat: 18.46107, lng: -66.08232 }, buoyStation: "41053", surfZone: "prz001", // Metro
-    image: "https://images.unsplash.com/photo-1510751007277-36932aac9ebd?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "One of the smallest and most charming beaches in San Juan. Calm, shallow waters tucked between the Condado lagoon bridge and the hotel strip. A hidden family-friendly gem popular with locals.",
     descriptionEs: "Una de las playas más pequeñas y encantadoras de San Juan. Aguas tranquilas y poco profundas escondidas entre el puente de la laguna de Condado y el corredor de hoteles. Una joya familiar escondida popular entre los locales.",
     amenities: ["None — walk from Condado hotels"],
@@ -1196,7 +1196,7 @@ const BEACHES: Beach[] = [
   {
     id: 45, name: "Playa Negra (Black Sand Beach)", municipality: "Vieques", region: "East Islands",
     coords: { lat: 18.09576, lng: -65.49233 }, buoyStation: "41056", surfZone: "prz013", // Vieques
-    image: "https://images.unsplash.com/photo-1525699548712-0e9f4b7e00c5?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A dramatic black sand beach on Vieques accessible by a short hike through lush forest. The volcanic sand contrasts beautifully with bright blue water, creating an otherworldly setting. Rarely crowded — a true hidden gem.",
     descriptionEs: "Dramática playa de arena negra en Vieques accesible por una corta caminata a través de exuberante bosque. La arena volcánica contrasta hermosamente con el agua azul brillante, creando un ambiente de otro mundo. Rara vez concurrida — una verdadera joya escondida.",
     amenities: ["None — bring everything"],
@@ -1221,7 +1221,7 @@ const BEACHES: Beach[] = [
   {
     id: 46, name: "Pozo Teodoro", municipality: "Isabela", region: "Northwest",
     coords: { lat: 18.5139, lng: -67.03619 }, buoyStation: "41121", surfZone: "prz008", // Northwest
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "A natural tidal pool near Jobos Beach where waves break over rock formations creating shallow, calm waters — similar to Mar Chiquita. A local family favorite offering a safe wading experience for children.",
     descriptionEs: "Piscina natural de marea cerca de la Playa Jobos donde las olas rompen sobre formaciones rocosas creando aguas poco profundas y tranquilas — similar a Mar Chiquita. Favorita de las familias locales que ofrece una experiencia segura de vadear para los niños.",
     amenities: ["Free parking"],
@@ -1246,7 +1246,7 @@ const BEACHES: Beach[] = [
   {
     id: 47, name: "Playa Colorá", municipality: "Fajardo", region: "Northeast",
     coords: { lat: 18.37717, lng: -65.64114 }, buoyStation: "41053", surfZone: "prz002", // Northeast
-    image: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
     description: "Named for its distinctive reddish-colored sand, this secluded beach is reached by hiking from Seven Seas Beach. Turquoise waters contrast dramatically with the rust-toned sand. A true hidden gem for adventurous visitors.",
     descriptionEs: "Nombrada por su distintiva arena de color rojizo, esta playa apartada se alcanza caminando desde la Playa Seven Seas. Las aguas turquesas contrastan dramáticamente con la arena de tono óxido. Una verdadera joya escondida para visitantes aventureros.",
     amenities: ["None — hike-in only"],
