@@ -2501,6 +2501,7 @@ export default function PlayaSeguraPR() {
     setSelectedBeach(b);
     setView("detail");
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
+    window.scrollTo(0, 0);
   };
 
   const nwsBeachAlerts = prAlerts ?? [];
