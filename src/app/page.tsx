@@ -1399,6 +1399,9 @@ const UI = {
       updated: (ago: string) => `Updated ${ago}`,
       searchPlaceholder: "Search beaches, towns...",
       allRegions: "All Regions",
+      filterRegion: "Regions",
+      filterRisk: "Risk Level",
+      anyRisk: "Any Risk",
     },
     ticker: {
       label: (n: number) => `${n} NWS Alert${n > 1 ? 's' : ''}`,
@@ -1489,6 +1492,9 @@ const UI = {
       updated: (ago: string) => `Actualizado hace ${ago}`,
       searchPlaceholder: "Buscar playas, pueblos...",
       allRegions: "Todas las Regiones",
+      filterRegion: "Regiones",
+      filterRisk: "Nivel de Riesgo",
+      anyRisk: "Cualquier Nivel",
     },
     ticker: {
       label: (n: number) => `${n} Alerta${n > 1 ? 's' : ''} NWS`,
@@ -2340,6 +2346,8 @@ export default function PlayaSeguraPR() {
   const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
+  const [riskFilter, setRiskFilter] = useState<RiskLevel | "all">("all");
+  const [openDropdown, setOpenDropdown] = useState<"region" | "risk" | null>(null);
   const [lang, setLang] = useState<Lang>(() => {
     if (typeof window !== 'undefined') return (localStorage.getItem('playa-lang') as Lang) ?? 'en';
     return 'en';
@@ -2538,12 +2546,25 @@ export default function PlayaSeguraPR() {
 
   const regions = ["All", ...new Set(BEACHES.map(b => b.region))];
 
+  const getEffectiveRisk = (b: Beach): RiskLevel => {
+    const bData = liveBeachData.get(b.id);
+    const riskReady = prAlerts !== null ||
+      bData?.surfForecastError === true || bData?.surfForecast != null ||
+      bData?.buoyError === true || bData?.buoy != null;
+    if (riskReady) {
+      const ra = computeBeachRisk(prAlerts ? filterAlertsForZone(prAlerts, b.surfZone) : null, bData?.surfForecast ?? null, bData?.buoy?.waveHeightFt ?? null, b.name);
+      if (!ra.unavailable) return ra.level;
+    }
+    return b.riskLevel;
+  };
+
   const filtered = BEACHES.filter(b => {
     const matchSearch =
       b.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       b.municipality.toLowerCase().includes(searchQuery.toLowerCase());
     const matchRegion = regionFilter === "All" || b.region === regionFilter;
-    return matchSearch && matchRegion;
+    const matchRisk = riskFilter === "all" || getEffectiveRisk(b) === riskFilter;
+    return matchSearch && matchRegion && matchRisk;
   });
 
   const handleSelectBeach = (b: Beach) => {
@@ -2715,23 +2736,120 @@ export default function PlayaSeguraPR() {
               </span>
             </div>
 
-            {/* Region Filters */}
-            <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
-              {regions.map(r => (
-                <button key={r} onClick={() => setRegionFilter(r)} className="region-btn" style={{
-                  appearance: "none", WebkitAppearance: "none",
-                  margin: 0,
-                  cursor: "pointer", padding: "6px 16px", borderRadius: "99px",
-                  fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
-                  border: `1px solid ${regionFilter === r ? "#0ea5e9" : "rgba(0,0,0,0.12)"}`,
-                  background: regionFilter === r ? "rgba(56,189,248,0.12)" : "transparent",
-                  color: regionFilter === r ? "#38bdf8" : "#64748b",
-                  transition: "all 0.2s",
-                }}>
-                  {r === "All" ? UI[lang].header.allRegions : (lang === 'es' ? (REGION_ES[r] ?? r) : r)}
-                </button>
-              ))}
+            {/* Filter pills */}
+            <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
+              {/* Regions pill */}
+              {(() => {
+                const regionActive = regionFilter !== "All";
+                const open = openDropdown === "region";
+                return (
+                  <button
+                    onClick={() => setOpenDropdown(open ? null : "region")}
+                    className="region-btn"
+                    style={{
+                      appearance: "none", WebkitAppearance: "none", margin: 0,
+                      cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "5px",
+                      padding: "7px 14px", borderRadius: "99px",
+                      fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                      border: `1.5px solid ${regionActive || open ? "#0ea5e9" : "rgba(0,0,0,0.12)"}`,
+                      background: regionActive || open ? "rgba(56,189,248,0.12)" : "transparent",
+                      color: regionActive || open ? "#38bdf8" : "#64748b",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    {regionActive
+                      ? (lang === 'es' ? (REGION_ES[regionFilter] ?? regionFilter) : regionFilter)
+                      : UI[lang].header.filterRegion}
+                    <ChevronDown size={13} style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+                  </button>
+                );
+              })()}
+
+              {/* Risk Level pill */}
+              {(() => {
+                const riskActive = riskFilter !== "all";
+                const open = openDropdown === "risk";
+                return (
+                  <button
+                    onClick={() => setOpenDropdown(open ? null : "risk")}
+                    className="region-btn"
+                    style={{
+                      appearance: "none", WebkitAppearance: "none", margin: 0,
+                      cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "5px",
+                      padding: "7px 14px", borderRadius: "99px",
+                      fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                      border: `1.5px solid ${riskActive || open ? RISK_CONFIG[riskFilter as RiskLevel]?.color ?? "#0ea5e9" : "rgba(0,0,0,0.12)"}`,
+                      background: riskActive ? `${RISK_CONFIG[riskFilter as RiskLevel]?.color}18` : open ? "rgba(56,189,248,0.08)" : "transparent",
+                      color: riskActive ? RISK_CONFIG[riskFilter as RiskLevel]?.color ?? "#64748b" : open ? "#38bdf8" : "#64748b",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    {riskActive
+                      ? UI[lang].risk.short[riskFilter as RiskLevel]
+                      : UI[lang].header.filterRisk}
+                    <ChevronDown size={13} style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+                  </button>
+                );
+              })()}
             </div>
+
+            {/* Inline expansion panel */}
+            {openDropdown && (
+              <div style={{
+                maxWidth: "480px", margin: "10px auto 0",
+                background: "#ffffff", borderRadius: "14px",
+                border: "1px solid rgba(0,0,0,0.09)",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                padding: "12px",
+                animation: "fadeUp 0.15s ease",
+              }}>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+                  {openDropdown === "region" ? (
+                    regions.map(r => {
+                      const active = regionFilter === r;
+                      return (
+                        <button key={r} onClick={() => { setRegionFilter(r); setOpenDropdown(null); }} className="region-btn" style={{
+                          appearance: "none", WebkitAppearance: "none", margin: 0,
+                          cursor: "pointer", padding: "5px 14px", borderRadius: "99px",
+                          fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                          border: `1px solid ${active ? "#0ea5e9" : "rgba(0,0,0,0.10)"}`,
+                          background: active ? "rgba(56,189,248,0.12)" : "#f8fafc",
+                          color: active ? "#38bdf8" : "#475569",
+                          transition: "all 0.15s",
+                        }}>
+                          {r === "All" ? UI[lang].header.allRegions : (lang === 'es' ? (REGION_ES[r] ?? r) : r)}
+                        </button>
+                      );
+                    })
+                  ) : (
+                    [{ value: "all" as const, label: UI[lang].header.anyRisk, color: "#64748b" },
+                     ...( ["low", "moderate", "high", "extreme"] as RiskLevel[]).map(l => ({
+                       value: l, label: UI[lang].risk.short[l], color: RISK_CONFIG[l].color,
+                     }))
+                    ].map(({ value, label, color }) => {
+                      const active = riskFilter === value;
+                      return (
+                        <button key={value} onClick={() => { setRiskFilter(value); setOpenDropdown(null); }} className="region-btn" style={{
+                          appearance: "none", WebkitAppearance: "none", margin: 0,
+                          cursor: "pointer", padding: "5px 14px", borderRadius: "99px",
+                          fontSize: "12px", fontWeight: 600, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                          display: "inline-flex", alignItems: "center", gap: "6px",
+                          border: `1px solid ${active ? color : "rgba(0,0,0,0.10)"}`,
+                          background: active ? `${color}18` : "#f8fafc",
+                          color: active ? color : "#475569",
+                          transition: "all 0.15s",
+                        }}>
+                          {value !== "all" && (
+                            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: color, flexShrink: 0 }} />
+                          )}
+                          {label}
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Content area below the header */}
