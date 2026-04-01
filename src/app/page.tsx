@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   Sun, SunMedium, Cloud, CloudDrizzle, CloudRain, CloudLightning, CloudSnow, CloudFog, Wind,
   Waves, Thermometer, Eye, Droplets, AlertTriangle, Search, MapPin, ArrowLeft, ChevronDown,
@@ -2920,7 +2921,7 @@ export default function PlayaSeguraPR() {
           )}
 
           {/* Install Modal */}
-          {showInstallModal && (
+          {showInstallModal && createPortal(
             <div
               onClick={() => setShowInstallModal(false)}
               style={{
@@ -3036,7 +3037,7 @@ export default function PlayaSeguraPR() {
                 </button>
               </div>
             </div>
-          )}
+          , document.body)}
 
           {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
           {nwsBeachAlerts.length > 0 ? (
@@ -3067,7 +3068,7 @@ export default function PlayaSeguraPR() {
           ) : null}
 
           {/* Alerts Modal */}
-          {showAlertsModal && (
+          {showAlertsModal && createPortal(
             <div
               onClick={() => setShowAlertsModal(false)}
               style={{
@@ -3196,7 +3197,7 @@ export default function PlayaSeguraPR() {
                 </button>
               </div>
             </div>
-          )}
+          , document.body)}
 
           {/* Safety Quick Guide Toggle */}
           <div style={{ padding: "20px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
