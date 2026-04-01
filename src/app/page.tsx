@@ -1406,6 +1406,9 @@ const UI = {
     ticker: {
       label: (n: number) => `${n} NWS Alert${n > 1 ? 's' : ''}`,
       live: "LIVE",
+      tapHint: "Tap to view",
+      modalTitle: "Active NWS Alerts",
+      close: "Close",
     },
     safetyGuide: { title: "Ocean Safety Quick Guide" },
     emergency: {
@@ -1499,6 +1502,9 @@ const UI = {
     ticker: {
       label: (n: number) => `${n} Alerta${n > 1 ? 's' : ''} NWS`,
       live: "EN VIVO",
+      tapHint: "Toca para ver",
+      modalTitle: "Alertas NWS Activas",
+      close: "Cerrar",
     },
     safetyGuide: { title: "Guía Rápida de Seguridad en el Mar" },
     emergency: {
@@ -2362,6 +2368,8 @@ export default function PlayaSeguraPR() {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
+  const [showAlertsModal, setShowAlertsModal] = useState(false);
+  const [expandedModalAlerts, setExpandedModalAlerts] = useState<Set<number>>(new Set());
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Show install banner only if not already dismissed and not running as installed PWA
@@ -3032,20 +3040,163 @@ export default function PlayaSeguraPR() {
 
           {/* Active Advisories Ticker — NWS live alerts when loaded, static fallback while loading */}
           {nwsBeachAlerts.length > 0 ? (
-            <div style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.85) 0%, rgba(153,27,27,0.90) 100%)", borderBottom: "2px solid rgba(239,68,68,0.6)", boxShadow: "0 2px 8px rgba(239,68,68,0.3)" }}>
+            <button
+              onClick={() => { setShowAlertsModal(true); setExpandedModalAlerts(new Set()); }}
+              style={{
+                appearance: "none", WebkitAppearance: "none", margin: 0, border: "none",
+                cursor: "pointer", width: "100%", textAlign: "left",
+                background: "linear-gradient(135deg, rgba(185,28,28,0.85) 0%, rgba(153,27,27,0.90) 100%)",
+                borderBottom: "2px solid rgba(239,68,68,0.6)", boxShadow: "0 2px 8px rgba(239,68,68,0.3)",
+              }}
+            >
               <div style={{ maxWidth: "900px", margin: "0 auto", padding: "10px 24px", display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "11px", fontWeight: 700, color: "#fef2f2", textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap", animation: "pulse 2s infinite" }}>
                   <AlertTriangle size={12} /> {UI[lang].ticker.label(nwsBeachAlerts.length)}
                 </span>
-                <div style={{ fontSize: "12px", color: "#fecaca", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                <div style={{ fontSize: "12px", color: "#fecaca", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", flex: 1 }}>
                   {nwsBeachAlerts.map(a => a.event).join(" · ")}
                 </div>
-                <span style={{ fontSize: "10px", fontWeight: 700, color: "#bbf7d0", border: "1px solid #86efac", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", marginLeft: "auto", background: "rgba(0,0,0,0.2)" }}>
+                <span style={{ fontSize: "10px", fontWeight: 600, color: "#fecaca", whiteSpace: "nowrap", opacity: 0.8 }}>
+                  {UI[lang].ticker.tapHint} ›
+                </span>
+                <span style={{ fontSize: "10px", fontWeight: 700, color: "#bbf7d0", border: "1px solid #86efac", borderRadius: "4px", padding: "2px 6px", letterSpacing: "0.08em", whiteSpace: "nowrap", background: "rgba(0,0,0,0.2)" }}>
                   {UI[lang].ticker.live}
                 </span>
               </div>
-            </div>
+            </button>
           ) : null}
+
+          {/* Alerts Modal */}
+          {showAlertsModal && (
+            <div
+              onClick={() => setShowAlertsModal(false)}
+              style={{
+                position: "fixed", inset: 0, zIndex: 1000,
+                background: "rgba(0,0,0,0.6)", display: "flex",
+                alignItems: "flex-end", justifyContent: "center",
+                padding: "0",
+              }}
+            >
+              <div
+                onClick={e => e.stopPropagation()}
+                style={{
+                  background: "#1e293b", borderRadius: "20px 20px 0 0",
+                  width: "100%", maxWidth: "520px",
+                  padding: "24px 24px 40px",
+                  boxShadow: "0 -8px 32px rgba(0,0,0,0.4)",
+                  animation: "slideIn 0.25s ease",
+                  maxHeight: "85vh", overflowY: "auto",
+                }}
+              >
+                {/* Modal header */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <AlertTriangle size={18} color="#ef4444" />
+                    <span style={{ fontSize: "16px", fontWeight: 800, color: "#f1f5f9" }}>
+                      {UI[lang].ticker.modalTitle}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setShowAlertsModal(false)}
+                    style={{
+                      appearance: "none", WebkitAppearance: "none", margin: 0,
+                      cursor: "pointer", padding: "6px", borderRadius: "8px",
+                      background: "rgba(255,255,255,0.08)", border: "none", color: "#94a3b8",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* Alert list */}
+                {nwsBeachAlerts.map((alert, i) => {
+                  const isCritical = alert.severity === "Extreme" || alert.severity === "Severe";
+                  const alertColor = isCritical ? "#ef4444" : "#eab308";
+                  const alertBg = isCritical ? "rgba(239,68,68,0.08)" : "rgba(234,179,8,0.08)";
+                  const alertBorder = isCritical ? "rgba(239,68,68,0.3)" : "rgba(234,179,8,0.3)";
+                  const isExpanded = expandedModalAlerts.has(i);
+                  return (
+                    <div key={i} style={{
+                      background: alertBg, border: `1px solid ${alertBorder}`,
+                      borderRadius: "14px", marginBottom: "12px", overflow: "hidden",
+                    }}>
+                      <button
+                        onClick={() => setExpandedModalAlerts(prev => {
+                          const next = new Set(prev);
+                          next.has(i) ? next.delete(i) : next.add(i);
+                          return next;
+                        })}
+                        style={{
+                          appearance: "none", WebkitAppearance: "none",
+                          width: "100%", background: "none", border: "none", cursor: "pointer",
+                          display: "flex", alignItems: "center", gap: "10px",
+                          padding: "16px 20px", boxSizing: "border-box",
+                        }}
+                      >
+                        <AlertTriangle size={14} color={alertColor} style={{ flexShrink: 0 }} />
+                        <span style={{
+                          flex: 1, textAlign: "left",
+                          fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                          fontWeight: 700, color: alertColor, fontSize: "13px",
+                          textTransform: "uppercase", letterSpacing: "0.05em",
+                        }}>
+                          {alert.event}
+                        </span>
+                        <span style={{
+                          fontSize: "10px", fontWeight: 700, color: "#22c55e",
+                          border: "1px solid #22c55e", borderRadius: "4px", padding: "2px 6px",
+                          letterSpacing: "0.08em", flexShrink: 0,
+                        }}>{UI[lang].detail.nwsLiveBadge}</span>
+                        <span style={{
+                          color: alertColor, flexShrink: 0, display: "flex",
+                          transform: isExpanded ? "rotate(180deg)" : "none",
+                          transition: "transform 0.25s",
+                        }}>
+                          <ChevronDown size={16} />
+                        </span>
+                      </button>
+                      {isExpanded && (
+                        <div style={{ padding: "0 20px 16px", borderTop: `1px solid ${alertBorder}` }}>
+                          {alert.headline && (
+                            <p style={{ margin: "12px 0 8px", fontSize: "14px", fontWeight: 600, color: "#f1f5f9", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                              {alert.headline}
+                            </p>
+                          )}
+                          {lang === 'es' && (
+                            <p style={{ margin: "12px 0 4px", fontSize: "11px", color: "#64748b", fontStyle: "italic", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                              Las alertas del NWS se publican únicamente en inglés.
+                            </p>
+                          )}
+                          <p style={{ margin: "12px 0 8px", fontSize: "13px", lineHeight: 1.6, color: "#cbd5e1", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", whiteSpace: "pre-wrap" }}>
+                            {alert.description}
+                          </p>
+                          <p style={{ margin: 0, fontSize: "11px", color: "#64748b", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+                            {UI[lang].detail.alertExpires(new Date(alert.expires).toLocaleString(lang === 'es' ? 'es-PR' : 'en-US', {
+                              month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+                            }))}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                <button
+                  onClick={() => setShowAlertsModal(false)}
+                  style={{
+                    appearance: "none", WebkitAppearance: "none", margin: "8px 0 0", width: "100%",
+                    cursor: "pointer", padding: "13px", borderRadius: "12px",
+                    background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)",
+                    color: "#cbd5e1", fontSize: "14px", fontWeight: 600,
+                    fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif",
+                  }}
+                >
+                  {UI[lang].ticker.close}
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Safety Quick Guide Toggle */}
           <div style={{ padding: "20px 24px 0", maxWidth: "900px", margin: "0 auto", boxSizing: "border-box" }}>
